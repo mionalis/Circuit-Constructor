@@ -1,0 +1,24 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+}
+
+#main {
+    padding: 0px;
+}
+
+.right-panel {
+    display: flex;
+    background-color: crimson;
+    padding: 0px;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+}

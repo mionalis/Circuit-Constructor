@@ -1,0 +1,6 @@
+﻿.canvas-container {
+    background-color: cornflowerblue;
+    display: flex;
+    height: 95%;
+    width: 90%;
+}
