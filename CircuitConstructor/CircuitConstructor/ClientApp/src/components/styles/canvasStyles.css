@@ -1,6 +1,15 @@
 ﻿.canvas-container {
-    background-color: cornflowerblue;
+    background-color: rgb(226, 217, 250);
     display: flex;
-    height: 95%;
-    width: 96%;
+    align-items: end;
+    justify-content: end;
+    height: 100%;
+    width: 100%;
+}
+
+.canvas {
+    background-color: white;
+    display: flex;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
 }

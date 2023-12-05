@@ -1,5 +1,6 @@
 ﻿.footer {
     display: flex;
-    background-color: green;
+    background-color: rgb(230, 230, 252);
+    border-top: 2px solid rgb(93, 16, 194);
     height: 5%;
 }

@@ -11,12 +11,18 @@ export class Layout extends Component {
         return (
             <div className="main-container">
                 <div className="content-container">
-                    <Toolbar/>
+                    <Toolbar />
+
                     <div className="right-panel">
                         <div className="canvas-container">
-                            <Container tag="main">
-                                {this.props.children}
-                            </Container>
+                            <div className="canvas">
+                                <Container tag="main">
+                                    {this.props.children}
+                                </Container>
+                             </div>
+                        </div>
+
+                         <div className="pages-panel">
                         </div>
                     </div>
                 </div>

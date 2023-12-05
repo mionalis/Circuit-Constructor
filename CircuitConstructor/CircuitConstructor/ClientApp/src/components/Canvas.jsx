@@ -6,7 +6,7 @@ export class Canvas extends Component {
 
     render() {
         return (
-            <div className="canvas-container">
+            <div className="">
 
             </div>
         );
