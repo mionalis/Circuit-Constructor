@@ -10,18 +10,17 @@ export class Layout extends Component {
     render() {
         return (
             <div className="main-container">
-                <Toolbar />
-                <div className="right-panel">
-                    <div className="canvas-container">
-                        <Container tag="main">
-                            {this.props.children}
-                        </Container>
-                        <div className="left-ruler"></div>
-                        <div className="top-ruler"></div>
+                <div className="content-container">
+                    <Toolbar/>
+                    <div className="right-panel">
+                        <div className="canvas-container">
+                            <Container tag="main">
+                                {this.props.children}
+                            </Container>
+                        </div>
                     </div>
-                    <div className="bottom-panel"></div>
                 </div>
-         {/*       <Footer/>*/}
+                <Footer/>
             </div>
         );
     }

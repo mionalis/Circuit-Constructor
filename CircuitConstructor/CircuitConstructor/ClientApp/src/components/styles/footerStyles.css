@@ -1,2 +1,5 @@
-﻿body {
+﻿.footer {
+    display: flex;
+    background-color: green;
+    height: 5%;
 }
