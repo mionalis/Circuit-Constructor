@@ -12,12 +12,14 @@
 
 .content-container {
     display: flex;
-    flex-direction: row;
     height: 100%;
+    width: 100%;
 }
 
-#main {
+.main {
     padding: 0px;
+    margin: 0px;
+    max-width: 100%;
 }
 
 .right-panel {

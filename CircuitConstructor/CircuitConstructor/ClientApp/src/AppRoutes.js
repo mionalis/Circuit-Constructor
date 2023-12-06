@@ -1,9 +1,9 @@
-import { Canvas } from "./components/Canvas";
+import { MainContent } from "./components/MainContent";
 
 const AppRoutes = [
   {
     index: true,
-    element: <Canvas/>
+    element: <MainContent/>
   }
 ];
 
