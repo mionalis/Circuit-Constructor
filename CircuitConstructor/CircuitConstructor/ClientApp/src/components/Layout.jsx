@@ -21,7 +21,6 @@ export class Layout extends Component {
                                 </Container>
                              </div>
                         </div>
-
                          <div className="pages-panel">
                         </div>
                     </div>
