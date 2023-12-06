@@ -29,6 +29,65 @@
 }
 
 .pages-panel {
+    display: flex;
     height: 5%;
     background-color: rgb(214, 207, 250);
+}
+
+.pages-select {
+    margin: 0 20px 0 20px;
+    padding: 0px;
+    overflow: hidden;
+    border: none;
+    background-color: transparent;
+}
+
+.pages-select option {
+    display: inline-block !important;
+    padding: 5px;
+    height: 100%;
+    cursor: pointer;
+    text-align: center;
+    width: 70px;
+}
+
+.pages-select option:focus {
+    outline: none;
+    background-color: white;
+    -webkit-text-fill-color: rgb(26, 13, 59);
+}
+
+.pages-select option:hover {
+    outline: none;
+    background-color: rgb(230, 230, 252);
+    -webkit-text-fill-color: rgb(26, 13, 59);
+}
+
+.pages-select option:checked {
+    background: white linear-gradient(0deg, white 0%, white 100%);
+    -webkit-text-fill-color: rgb(26, 13, 59);
+}
+
+.add-page-button {
+    font-size: 25px;
+    padding: 0px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    color: rgb(26, 13, 59);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-page-button:hover {
+    color: rgb(93, 16, 194);
+}
+
+.add-page-button:active {
+    color: rgb(110, 32, 212);
+}
+
+p {
+    color: rgb(26, 13, 59);
 }

@@ -22,6 +22,7 @@
     width: 300px;
     background: rgb(93, 16, 194);
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .scale-slider::-webkit-slider-thumb {

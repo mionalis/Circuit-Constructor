@@ -8,9 +8,9 @@ export class Toolbar extends Component {
         return (
             <div className="toolbar-container">
                 <h2>Shapes</h2>
-                <select className="search-shapes-select"></select>
+                <input className="search-shapes-input" placeholder="Search shape"></input>
                 <select multiple className="shape-types-select" size="2"> 
-                    <option>Fundamental Items</option>
+                    <option className>Fundamental Items</option>
                     <option>Other</option>
                 </select>
                 <hr></hr>

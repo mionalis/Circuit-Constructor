@@ -12,11 +12,19 @@ h2 {
     color: rgb(75, 23, 143);
 }
 
-.search-shapes-select {
+.search-shapes-input {
     margin: 15px;
     background-color: white;
     border: 1px solid rgb(93, 16, 194);
     border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    padding: 4px 8px 4px 8px;
+    color: rgb(26, 13, 59);
+}
+
+.search-shapes-input::placeholder {
+    color: rgb(116, 104, 173);
 }
 
 .shape-types-select {
@@ -27,19 +35,32 @@ h2 {
     overflow: hidden;
 }
 
-option {
+.shape-types-select option {
     padding: 8px;
     border-radius: 8px;
     color: rgb(26, 13, 59);
+    cursor: pointer;
 }
 
-option:focus {
+.shape-types-select option:focus {
     outline: none;
     background-color: white;
     -webkit-text-fill-color: rgb(26, 13, 59);
+    color: rgb(142, 138, 161);
 }
 
-option:checked {
+.shape-types-select option:active {
+    outline: none;
+    color: rgb(142, 138, 161);
+}
+
+.shape-types-select option:hover {
+    outline: none;
+    background-color: rgb(242, 242, 255);
+    -webkit-text-fill-color: rgb(26, 13, 59);
+}
+
+.shape-types-select option:checked {
     background: white linear-gradient(0deg, white 0%, white 100%);
     -webkit-text-fill-color: rgb(26, 13, 59);
 }
@@ -52,7 +73,7 @@ hr {
 
 .shape-button {
     margin: 5px 15px 5px 15px;
-    background-color: rgb(230, 230, 252);
+    background-color: transparent;
     padding: 8px;
     border-radius: 8px;
     border: none;
@@ -61,5 +82,11 @@ hr {
 
 .shape-button:hover {
     outline: none;
+    background-color: rgb(242, 242, 255);
+}
+
+.shape-button:active {
+    outline: none;
     background-color: white;
+    color: rgb(142, 138, 161);
 }
