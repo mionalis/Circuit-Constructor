@@ -3,4 +3,45 @@
     background-color: rgb(230, 230, 252);
     border-top: 2px solid rgb(93, 16, 194);
     height: 5%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.scale-slider-box {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    justify-content: center;
+    margin: 0 15px 0 15px;
+}
+
+.scale-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 5px;
+    width: 300px;
+    background: rgb(93, 16, 194);
+    border-radius: 5px;
+}
+
+.scale-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 12px;
+    width: 12px;
+    background-color: rgb(93, 16, 194);
+    border-radius: 50%;
+    border: none;
+}
+
+.scale-slider::-moz-range-thumb {
+    height: 12px;
+    width: 12px;
+    background-color: rgb(93, 16, 194);
+    border-radius: 50%;
+    border: none;
+}
+
+.footer-text {
+    margin: 0 15px 0 15px;
 }
