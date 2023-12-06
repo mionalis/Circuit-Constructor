@@ -4,23 +4,22 @@
     flex-direction: column;
     height: 100vh;
     width: 30%;
-    height: 100%;
 }
 
 h2 {
-    margin: 15px;
     color: rgb(75, 23, 143);
+    margin: 15px;
 }
 
 .search-shapes-input {
-    margin: 15px;
     background-color: white;
     border: 1px solid rgb(93, 16, 194);
     border-radius: 5px;
+    color: rgb(26, 13, 59);
     cursor: pointer;
+    margin: 15px;
     outline: none;
     padding: 4px 8px 4px 8px;
-    color: rgb(26, 13, 59);
 }
 
 .search-shapes-input::placeholder {
@@ -28,35 +27,35 @@ h2 {
 }
 
 .shape-types-select {
-    margin: 15px;
     background-color: rgb(230, 230, 252);
     border: none;
+    margin: 15px;
     outline: none;
     overflow: hidden;
 }
 
 .shape-types-select option {
-    padding: 8px;
     border-radius: 8px;
     color: rgb(26, 13, 59);
     cursor: pointer;
+    padding: 8px;
 }
 
 .shape-types-select option:focus {
-    outline: none;
     background-color: white;
-    -webkit-text-fill-color: rgb(26, 13, 59);
     color: rgb(142, 138, 161);
+    outline: none;
+    -webkit-text-fill-color: rgb(26, 13, 59);
 }
 
 .shape-types-select option:active {
-    outline: none;
     color: rgb(142, 138, 161);
+    outline: none;
 }
 
 .shape-types-select option:hover {
-    outline: none;
     background-color: rgb(242, 242, 255);
+    outline: none;
     -webkit-text-fill-color: rgb(26, 13, 59);
 }
 
@@ -66,18 +65,18 @@ h2 {
 }
 
 hr {
+    border-top: 2px solid;
     color: rgb(93, 16, 194);
     margin: 5px 15px 15px 15px;
-    border-top: 2px solid;
 }
 
 .shape-button {
-    margin: 5px 15px 5px 15px;
     background-color: transparent;
-    padding: 8px;
-    border-radius: 8px;
     border: none;
+    border-radius: 8px;
     color: rgb(26, 13, 59);
+    margin: 5px 15px 5px 15px;
+    padding: 8px;
 }
 
 .shape-button:hover {
@@ -86,7 +85,7 @@ hr {
 }
 
 .shape-button:active {
-    outline: none;
     background-color: white;
     color: rgb(142, 138, 161);
+    outline: none;
 }
