@@ -7,7 +7,7 @@ export class Toolbar extends Component {
     render() {
         return (
             <div className="toolbar-container">
-                <h2>Shapes</h2>
+                <h3>Shapes</h3>
                 <input className="search-shapes-input" placeholder="Search shape"></input>
                 <select multiple className="shape-types-select" size="2"> 
                     <option className>Fundamental Items</option>

@@ -1,7 +1,7 @@
 ﻿.footer {
     align-items: center;
-    background-color: rgb(230, 230, 252);
-    border-top: 2px solid rgb(93, 16, 194);
+    background-color: white;
+    border-top: 2px solid rgb(55, 93, 245);
     display: flex;
     height: 5%;
     justify-content: space-between;
@@ -10,14 +10,13 @@
 .scale-slider-box {
     align-items: center;
     display: flex;
-    margin: 0 15px 0 15px;
-    margin-left: auto;
+    margin: 0 15px 0 auto;
     justify-content: center;
 }
 
 .scale-slider {
     appearance: none;
-    background: rgb(93, 16, 194);
+    background: rgb(55, 93, 245);
     border-radius: 5px;
     cursor: pointer;
     height: 5px;
@@ -27,7 +26,7 @@
 
 .scale-slider::-webkit-slider-thumb {
     appearance: none;
-    background-color: rgb(93, 16, 194);
+    background-color: rgb(55, 93, 245);
     border: none;
     border-radius: 50%;
     height: 12px;
@@ -36,7 +35,7 @@
 }
 
 .scale-slider::-moz-range-thumb {
-    background-color: rgb(93, 16, 194);
+    background-color: rgb(55, 93, 245);
     border: none;
     border-radius: 50%;
     height: 12px;
