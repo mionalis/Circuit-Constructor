@@ -1,22 +1,37 @@
 ﻿import React, { Component } from 'react';
 import "./styles/toolbarStyles.css";
+import $ from 'jquery';
 
 export class Toolbar extends Component {
     static displayName = Toolbar.name;
-
+    
+    componentDidMount() {
+        $('.shape-types-select').click(function () {
+            $(this).parent().find('ul li').slideToggle();
+        })
+    }
+    
     render() {
         return (
             <div className="toolbar-container">
                 <h3>Shapes</h3>
                 <input className="search-shapes-input" placeholder="Search shape"></input>
-                <select multiple className="shape-types-select" size="2"> 
-                    <option className>Fundamental Items</option>
-                    <option>Other</option>
-                </select>
-                <hr></hr>
-                <button className="shape-button">Resistor</button>
-                <button className="shape-button">Capacitor</button>
-                <button className="shape-button">Inductor</button>
+                   <ul>
+                       <li><span className="shape-types-select">Fundamental Items</span>
+                           <ul className="nested-shape-buttons">
+                               <li className="shape-button">Resistor</li>
+                               <li className="shape-button">Capacitor</li>
+                           </ul>
+                       </li>
+                   </ul>
+                <ul>
+                    <li><span className="shape-types-select">Other</span>
+                        <ul className="nested-shape-buttons">
+                            <li className="shape-button">Some element</li>
+                            <li className="shape-button">Some element</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         );
     }

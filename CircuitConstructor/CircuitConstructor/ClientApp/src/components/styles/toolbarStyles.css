@@ -26,12 +26,19 @@ h3 {
     /*color: rgb(116, 104, 173);*/
 }
 
-.shape-types-select {
-   /* background-color: rgb(230, 230, 252);*/
-    border: none;
+ul {
+    list-style-type: none;
     margin: 15px;
+    padding: 0;
+}
+
+.shape-types-select {
+    background-color: rgb(55, 93, 245);
+    border-radius: 5px;
+    border: none;
     outline: none;
     overflow: hidden;
+    padding: 4px 8px 4px 8px;
 }
 
 .shape-types-select option {
@@ -70,13 +77,21 @@ hr {
     margin: 5px 15px 15px 15px;
 }
 
+.nested-shape-buttons {
+/*    display: none;*/
+}
+
+.active {
+   /* display: block;*/
+}
+
 .shape-button {
     background-color: transparent;
     border: none;
     border-radius: 8px;
     color: rgb(26, 13, 59);
-    margin: 5px 15px 5px 15px;
-    padding: 8px;
+    /*margin: 5px 15px 5px 15px;
+    padding: 8px;*/
 }
 
 .shape-button:hover {
