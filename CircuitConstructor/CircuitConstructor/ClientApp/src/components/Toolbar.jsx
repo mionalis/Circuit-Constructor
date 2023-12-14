@@ -16,6 +16,7 @@ export class Toolbar extends Component {
             <div className="toolbar-container">
                 <h3>Shapes</h3>
                 <input className="search-shapes-input" placeholder="Search shape"></input>
+                <div className="shapes-container">
                    <ul>
                        <li><span className="shape-types-select">Fundamental Items</span>
                            <ul>
@@ -24,14 +25,55 @@ export class Toolbar extends Component {
                            </ul>
                        </li>
                    </ul>
-                <ul>
-                    <li><span className="shape-types-select">Other</span>
-                        <ul>
-                            <li className="shape-button">Some element</li>
-                            <li className="shape-button">Some element</li>
-                        </ul>
-                    </li>
-                </ul>
+                    <ul>
+                        <li><span className="shape-types-select">Other</span>
+                            <ul>
+                                <li className="shape-button">Some element</li>
+                                <li className="shape-button">Some element</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li><span className="shape-types-select">Other</span>
+                            <ul>
+                                <li className="shape-button">Some element</li>
+                                <li className="shape-button">Some element</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li><span className="shape-types-select">Other</span>
+                            <ul>
+                                <li className="shape-button">Some element</li>
+                                <li className="shape-button">Some element</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li><span className="shape-types-select">Other</span>
+                            <ul>
+                                <li className="shape-button">Some element</li>
+                                <li className="shape-button">Some element</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li><span className="shape-types-select">Other</span>
+                            <ul>
+                                <li className="shape-button">Some element</li>
+                                <li className="shape-button">Some element</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li><span className="shape-types-select">Other</span>
+                            <ul>
+                                <li className="shape-button">Some element</li>
+                                <li className="shape-button">Some element</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         );
     }

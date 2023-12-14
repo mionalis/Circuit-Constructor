@@ -1,8 +1,9 @@
 ﻿.toolbar-container {
     background-color: white;
     display: flex;
+    flex-grow: 0;
     flex-direction: column;
-    height: 100%;
+    height:auto;
     width: 30%;
 }
 
@@ -23,8 +24,13 @@ h3 {
     padding: 8px;
 }
 
-.search-shapes-input::placeholder {
-    /*color: rgb(116, 104, 173);*/
+.shapes-container {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    width: 100%;
 }
 
 ul {
@@ -47,29 +53,23 @@ ul {
     user-select: none;
 }
 
-hr {
-    border-top: 2px solid;
-    color: rgb(55, 93, 245);
-    margin: 5px 15px 15px 15px;
-}
-
 .shape-button {
     background-color: rgb(234, 234, 234);
     border: none;
     border-radius: 5px;
     color: rgb(26, 13, 59);
     margin: 10px 15px 10px 25px;
+    outline: none;
     padding: 8px;
     user-select: none;
 }
 
-.shape-button:hover {
-    outline: none;
-   /* background-color: rgb(242, 242, 255);*/
-}
-
 .shape-button:active {
     background-color: white;
-   /* color: rgb(142, 138, 161);*/
-    outline: none;
+}
+
+hr {
+    border-top: 2px solid;
+    color: rgb(55, 93, 245);
+    margin: 5px 15px 15px 15px;
 }
