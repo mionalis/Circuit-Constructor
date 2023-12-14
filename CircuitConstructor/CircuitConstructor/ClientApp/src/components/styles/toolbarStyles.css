@@ -19,7 +19,7 @@ h3 {
     border-radius: 5px;
     color: rgb(26, 13, 59);
     cursor: pointer;
-    margin: 15px;
+    margin: 15px 15px 25px;
     outline: none;
     padding: 8px;
 }
@@ -27,8 +27,7 @@ h3 {
 .shapes-container {
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
     scrollbar-width: thin;
     width: 100%;
 }
@@ -46,7 +45,7 @@ ul {
     display: block;
     color: white;
     cursor: pointer;
-    margin: 15px 15px 0;
+    margin: 5px 15px 10px;
     outline: none;
     padding: 8px;
     max-width: 100%;
@@ -58,7 +57,7 @@ ul {
     border: none;
     border-radius: 5px;
     color: rgb(26, 13, 59);
-    margin: 10px 15px 10px 25px;
+    margin: 5px 15px 10px 25px;
     outline: none;
     padding: 8px;
     user-select: none;

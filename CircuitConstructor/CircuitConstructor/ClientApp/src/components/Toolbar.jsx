@@ -6,6 +6,7 @@ export class Toolbar extends Component {
     static displayName = Toolbar.name;
     
     componentDidMount() {
+        $('.shape-types-select').parent().find('ul li').hide();
         $('.shape-types-select').click(function () {
             $(this).parent().find('ul li').slideToggle();
         })
