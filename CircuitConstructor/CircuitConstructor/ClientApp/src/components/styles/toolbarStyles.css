@@ -9,6 +9,7 @@
 h3 {
     color: rgb(55, 93, 245);
     margin: 15px;
+    user-select: none;
 }
 
 .search-shapes-input {
@@ -19,7 +20,7 @@ h3 {
     cursor: pointer;
     margin: 15px;
     outline: none;
-    padding: 4px 8px 4px 8px;
+    padding: 8px;
 }
 
 .search-shapes-input::placeholder {
@@ -28,7 +29,7 @@ h3 {
 
 ul {
     list-style-type: none;
-    margin: 15px;
+    margin: 0;
     padding: 0;
 }
 
@@ -36,39 +37,14 @@ ul {
     background-color: rgb(55, 93, 245);
     border-radius: 5px;
     border: none;
-    outline: none;
-    overflow: hidden;
-    padding: 4px 8px 4px 8px;
-}
-
-.shape-types-select option {
-    border-radius: 8px;
-    color: rgb(26, 13, 59);
+    display: block;
+    color: white;
     cursor: pointer;
+    margin: 15px 15px 0;
+    outline: none;
     padding: 8px;
-}
-
-.shape-types-select option:focus {
-    background-color: white;
-    /*color: rgb(142, 138, 161);*/
-    outline: none;
-    -webkit-text-fill-color: rgb(26, 13, 59);
-}
-
-.shape-types-select option:active {
-    /*color: rgb(142, 138, 161);*/
-    outline: none;
-}
-
-.shape-types-select option:hover {
-    background-color: rgb(242, 242, 255);
-    outline: none;
-    -webkit-text-fill-color: rgb(26, 13, 59);
-}
-
-.shape-types-select option:checked {
-    background: white linear-gradient(0deg, white 0%, white 100%);
-    -webkit-text-fill-color: rgb(26, 13, 59);
+    max-width: 100%;
+    user-select: none;
 }
 
 hr {
@@ -77,21 +53,14 @@ hr {
     margin: 5px 15px 15px 15px;
 }
 
-.nested-shape-buttons {
-/*    display: none;*/
-}
-
-.active {
-   /* display: block;*/
-}
-
 .shape-button {
-    background-color: transparent;
+    background-color: rgb(234, 234, 234);
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     color: rgb(26, 13, 59);
-    /*margin: 5px 15px 5px 15px;
-    padding: 8px;*/
+    margin: 10px 15px 10px 25px;
+    padding: 8px;
+    user-select: none;
 }
 
 .shape-button:hover {

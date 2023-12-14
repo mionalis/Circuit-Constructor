@@ -18,7 +18,7 @@ export class Toolbar extends Component {
                 <input className="search-shapes-input" placeholder="Search shape"></input>
                    <ul>
                        <li><span className="shape-types-select">Fundamental Items</span>
-                           <ul className="nested-shape-buttons">
+                           <ul>
                                <li className="shape-button">Resistor</li>
                                <li className="shape-button">Capacitor</li>
                            </ul>
@@ -26,7 +26,7 @@ export class Toolbar extends Component {
                    </ul>
                 <ul>
                     <li><span className="shape-types-select">Other</span>
-                        <ul className="nested-shape-buttons">
+                        <ul>
                             <li className="shape-button">Some element</li>
                             <li className="shape-button">Some element</li>
                         </ul>
