@@ -1,7 +1,7 @@
 ﻿.footer {
     align-items: center;
     background-color: white;
-    border-top: 2px solid rgb(55, 93, 245);
+    border-top: 2px solid rgb(97, 76, 234);
     display: flex;
     height: 5%;
     justify-content: space-between;
@@ -16,7 +16,7 @@
 
 .scale-slider {
     appearance: none;
-    background: rgb(55, 93, 245);
+    background: rgb(97, 76, 234);
     border-radius: 5px;
     cursor: pointer;
     height: 5px;
@@ -26,7 +26,7 @@
 
 .scale-slider::-webkit-slider-thumb {
     appearance: none;
-    background-color: rgb(55, 93, 245);
+    background-color: rgb(97, 76, 234);
     border: none;
     border-radius: 50%;
     height: 12px;
@@ -35,7 +35,7 @@
 }
 
 .scale-slider::-moz-range-thumb {
-    background-color: rgb(55, 93, 245);
+    background-color: rgb(97, 76, 234);
     border: none;
     border-radius: 50%;
     height: 12px;
