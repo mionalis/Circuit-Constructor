@@ -8,14 +8,14 @@
 }
 
 h3 {
-    color: rgb(55, 93, 245);
+    color: rgb(97, 76, 234);
     margin: 15px;
     user-select: none;
 }
 
 .search-shapes-input {
     background-color: white;
-    border: 1px solid rgb(55, 93, 245);
+    border: 1px solid rgb(97, 76, 234);
     border-radius: 5px;
     color: rgb(26, 13, 59);
     cursor: pointer;
@@ -39,11 +39,11 @@ ul {
 }
 
 .shape-types-select {
-    background-color: rgb(55, 93, 245);
+    background-color: rgb(232, 232, 232);
     border-radius: 5px;
     border: none;
     display: block;
-    color: white;
+    color: rgb(26, 13, 59);
     cursor: pointer;
     margin: 5px 15px 10px;
     outline: none;
@@ -52,23 +52,30 @@ ul {
     user-select: none;
 }
 
+.shape-types-select:hover {
+    background-color: rgb(97, 76, 234);
+    color: white;
+}
+
 .shape-button {
-    background-color: rgb(234, 234, 234);
+    background-color: rgb(232, 232, 232);
     border: none;
     border-radius: 5px;
     color: rgb(26, 13, 59);
-    margin: 5px 15px 10px 25px;
+    cursor: pointer;
+    margin: 5px 15px 10px 30px;
     outline: none;
     padding: 8px;
     user-select: none;
 }
 
-.shape-button:active {
-    background-color: white;
+.shape-button:hover {
+    background-color: rgb(97, 76, 234);
+    color: white;
 }
 
 hr {
     border-top: 2px solid;
-    color: rgb(55, 93, 245);
+    color: rgb(97, 76, 234);
     margin: 5px 15px 15px 15px;
 }
