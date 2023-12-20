@@ -88,14 +88,14 @@
 }
 
 .pages-select option:hover {
-    background-color: white;
+    background: rgb(97, 76, 234) linear-gradient(0deg, rgb(97, 76, 234) 0%, rgb(97, 76, 234) 100%);
     outline: none;
-    -webkit-text-fill-color: rgb(97, 76, 234);
+    -webkit-text-fill-color: white;
 }
 
 .pages-select option:checked {
-    background: white linear-gradient(0deg, white 0%, white 100%);
-    -webkit-text-fill-color: rgb(26, 13, 59);
+    background: rgb(97, 76, 234) linear-gradient(0deg, rgb(97, 76, 234) 0%, rgb(97, 76, 234) 100%);
+    -webkit-text-fill-color: white;
 }
 
 .add-page-button {
