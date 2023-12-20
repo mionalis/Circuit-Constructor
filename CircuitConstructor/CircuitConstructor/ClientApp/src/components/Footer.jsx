@@ -12,6 +12,7 @@ export class Footer extends Component {
                     <p className="footer-text">-</p>
                     <input type="range" className="scale-slider"></input>
                     <p className="footer-text">+</p>
+                    <p className="scale-value">100%</p>
                 </div>
             </footer>
         );
