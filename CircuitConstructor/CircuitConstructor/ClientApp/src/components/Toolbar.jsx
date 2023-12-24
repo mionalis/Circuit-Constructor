@@ -36,48 +36,8 @@ export class Toolbar extends Component {
                     <ul>
                         <li><span className="shape-types-select">Other</span>
                             <ul>
-                                <li className="shape-button">Some element</li>
-                                <li className="shape-button">Some element</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li><span className="shape-types-select">Other</span>
-                            <ul>
-                                <li className="shape-button">Some element</li>
-                                <li className="shape-button">Some element</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li><span className="shape-types-select">Other</span>
-                            <ul>
-                                <li className="shape-button">Some element</li>
-                                <li className="shape-button">Some element</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li><span className="shape-types-select">Other</span>
-                            <ul>
-                                <li className="shape-button">Some element</li>
-                                <li className="shape-button">Some element</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li><span className="shape-types-select">Other</span>
-                            <ul>
-                                <li className="shape-button">Some element</li>
-                                <li className="shape-button">Some element</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li><span className="shape-types-select">Other</span>
-                            <ul>
-                                <li className="shape-button">Some element</li>
-                                <li className="shape-button">Some element</li>
+                                <li className="some-shape-button">Some element</li>
+                                <li className="some-shape-button">Some element</li>
                             </ul>
                         </li>
                     </ul>

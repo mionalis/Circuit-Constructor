@@ -69,9 +69,24 @@ ul {
     user-select: none;
 }
 
+.some-shape-button {
+    background-color: rgb(232, 232, 232);
+    border: none;
+    border-radius: 5px;
+    color: rgb(26, 13, 59);
+    cursor: pointer;
+    margin: 5px 15px 10px 30px;
+    outline: none;
+    padding: 8px;
+    user-select: none;
+}
+
 .shape-button:hover {
-    background-color: rgb(97, 76, 234);
-    color: white;
+    background-color: rgb(184, 184, 231);
+}
+
+.some-shape-button:hover {
+    background-color: rgb(184, 184, 231);
 }
 
 .shape-button-inductor-icon {
