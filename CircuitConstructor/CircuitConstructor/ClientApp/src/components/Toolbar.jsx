@@ -1,5 +1,8 @@
 ﻿import React, { Component } from 'react';
 import "./styles/toolbarStyles.css";
+import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor.svg";
+import {ReactComponent as Inductor} from "./svgElements/circuitElements/Inductor.svg";
+import {ReactComponent as Capacitor} from "./svgElements/circuitElements/Capacitor.svg";
 import $ from 'jquery';
 
 export class Toolbar extends Component {
@@ -21,8 +24,12 @@ export class Toolbar extends Component {
                    <ul>
                        <li><span className="shape-types-select">Fundamental Items</span>
                            <ul>
-                               <li className="shape-button">Resistor</li>
-                               <li className="shape-button">Capacitor</li>
+                               <li className="shape-button"><Resistor className="shape-button-icon">
+                                    </Resistor>Resistor</li>
+                               <li className="shape-button"><Inductor className="shape-button-inductor-icon">
+                                    </Inductor>Inductor</li>
+                               <li className="shape-button"><Capacitor className="shape-button-icon">
+                                    </Capacitor>Capacitor</li>
                            </ul>
                        </li>
                    </ul>

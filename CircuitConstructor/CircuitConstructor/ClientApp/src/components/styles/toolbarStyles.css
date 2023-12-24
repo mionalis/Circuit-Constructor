@@ -65,13 +65,24 @@ ul {
     cursor: pointer;
     margin: 5px 15px 10px 30px;
     outline: none;
-    padding: 8px;
+    padding: 0;
     user-select: none;
 }
 
 .shape-button:hover {
     background-color: rgb(97, 76, 234);
     color: white;
+}
+
+.shape-button-inductor-icon {
+    margin: 20px 10px 20px 8px;
+    width: 100px;
+}
+
+.shape-button-icon {
+    margin: 10px 10px 10px 8px;
+    width: 100px;
+    height: 42px;
 }
 
 hr {

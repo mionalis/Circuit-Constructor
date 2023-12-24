@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
-import {ReactComponent as Capacitor} from "./svgElements/circuitElements/Capacitor.svg";
+import {ReactComponent as Inductor} from "./svgElements/circuitElements/Inductor.svg";
 import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor.svg";
+import {ReactComponent as Capacitor} from "./svgElements/circuitElements/Capacitor.svg";
 import "./styles/canvasStyles.css";
 
 export class Canvas extends Component {
@@ -10,8 +11,9 @@ export class Canvas extends Component {
         return (
             <div className="canvas">
                 <div className="dot-pattern-canvas ">
-                    <Capacitor className="capacitor"></Capacitor>
+                    <Inductor className="inductor"></Inductor>
                     <Resistor className="resistor"></Resistor>
+                    <Capacitor className="capacitor"></Capacitor>
                 </div>
             </div>
         );
