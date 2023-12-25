@@ -1,8 +1,8 @@
-<svg width="200" height="82" viewBox="0 0 200 82" fill="none" xmlns="http://www.w3.org/2000/svg">
-<line x1="113" y1="42" x2="113" stroke="black" stroke-width="2"/>
-<line x1="89" y1="42" x2="89" stroke="black" stroke-width="2"/>
-<line x1="113" y1="82" x2="113" y2="40" stroke="black" stroke-width="2"/>
-<line x1="89" y1="82" x2="89" y2="40" stroke="black" stroke-width="2"/>
-<line y1="41" x2="90" y2="41" stroke="black" stroke-width="2"/>
-<line x1="112" y1="41" x2="200" y2="41" stroke="black" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="36" viewBox="0 0 100 36" fill="none">
+    <line y1="18" x2="46" y2="18" stroke="black" stroke-width="2"/>
+    <line x1="56" y1="18" x2="100" y2="18" stroke="black" stroke-width="2"/>
+    <line x1="57" y1="17" x2="57" stroke="black" stroke-width="2"/>
+    <line x1="57" y1="36" x2="57" y2="19" stroke="black" stroke-width="2"/>
+    <line x1="45" y1="17" x2="45" stroke="black" stroke-width="2"/>
+    <line x1="45" y1="36" x2="45" y2="19" stroke="black" stroke-width="2"/>
 </svg>
