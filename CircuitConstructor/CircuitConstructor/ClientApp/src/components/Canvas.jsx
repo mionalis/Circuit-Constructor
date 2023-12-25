@@ -10,9 +10,9 @@ export class Canvas extends Component {
         return (
             <div className="canvas">
                 <div className="dot-pattern-canvas ">
-                    <Inductor className="inductor"></Inductor>
-                    <Resistor className="resistor"></Resistor>
-                    <Capacitor className="capacitor"></Capacitor>
+                    <Inductor className="inductor"/>
+                    <Resistor className="resistor"/>
+                    <Capacitor className="capacitor"/>
                 </div>
             </div>
         );

@@ -29,26 +29,17 @@ export class Toolbar extends Component {
                     <ul>
                         <li><span className="shape-types-select">Fundamental Items</span>
                             <ul>
-                                <li className="shape-button" onClick={AddNewElement}><Resistor
-                                    className="shape-button-icon">
-                                </Resistor>Resistor
-                                </li>
-                                <li className="shape-button"><Inductor className="shape-button-inductor-icon">
-                                </Inductor>Inductor
-                                </li>
-                                <li className="shape-button"><Capacitor className="shape-button-icon">
-                                </Capacitor>Capacitor
-                                </li>
+                                <li className="shape-button" onClick={AddNewElement}>
+                                    <Resistor className="shape-button-icon"/>Resistor</li>
+                                <li className="shape-button">
+                                    <Inductor className="shape-button-inductor-icon"/>Inductor</li>
+                                <li className="shape-button">
+                                    <Capacitor className="shape-button-icon"/>Capacitor</li>
                             </ul>
                         </li>
                     </ul>
                     <ul>
-                        <li><span className="shape-types-select">Other</span>
-                            <ul>
-                                <li className="some-shape-button">Some element</li>
-                                <li className="some-shape-button">Some element</li>
-                            </ul>
-                        </li>
+                        <li><span className="shape-types-select">Other</span></li>
                     </ul>
                 </div>
             </div>
