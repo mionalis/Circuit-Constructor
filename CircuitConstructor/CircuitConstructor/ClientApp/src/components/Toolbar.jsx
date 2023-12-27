@@ -20,7 +20,7 @@ const Toolbar = ({ AddNewResistor }) => {
                 <div className="shapes-container">
                     <ul>
                         <li><span onClick={setToggle}
-                                  className="shape-types-select">Fundamental Items</span>
+                                  className="shape-type-select-button">Fundamental Items</span>
                             {toggle && (
                                 <ul>
                                     <AddShapeButton onClick={AddNewResistor}>
@@ -34,7 +34,7 @@ const Toolbar = ({ AddNewResistor }) => {
                         </li>
                     </ul>
                     <ul>
-                        <li><span className="shape-types-select">Other</span></li>
+                        <li><span className="shape-type-select-button">Other</span></li>
                     </ul>
                 </div>
             </div>

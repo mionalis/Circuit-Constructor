@@ -1,5 +1,7 @@
 ﻿.canvas {
     background-color: white;
+    background-image: radial-gradient(circle at 1px 1px, rgb(173, 173, 173) 1px, transparent 0);
+    background-size: 20px 20px;
     border: 1px solid rgb(155, 155, 155);
     height: calc(100% - 40px);
     overflow-y: scroll;
@@ -7,9 +9,4 @@
     width: calc(100% - 20px);
     align-items: center;
     justify-content: center;
-}
-
-.dot-pattern-canvas {
-    background-image: radial-gradient(circle at 1px 1px, rgb(173, 173, 173) 1px, transparent 0);
-    background-size: 20px 20px;
 }

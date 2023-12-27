@@ -38,7 +38,7 @@ ul {
     padding: 0;
 }
 
-.shape-types-select {
+.shape-type-select-button {
     background-color: rgb(232, 232, 232);
     border-radius: 5px;
     border: none;
@@ -52,7 +52,7 @@ ul {
     user-select: none;
 }
 
-.shape-types-select:hover {
+.shape-type-select-button:hover {
     background-color: rgb(97, 76, 234);
     color: white;
 }
