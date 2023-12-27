@@ -25,11 +25,31 @@ function App() {
         }
         setShapes([...shapes, NewResistor])
     }
+
+    const AddNewInductor = (event) => {
+        event.preventDefault()
+        const NewResistor= {
+            id: Date.now(),
+            body: <Inductor/>
+        }
+        setShapes([...shapes, NewResistor])
+    }
+    
+    const AddNewCapacitor = (event) => {
+        event.preventDefault()
+        const NewResistor= {
+            id: Date.now(),
+            body: <Capacitor/>
+        }
+        setShapes([...shapes, NewResistor])
+    }
     
     return (
         <div className="main-container">
             <div className="content-container">
-              <Toolbar AddNewResistor={AddNewResistor}/>
+              <Toolbar AddNewResistor={AddNewResistor}
+                       AddNewInductor={AddNewInductor} 
+                       AddNewCapacitor={AddNewCapacitor}/>
               <div className="right-panel">
                 <div className="canvas-container">
                     <TopMenu/>

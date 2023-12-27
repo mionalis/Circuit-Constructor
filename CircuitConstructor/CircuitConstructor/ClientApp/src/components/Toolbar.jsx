@@ -11,7 +11,7 @@ const useToggle = (initialState) => {
     return [toggleValue, toggler]
 };
 
-const Toolbar = ({ AddNewResistor }) => {
+const Toolbar = (props) => {
     const [toggle, setToggle] = useToggle()
         return (
             <div className="toolbar-container">
@@ -23,12 +23,12 @@ const Toolbar = ({ AddNewResistor }) => {
                                   className="shape-type-select-button">Fundamental Items</span>
                             {toggle && (
                                 <ul>
-                                    <AddShapeButton onClick={AddNewResistor}>
+                                    <AddShapeButton onClick={props.AddNewResistor}>
                                         <Resistor className="shape-button-icon"/>Resistor</AddShapeButton>
-                                    <li className="shape-button">
-                                        <Inductor className="shape-button-icon"/>Inductor</li>
-                                    <li className="shape-button">
-                                        <Capacitor className="shape-button-icon"/>Capacitor</li>
+                                    <AddShapeButton onClick={props.AddNewInductor}>
+                                        <Inductor className="shape-button-icon"/>Inductor</AddShapeButton>
+                                    <AddShapeButton onClick={props.AddNewCapacitor}>
+                                        <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton>
                                 </ul>
                             )}
                         </li>
