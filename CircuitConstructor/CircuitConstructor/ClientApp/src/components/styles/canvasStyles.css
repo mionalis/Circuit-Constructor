@@ -18,6 +18,10 @@
     width: 100%;
 }
 
+.shape {
+    display: flex;
+}
+
 .inductor {
     display: flex;
     margin-top: 11px;

@@ -13,19 +13,24 @@ import Shape from "./components/Shape";
 function App(props) {
 
     const [shapes, setShapes] = useState([
-        {id: 1, body: <Resistor/>},
         {id: 2, body: <Capacitor/>},
         {id: 3, body: <Inductor/>},
     ])
 
-    const pull_data = (data) => {
-        console.log(data); // LOGS DATA FROM CHILD (My name is Dean Winchester... &)
+    const AddNewResistor = (event) => {
+        event.preventDefault()
+        console.log('Hello!');
+        const NewResistor= {
+            id: Date.now(),
+            body: <Resistor/>
+        }
+        setShapes([...shapes, NewResistor])
     }
     
     return (
         <div className="main-container">
             <div className="content-container">
-              <Toolbar func={setShapes}/>
+              <Toolbar AddNewResistor={AddNewResistor}/>
               <div className="right-panel">
                 <div className="canvas-container">
                     <TopMenu/>
