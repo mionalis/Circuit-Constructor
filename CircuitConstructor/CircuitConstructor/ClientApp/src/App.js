@@ -35,7 +35,9 @@ function App() {
                     <TopMenu/>
                     
                     <div className="canvas">
-                        {shapes.map(shape => <Shape post={shape} key={shape.id}/>)}
+                        <div className="dot-pattern-canvas">
+                            {shapes.map(shape => <Shape post={shape} key={shape.id}/>)}
+                        </div>
                     </div>
                     
                 </div>
