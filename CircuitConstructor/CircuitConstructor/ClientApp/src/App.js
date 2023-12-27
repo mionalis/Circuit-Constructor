@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import './custom.css';
 import "./components/styles/mainContentStyles.css";
 import {Footer} from "./components/Footer";
@@ -10,7 +10,7 @@ import {ReactComponent as Capacitor} from "./components/svgElements/circuitEleme
 import {ReactComponent as Inductor} from "./components/svgElements/circuitElements/Inductor.svg";
 import Shape from "./components/Shape";
 
-function App(props) {
+function App() {
 
     const [shapes, setShapes] = useState([
         {id: 2, body: <Capacitor/>},
@@ -19,7 +19,6 @@ function App(props) {
 
     const AddNewResistor = (event) => {
         event.preventDefault()
-        console.log('Hello!');
         const NewResistor= {
             id: Date.now(),
             body: <Resistor/>
