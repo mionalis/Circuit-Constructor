@@ -5,6 +5,7 @@
     flex-direction: column;
     height:auto;
     width: 30%;
+    min-width: 250px;
 }
 
 h3 {

@@ -12,15 +12,11 @@ import Shape from "./components/Shape";
 
 function App() {
 
-    const [shapes, setShapes] = useState([
-        {id: 2, body: <Capacitor/>},
-        {id: 3, body: <Inductor/>},
-    ])
+    const [shapes, setShapes] = useState([])
 
     const AddNewResistor = (event) => {
         event.preventDefault()
         const NewResistor= {
-            id: Date.now(),
             body: <Resistor/>
         }
         setShapes([...shapes, NewResistor])
@@ -29,7 +25,6 @@ function App() {
     const AddNewInductor = (event) => {
         event.preventDefault()
         const NewResistor= {
-            id: Date.now(),
             body: <Inductor/>
         }
         setShapes([...shapes, NewResistor])
@@ -38,7 +33,6 @@ function App() {
     const AddNewCapacitor = (event) => {
         event.preventDefault()
         const NewResistor= {
-            id: Date.now(),
             body: <Capacitor/>
         }
         setShapes([...shapes, NewResistor])
@@ -55,8 +49,10 @@ function App() {
                     <TopMenu/>
                     
                     <div className="canvas">
-                        <div className="dot-pattern-canvas">
-                            {shapes.map(shape => <Shape post={shape} key={shape.id}/>)}
+                        <div className="dot-pattern-canvas-container">
+                            <div className="dot-pattern-canvas">
+                                {shapes.map(shape => <Shape post={shape} key={shape.id}/>)}
+                            </div>
                         </div>
                     </div>
                     
