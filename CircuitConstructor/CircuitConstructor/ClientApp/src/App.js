@@ -41,24 +41,24 @@ function App() {
     return (
         <div className="main-container">
             <div className="content-container">
-              <Toolbar AddNewResistor={AddNewResistor}
-                       AddNewInductor={AddNewInductor} 
-                       AddNewCapacitor={AddNewCapacitor}/>
-              <div className="right-panel">
-                <div className="canvas-container">
-                    <TopMenu/>
-                    <div className="canvas">
-                        <div className="dot-pattern-canvas-container">
-                            <div className="dot-pattern-canvas">
-                                {shapes.map(shape => <Shape post={shape} key={shape.id}/>)}
+                <Toolbar AddNewResistor={AddNewResistor} 
+                         AddNewInductor={AddNewInductor} 
+                         AddNewCapacitor={AddNewCapacitor}/>
+                <div className="right-panel">
+                    <div className="canvas-container">
+                        <TopMenu/>
+                        <div className="canvas">
+                            <div className="dot-pattern-canvas-container">
+                                <div className="dot-pattern-canvas">
+                                    {shapes.map(shape => <Shape post={shape} key={shape.id}/>)}
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <PagesPanel/>
                 </div>
-               <PagesPanel/>
-              </div>
             </div>
-          <Footer/>
+            <Footer/>
         </div>
     );
 }

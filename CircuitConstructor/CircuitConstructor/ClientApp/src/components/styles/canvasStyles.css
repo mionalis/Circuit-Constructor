@@ -1,12 +1,13 @@
 ﻿.canvas {
+    align-items: center;
     background-color: white;
-    border: 1px solid rgb(155, 155, 155);
+    border: 1px solid rgb(173, 173, 173);
     height: calc(100% - 40px);
+    justify-content: center;
+    scrollbar-width: thin;
     overflow-y: scroll;
     overflow-x: scroll;
     width: calc(100% - 20px);
-    align-items: center;
-    justify-content: center;
 }
 
 .dot-pattern-canvas-container {
