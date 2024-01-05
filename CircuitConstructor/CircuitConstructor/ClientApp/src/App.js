@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import './custom.css';
 import "./components/styles/mainContentStyles.css";
-import {Footer} from "./components/Footer";
-import Toolbar from "./components/Toolbar";
 import {TopMenu} from "./components/TopMenu";
 import {PagesPanel} from "./components/PagesPanel";
-import {ReactComponent as Resistor} from "./components/svgElements/circuitElements/Resistor.svg";
-import {ReactComponent as Capacitor} from "./components/svgElements/circuitElements/Capacitor.svg";
-import {ReactComponent as Inductor} from "./components/svgElements/circuitElements/Inductor.svg";
+import {Footer} from "./components/Footer";
+import Toolbar from "./components/Toolbar";
 import Shape from "./components/Shape";
+import {ReactComponent as Resistor} from "./components/svgElements/circuitElements/Resistor.svg";
+import {ReactComponent as Inductor} from "./components/svgElements/circuitElements/Inductor.svg";
+import {ReactComponent as Capacitor} from "./components/svgElements/circuitElements/Capacitor.svg";
 
 function App() {
 
@@ -24,18 +24,18 @@ function App() {
 
     const AddNewInductor = (event) => {
         event.preventDefault()
-        const NewResistor= {
+        const NewInductor= {
             body: <Inductor/>
         }
-        setShapes([...shapes, NewResistor])
+        setShapes([...shapes, NewInductor])
     }
     
     const AddNewCapacitor = (event) => {
         event.preventDefault()
-        const NewResistor= {
+        const NewCapacitor= {
             body: <Capacitor/>
         }
-        setShapes([...shapes, NewResistor])
+        setShapes([...shapes, NewCapacitor])
     }
     
     return (
@@ -47,7 +47,6 @@ function App() {
               <div className="right-panel">
                 <div className="canvas-container">
                     <TopMenu/>
-                    
                     <div className="canvas">
                         <div className="dot-pattern-canvas-container">
                             <div className="dot-pattern-canvas">
@@ -55,7 +54,6 @@ function App() {
                             </div>
                         </div>
                     </div>
-                    
                 </div>
                <PagesPanel/>
               </div>

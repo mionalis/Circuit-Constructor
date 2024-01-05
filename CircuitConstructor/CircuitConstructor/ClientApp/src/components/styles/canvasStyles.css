@@ -9,11 +9,14 @@
     justify-content: center;
 }
 
+.dot-pattern-canvas-container {
+    background-image: radial-gradient(circle at 1px 1px, rgb(173, 173, 173) 1px, transparent 0);
+    background-size: 20px 20px;
+    height: 100%;
+    width: 100%;
+}
+
 .dot-pattern-canvas {
     background-image: radial-gradient(circle at 1px 1px, rgb(173, 173, 173) 1px, transparent 0);
     background-size: 20px 20px;
-}
-
-.dot-pattern-canvas-container {
-    background-size: 100% auto;
 }

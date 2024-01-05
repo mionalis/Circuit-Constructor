@@ -1,9 +1,9 @@
 ﻿import React, {Component, useState} from 'react';
 import "./styles/toolbarStyles.css";
+import AddShapeButton from "./AddShapeButton";
 import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor.svg";
 import {ReactComponent as Inductor} from "./svgElements/circuitElements/Inductor.svg";
 import {ReactComponent as Capacitor} from "./svgElements/circuitElements/Capacitor.svg";
-import AddShapeButton from "./AddShapeButton";
 
 const useToggle = (initialState) => {
     const [toggleValue, setToggleValue] = useState(initialState);
