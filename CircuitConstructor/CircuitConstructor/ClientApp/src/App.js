@@ -6,21 +6,18 @@ import {PagesPanel} from "./components/PagesPanel";
 import {Footer} from "./components/Footer";
 import Toolbar from "./components/Toolbar";
 import Canvas from "./components/Canvas";
-import {ReactComponent as Resistor} from "./components/svgElements/circuitElements/Resistor.svg";
-import {ReactComponent as Inductor} from "./components/svgElements/circuitElements/Inductor.svg";
-import {ReactComponent as Capacitor} from "./components/svgElements/circuitElements/Capacitor.svg";
 
 function App() {
     const [shapes, setShapes] = useState([])
     
-    const addNewShapes = (newShape) => {
+    const addNewShape = (newShape) => {
         setShapes([...shapes, newShape])
     }
     
     return (
         <div className="main-container">
             <div className="content-container">
-                <Toolbar add={addNewShapes}/>
+                <Toolbar addNewShape={addNewShape}/>
                 <div className="right-panel">
                     <div className="canvas-container">
                         <TopMenu/>

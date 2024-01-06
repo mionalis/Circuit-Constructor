@@ -11,34 +11,34 @@ const useToggle = (initialState) => {
     return [toggleValue, toggler]
 };
 
-const Toolbar = ({add}) => {
+const Toolbar = ({addNewShape}) => {
     const [toggle, setToggle] = useToggle()
     
-    const addNewResistor = (event) => {
+    const CreateNewResistor = (event) => {
         event.preventDefault()
         const newShape = {
             id: Date.now(),
             body: <Resistor/>
         }
-        add(newShape)
+        addNewShape(newShape)
     }
 
-    const AddNewInductor = (event) => {
+    const CreateNewInductor = (event) => {
         event.preventDefault()
         const newShape = {
             id: Date.now(),
             body: <Inductor/>
         }
-        add(newShape)
+        addNewShape(newShape)
     }
 
-    const AddNewCapacitor = (event) => {
+    const CreateNewCapacitor = (event) => {
         event.preventDefault()
         const newShape = {
             id: Date.now(),
             body: <Capacitor/>
         }
-        add(newShape)
+        addNewShape(newShape)
     }
     
         return (
@@ -51,11 +51,11 @@ const Toolbar = ({add}) => {
                                   className="shape-type-select-button">Fundamental Items</span>
                             {toggle && (
                                 <ul>
-                                    <AddShapeButton onClick={addNewResistor}>
+                                    <AddShapeButton onClick={CreateNewResistor}>
                                         <Resistor className="shape-button-icon"/>Resistor</AddShapeButton>
-                                    <AddShapeButton onClick={AddNewInductor}>
+                                    <AddShapeButton onClick={CreateNewInductor}>
                                         <Inductor className="shape-button-icon"/>Inductor</AddShapeButton>
-                                    <AddShapeButton onClick={AddNewCapacitor}>
+                                    <AddShapeButton onClick={CreateNewCapacitor}>
                                         <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton>
                                 </ul>
                             )}
