@@ -11,39 +11,16 @@ import {ReactComponent as Inductor} from "./components/svgElements/circuitElemen
 import {ReactComponent as Capacitor} from "./components/svgElements/circuitElements/Capacitor.svg";
 
 function App() {
-
     const [shapes, setShapes] = useState([])
-
-    const AddNewResistor = (event) => {
-        event.preventDefault()
-        const NewResistor= {
-            body: <Resistor/>
-        }
-        setShapes([...shapes, NewResistor])
-    }
-
-    const AddNewInductor = (event) => {
-        event.preventDefault()
-        const NewInductor= {
-            body: <Inductor/>
-        }
-        setShapes([...shapes, NewInductor])
-    }
     
-    const AddNewCapacitor = (event) => {
-        event.preventDefault()
-        const NewCapacitor= {
-            body: <Capacitor/>
-        }
-        setShapes([...shapes, NewCapacitor])
+    const addNewShapes = (newShape) => {
+        setShapes([...shapes, newShape])
     }
     
     return (
         <div className="main-container">
             <div className="content-container">
-                <Toolbar AddNewResistor={AddNewResistor} 
-                         AddNewInductor={AddNewInductor} 
-                         AddNewCapacitor={AddNewCapacitor}/>
+                <Toolbar add={addNewShapes}/>
                 <div className="right-panel">
                     <div className="canvas-container">
                         <TopMenu/>

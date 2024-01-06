@@ -11,8 +11,36 @@ const useToggle = (initialState) => {
     return [toggleValue, toggler]
 };
 
-const Toolbar = (props) => {
+const Toolbar = ({add}) => {
     const [toggle, setToggle] = useToggle()
+    
+    const addNewResistor = (event) => {
+        event.preventDefault()
+        const newShape = {
+            id: Date.now(),
+            body: <Resistor/>
+        }
+        add(newShape)
+    }
+
+    const AddNewInductor = (event) => {
+        event.preventDefault()
+        const newShape = {
+            id: Date.now(),
+            body: <Inductor/>
+        }
+        add(newShape)
+    }
+
+    const AddNewCapacitor = (event) => {
+        event.preventDefault()
+        const newShape = {
+            id: Date.now(),
+            body: <Capacitor/>
+        }
+        add(newShape)
+    }
+    
         return (
             <div className="toolbar-container">
                 <h3>Shapes</h3>
@@ -23,11 +51,11 @@ const Toolbar = (props) => {
                                   className="shape-type-select-button">Fundamental Items</span>
                             {toggle && (
                                 <ul>
-                                    <AddShapeButton onClick={props.AddNewResistor}>
+                                    <AddShapeButton onClick={addNewResistor}>
                                         <Resistor className="shape-button-icon"/>Resistor</AddShapeButton>
-                                    <AddShapeButton onClick={props.AddNewInductor}>
+                                    <AddShapeButton onClick={AddNewInductor}>
                                         <Inductor className="shape-button-icon"/>Inductor</AddShapeButton>
-                                    <AddShapeButton onClick={props.AddNewCapacitor}>
+                                    <AddShapeButton onClick={AddNewCapacitor}>
                                         <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton>
                                 </ul>
                             )}
