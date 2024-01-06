@@ -5,7 +5,7 @@ import {TopMenu} from "./components/TopMenu";
 import {PagesPanel} from "./components/PagesPanel";
 import {Footer} from "./components/Footer";
 import Toolbar from "./components/Toolbar";
-import Shape from "./components/Shape";
+import Canvas from "./components/Canvas";
 import {ReactComponent as Resistor} from "./components/svgElements/circuitElements/Resistor.svg";
 import {ReactComponent as Inductor} from "./components/svgElements/circuitElements/Inductor.svg";
 import {ReactComponent as Capacitor} from "./components/svgElements/circuitElements/Capacitor.svg";
@@ -47,13 +47,7 @@ function App() {
                 <div className="right-panel">
                     <div className="canvas-container">
                         <TopMenu/>
-                        <div className="canvas">
-                            <div className="dot-pattern-canvas-container">
-                                <div className="dot-pattern-canvas">
-                                    {shapes.map(shape => <Shape post={shape} key={shape.id}/>)}
-                                </div>
-                            </div>
-                        </div>
+                        <Canvas shapes={shapes}/>
                     </div>
                     <PagesPanel/>
                 </div>
