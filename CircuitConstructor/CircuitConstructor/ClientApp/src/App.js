@@ -8,8 +8,10 @@ import Toolbar from "./components/Toolbar";
 import Canvas from "./components/Canvas";
 
 function App() {
+    // Хранит и устанавливает массив элементов электрической цепи.
     const [shapes, setShapes] = useState([])
     
+    // Добавляет элемент электрической цепи в массив.
     const addNewShape = (newShape) => {
         setShapes([...shapes, newShape])
     }
