@@ -3,6 +3,7 @@ import "./styles/mainContentStyles.css";
 import {ReactComponent as SaveFileIcon} from "./svgElements/interfaceElements/SaveFileIcon.svg";
 import {ReactComponent as UploadFileIcon} from "./svgElements/interfaceElements/UploadFileIcon.svg";
 
+// Верхняя панель с кнопками сохранения и загрузки.
 export class TopMenu extends Component {
     static displayName = TopMenu.name;
     render() {

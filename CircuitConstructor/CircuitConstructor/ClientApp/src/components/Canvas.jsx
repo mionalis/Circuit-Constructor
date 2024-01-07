@@ -2,6 +2,7 @@ import "./styles/canvasStyles.css";
 import Shape from "./Shape";
 import React from "react";
 
+// Монтажная поверхность.
 const Canvas = ({shapes}) => {
     return (
         <div className="canvas">

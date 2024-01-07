@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./styles/mainContentStyles.css";
 
+// Панель управления страницами.
 export class PagesPanel extends Component {
     static displayName = PagesPanel.name;
     render() {
