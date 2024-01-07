@@ -1,4 +1,4 @@
-﻿import React, {Component, useState} from 'react';
+﻿import React, {Component, useEffect, useState} from 'react';
 import "./styles/toolbarStyles.css";
 import AddShapeButton from "./AddShapeButton";
 import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor.svg";
@@ -14,31 +14,22 @@ const useToggle = (initialState) => {
 const Toolbar = ({addNewShape}) => {
     const [toggle, setToggle] = useToggle()
     
-    const CreateNewResistor = (event) => {
-        event.preventDefault()
+    const [shape, setShape] = useState({body: null})
+
+    useEffect(() => {
+        createNewShape()
+    }, [shape])
+    
+    const createNewShape = () => {
         const newShape = {
             id: Date.now(),
-            body: <Resistor/>
+            ...shape
         }
         addNewShape(newShape)
     }
-
-    const CreateNewInductor = (event) => {
-        event.preventDefault()
-        const newShape = {
-            id: Date.now(),
-            body: <Inductor/>
-        }
-        addNewShape(newShape)
-    }
-
-    const CreateNewCapacitor = (event) => {
-        event.preventDefault()
-        const newShape = {
-            id: Date.now(),
-            body: <Capacitor/>
-        }
-        addNewShape(newShape)
+    
+    const addNewShapeFromToolbar = () => {
+        setShape(shape)
     }
     
         return (
@@ -51,12 +42,15 @@ const Toolbar = ({addNewShape}) => {
                                   className="shape-type-select-button">Fundamental Items</span>
                             {toggle && (
                                 <ul>
-                                    <AddShapeButton onClick={CreateNewResistor}>
-                                        <Resistor className="shape-button-icon"/>Resistor</AddShapeButton>
-                                    <AddShapeButton onClick={CreateNewInductor}>
-                                        <Inductor className="shape-button-icon"/>Inductor</AddShapeButton>
-                                    <AddShapeButton onClick={CreateNewCapacitor}>
-                                        <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton>
+                                    <span onClick={event => setShape({body:<Resistor/>})}>
+                                        <AddShapeButton onClick={addNewShapeFromToolbar}>
+                                        <Resistor className="shape-button-icon"/>Resistor</AddShapeButton></span>
+                                    <span onClick={event => setShape({body:<Inductor/>})}>
+                                        <AddShapeButton onClick={addNewShapeFromToolbar}>
+                                        <Inductor className="shape-button-icon"/>Inductor</AddShapeButton></span>
+                                    <span onClick={event => setShape({body:<Capacitor/>})}>
+                                        <AddShapeButton onClick={addNewShapeFromToolbar}>
+                                        <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton></span>
                                 </ul>
                             )}
                         </li>
