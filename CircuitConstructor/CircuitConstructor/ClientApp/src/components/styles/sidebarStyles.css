@@ -1,10 +1,11 @@
-﻿.toolbar-container {
+﻿.sidebar-container {
     background-color: white;
     display: flex;
     flex-grow: 0;
     flex-direction: column;
-    height:auto;
+    height: auto;
     width: 30%;
+    min-width: 250px;
 }
 
 h3 {
@@ -27,8 +28,7 @@ h3 {
 .shapes-container {
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
-    scrollbar-width: thin;
+    overflow-y: hidden;
     width: 100%;
 }
 
@@ -38,7 +38,7 @@ ul {
     padding: 0;
 }
 
-.shape-types-select {
+.shape-type-select-button {
     background-color: rgb(232, 232, 232);
     border-radius: 5px;
     border: none;
@@ -52,7 +52,7 @@ ul {
     user-select: none;
 }
 
-.shape-types-select:hover {
+.shape-type-select-button:hover {
     background-color: rgb(97, 76, 234);
     color: white;
 }
@@ -65,13 +65,18 @@ ul {
     cursor: pointer;
     margin: 5px 15px 10px 30px;
     outline: none;
-    padding: 8px;
+    padding: 0;
     user-select: none;
 }
 
 .shape-button:hover {
-    background-color: rgb(97, 76, 234);
-    color: white;
+    background-color: rgb(176, 168, 255);
+}
+
+.shape-button-icon {
+    margin: 10px 10px 10px 8px;
+    width: 100px;
+    height: 42px;
 }
 
 hr {

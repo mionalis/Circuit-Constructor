@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import "./styles/footerStyles.css";
 
+// Нижняя панель страницы.
 export class Footer extends Component {
     static displayName = Footer.name;
 
