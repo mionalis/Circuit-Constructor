@@ -1,5 +1,5 @@
 ﻿import React, {Component, useEffect, useState} from 'react';
-import "./styles/toolbarStyles.css";
+import "./styles/sidebarStyles.css";
 import AddShapeButton from "./AddShapeButton";
 import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor.svg";
 import {ReactComponent as Inductor} from "./svgElements/circuitElements/Inductor.svg";
@@ -15,7 +15,7 @@ const useToggle = (initialState) => {
 };
 
 // Описывает левую панель с элементами.
-const Toolbar = ({addNewShape}) => {
+const Sidebar = ({addNewShape}) => {
     // Хранит и устанавливает раскрывающийся список.
     const [toggle, setToggle] = useToggle()
     
@@ -37,12 +37,12 @@ const Toolbar = ({addNewShape}) => {
     }
     
     // Получает элемент, выбранный из левой панели элементов. 
-    const getShapeFromToolbar = () => {
+    const getShapeFromSidebar = () => {
         setShape(shape)
     }
     
         return (
-            <div className="toolbar-container">
+            <div className="sidebar-container">
                 <h3>Shapes</h3>
                 <input className="search-shapes-input" placeholder="Search shape"></input>
                 <div className="shapes-container">
@@ -52,13 +52,13 @@ const Toolbar = ({addNewShape}) => {
                             {toggle && (
                                 <ul>
                                     <span onClick={event => setShape({body:<Resistor/>})}>
-                                        <AddShapeButton onClick={getShapeFromToolbar}>
+                                        <AddShapeButton onClick={getShapeFromSidebar}>
                                         <Resistor className="shape-button-icon"/>Resistor</AddShapeButton></span>
                                     <span onClick={event => setShape({body:<Inductor/>})}>
-                                        <AddShapeButton onClick={getShapeFromToolbar}>
+                                        <AddShapeButton onClick={getShapeFromSidebar}>
                                         <Inductor className="shape-button-icon"/>Inductor</AddShapeButton></span>
                                     <span onClick={event => setShape({body:<Capacitor/>})}>
-                                        <AddShapeButton onClick={getShapeFromToolbar}>
+                                        <AddShapeButton onClick={getShapeFromSidebar}>
                                         <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton></span>
                                 </ul>
                             )}
@@ -72,4 +72,4 @@ const Toolbar = ({addNewShape}) => {
         );
 }
 
-export default Toolbar;
+export default Sidebar;
