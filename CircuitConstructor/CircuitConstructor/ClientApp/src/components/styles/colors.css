@@ -1,0 +1,7 @@
+:root {
+    --canvas-dot-pattern-color: rgb(173, 173, 173);
+    --background-color: rgb(232, 232, 232);
+    --accent-color: rgb(97, 76, 234);
+    --font-color: rgb(33, 17, 75);
+    --light-button-hover-color: rgb(176, 168, 255);
+}

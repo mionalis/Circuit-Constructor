@@ -1,7 +1,7 @@
 ﻿.canvas {
     align-items: center;
     background-color: white;
-    border: 1px solid rgb(173, 173, 173);
+    border: 1px solid var(--canvas-dot-pattern-color);
     height: calc(100% - 40px);
     justify-content: center;
     scrollbar-width: thin;
@@ -11,13 +11,13 @@
 }
 
 .dot-pattern-canvas-container {
-    background-image: radial-gradient(circle at 1px 1px, rgb(173, 173, 173) 1px, transparent 0);
+    background-image: radial-gradient(circle at 1px 1px, var(--canvas-dot-pattern-color) 1px, transparent 0);
     background-size: 20px 20px;
     height: 100%;
     width: 100%;
 }
 
 .dot-pattern-canvas {
-    background-image: radial-gradient(circle at 1px 1px, rgb(173, 173, 173) 1px, transparent 0);
+    background-image: radial-gradient(circle at 1px 1px, var(--canvas-dot-pattern-color) 1px, transparent 0);
     background-size: 20px 20px;
 }

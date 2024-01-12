@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './custom.css';
 import "./components/styles/mainContentStyles.css";
+import "./components/styles/colors.css";
 import {TopMenu} from "./components/TopMenu";
 import {PagesPanel} from "./components/PagesPanel";
 import {Footer} from "./components/Footer";

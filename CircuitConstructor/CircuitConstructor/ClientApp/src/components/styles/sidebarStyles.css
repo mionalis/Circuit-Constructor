@@ -9,16 +9,16 @@
 }
 
 h3 {
-    color: rgb(97, 76, 234);
+    color: var(--accent-color);
     margin: 15px;
     user-select: none;
 }
 
 .search-shapes-input {
     background-color: white;
-    border: 1px solid rgb(97, 76, 234);
+    border: 1px solid var(--accent-color);
     border-radius: 5px;
-    color: rgb(26, 13, 59);
+    color: var(--font-color);
     cursor: pointer;
     margin: 15px 15px 25px;
     outline: none;
@@ -39,11 +39,11 @@ ul {
 }
 
 .shape-type-select-button {
-    background-color: rgb(232, 232, 232);
+    background-color: var(--background-color);
     border-radius: 5px;
     border: none;
     display: block;
-    color: rgb(26, 13, 59);
+    color: var(--font-color);
     cursor: pointer;
     margin: 5px 15px 10px;
     outline: none;
@@ -53,15 +53,15 @@ ul {
 }
 
 .shape-type-select-button:hover {
-    background-color: rgb(97, 76, 234);
+    background-color: var(--accent-color);
     color: white;
 }
 
 .shape-button {
-    background-color: rgb(232, 232, 232);
+    background-color: var(--background-color);
     border: none;
     border-radius: 5px;
-    color: rgb(26, 13, 59);
+    color: var(--font-color);
     cursor: pointer;
     margin: 5px 15px 10px 30px;
     outline: none;
@@ -70,7 +70,7 @@ ul {
 }
 
 .shape-button:hover {
-    background-color: rgb(176, 168, 255);
+    background-color: var(--light-button-hover-color);
 }
 
 .shape-button-icon {
@@ -81,6 +81,6 @@ ul {
 
 hr {
     border-top: 2px solid;
-    color: rgb(97, 76, 234);
+    color: var(--accent-color);
     margin: 5px 15px 15px 15px;
 }
