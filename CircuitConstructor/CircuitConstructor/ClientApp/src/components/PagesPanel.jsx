@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import "./styles/mainContentStyles.css";
 
-// Панель управления страницами.
+/**
+ * Панель управления страницами. Позволяет переключаться между страницами, а также создавать новые.
+ */
 export class PagesPanel extends Component {
     static displayName = PagesPanel.name;
     render() {

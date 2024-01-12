@@ -2,7 +2,12 @@ import "./styles/canvasStyles.css";
 import Shape from "./Shape";
 import React from "react";
 
-// Монтажная поверхность.
+/**
+ * Монтажная поверхность. Отрисовывает элементы электрической цепи.
+ * @param shapes - Массив элементов электрической цепи.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Canvas = ({shapes}) => {
     return (
         <div className="canvas">
