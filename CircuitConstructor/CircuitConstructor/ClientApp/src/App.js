@@ -7,11 +7,21 @@ import {Footer} from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import Canvas from "./components/Canvas";
 
+/**
+ * Главный компонент, агрегирует в себе все компоненты приложения. 
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function App() {
-    // Хранит и устанавливает массив элементов электрической цепи.
+    /**
+     * Хранит и устанавливает массив элементов электрической цепи.
+     */
     const [shapes, setShapes] = useState([])
     
-    // Добавляет элемент электрической цепи в массив.
+    /**
+     * Добавляет элемент электрической цепи в массив.
+     * @param newShape - Добавляемый элемент электрической цепи.
+     */
     const addNewShape = (newShape) => {
         setShapes([...shapes, newShape])
     }

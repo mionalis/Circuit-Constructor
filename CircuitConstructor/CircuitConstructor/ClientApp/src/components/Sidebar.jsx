@@ -5,29 +5,49 @@ import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor
 import {ReactComponent as Inductor} from "./svgElements/circuitElements/Inductor.svg";
 import {ReactComponent as Capacitor} from "./svgElements/circuitElements/Capacitor.svg";
 
-// Реализует раскрывающийся список. 
-const useToggle = (initialState) => {
-    // Хранит и устанавливает содержимое раскрывающегося списка. 
-    const [toggleValue, setToggleValue] = useState(initialState);
-    // Раскрывает или скрывает содержимое раскрывающегося списка. 
+/**
+ * Реализует раскрывающийся список.
+ * @returns {[toggleValue, toggler]}
+ */
+const useToggle = () => {
+    /**
+     * Хранит и устанавливает содержимое раскрывающегося списка.
+     */
+    const [toggleValue, setToggleValue] = useState();
+    /**
+     * Раскрывает или скрывает содержимое раскрывающегося списка.
+     */
     const toggler = () => { setToggleValue(!toggleValue) };
     return [toggleValue, toggler]
 };
 
-// Описывает левую панель с элементами.
+/**
+ * Описывает левую панель с элементами.
+ * @param addNewShape - Добавляет элемент электрической цепи в массив.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Sidebar = ({addNewShape}) => {
-    // Хранит и устанавливает раскрывающийся список.
+    /**
+     * Хранит и устанавливает раскрывающийся список.
+     */
     const [toggle, setToggle] = useToggle()
-    
-    // Хранит и устанавливает элемент электрической цепи.
-    const [shape, setShape] = useState({body: null})
 
-    // Вызывает createNewShape перед отрисовкой элемента на монтажной поверхности.
+    /**
+     * Хранит и устанавливает элемент электрической цепи.
+     */
+    const [shape, setShape] = useState({body: null})
+    
+    /**
+     * Вызывает createNewShape перед отрисовкой элемента на монтажной поверхности.
+     */
     useEffect(() => {
         createNewShape()
     }, [shape])
     
-    // Создает элемент и передает его в комнонент App. 
+    /**
+     * Создает элемент и передает его в комнонент App.
+     */
     const createNewShape = () => {
         const newShape = {
             id: Date.now(),
@@ -36,7 +56,9 @@ const Sidebar = ({addNewShape}) => {
         addNewShape(newShape)
     }
     
-    // Получает элемент, выбранный из левой панели элементов. 
+    /**
+     * Получает элемент, выбранный из левой панели элементов.
+     */
     const getShapeFromSidebar = () => {
         setShape(shape)
     }

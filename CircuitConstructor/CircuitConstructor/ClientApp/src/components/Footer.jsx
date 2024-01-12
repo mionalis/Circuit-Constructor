@@ -1,7 +1,10 @@
 ﻿import React, { Component } from 'react';
 import "./styles/footerStyles.css";
 
-// Нижняя панель страницы.
+/**
+ * Нижняя панель приложения. Отображает номер текущей страницы и позволяет настраивать 
+ * масштаб монтажной поверхности при помощи бегунка.
+ */
 export class Footer extends Component {
     static displayName = Footer.name;
 
