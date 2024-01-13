@@ -1,3 +1,4 @@
+import React from 'react';
 import "./styles/canvasStyles.css";
 
 /**
@@ -6,12 +7,12 @@ import "./styles/canvasStyles.css";
  * @returns {JSX.Element}
  * @constructor
  */
-const Shape = (props) => {
+const Shape = React.forwardRef((props, ref) => {
     return (
-        <div className="shape">
+        <div className="shape" ref={ref}>
             {props.post.body}
         </div>
     );
-}
+});
 
 export default Shape;
