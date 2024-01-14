@@ -1,6 +1,6 @@
-import "./styles/canvasStyles.css";
-import Shape from "./Shape";
 import React from "react";
+import Shape from "./Shape";
+import "./styles/canvasStyles.css";
 
 /**
  * Монтажная поверхность. Отрисовывает элементы электрической цепи.

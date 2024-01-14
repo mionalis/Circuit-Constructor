@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import './custom.css';
-import "./components/styles/mainContentStyles.css";
-import "./components/styles/colors.css";
 import TopMenu from "./components/TopMenu";
 import PagesPanel from "./components/PagesPanel";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import Canvas from "./components/Canvas";
+import './custom.css';
+import "./components/styles/mainContentStyles.css";
+import "./components/styles/colors.css";
 
 /**
  * Главный компонент, агрегирует в себе все компоненты приложения. 

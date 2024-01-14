@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import "./styles/mainContentStyles.css";
-import TopMenu from "./TopMenu";
 
 /**
  * Панель управления страницами. Позволяет переключаться между страницами, а также создавать новые.
