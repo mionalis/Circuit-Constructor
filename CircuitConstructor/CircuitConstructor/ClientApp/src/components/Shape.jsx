@@ -1,6 +1,7 @@
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import React, {useEffect, useState} from 'react';
 import "./styles/canvasStyles.css";
+import Canvas from "./Canvas";
 
 /**
  * Элемент электрической цепи, отображаемый на монтажной поверхности.
@@ -16,7 +17,7 @@ const Shape = (({post}) => {
     });
     
     const onDrag = (e: MouseEvent, data: DraggableData) => {
-        setCurrentPosition({ xRate: data.lastX, yRate: data.lastY });
+        setCurrentPosition({ xRate: data.x, yRate: data.y });
     };
     
     return (
@@ -25,9 +26,7 @@ const Shape = (({post}) => {
                 x: currentPosition.xRate,
                 y: currentPosition.yRate
             }}
-
             grid={[20, 20]}
-            
             onDrag={onDrag}>
         
         <div className="shape">
