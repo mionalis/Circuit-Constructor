@@ -1,3 +1,4 @@
+import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import React, {useEffect, useState} from 'react';
 import "./styles/canvasStyles.css";
 
@@ -7,23 +8,33 @@ import "./styles/canvasStyles.css";
  * @returns {JSX.Element}
  * @constructor
  */
-const Shape = React.forwardRef(({post, bb}, ref) => {
-
-    const [startX, setStartX] = useState(0);
-    const [startY, setStartY] = useState(0);
-    const [lastX, setLastX] = useState(0);
-    const [lastY, setLastY] = useState(0);
-
-    useEffect(() => {
-        bb(startX, startY, lastX, lastY);
-        console.log('child' + startX);
-        console.log('child' + startY);
-    }, [startX, startY, lastX, lastY])
+const Shape = (({post}) => {
+    
+    const [currentPosition, setCurrentPosition] = useState({
+        xRate: 0,
+        yRate: 0,
+    });
+    
+    const onDrag = (e: MouseEvent, data: DraggableData) => {
+        setCurrentPosition({ xRate: data.lastX, yRate: data.lastY });
+    };
     
     return (
-        <div className="shape" ref={ref}>
+        <Draggable
+            position={{
+                x: currentPosition.xRate,
+                y: currentPosition.yRate
+            }}
+
+            grid={[20, 20]}
+            
+            onDrag={onDrag}>
+        
+        <div className="shape">
             {post.body}
         </div>
+            
+        </Draggable>
     );
 });
 
