@@ -10,6 +10,12 @@ import Canvas from "./Canvas";
  * @constructor
  */
 const Shape = (({post}) => {
+
+    const [style, setStyle] = useState("");
+
+    useEffect(() => {
+        setStyle("shape");
+    }, [])
     
     const [currentPosition, setCurrentPosition] = useState({
         xRate: 0,
@@ -17,8 +23,15 @@ const Shape = (({post}) => {
     });
     
     const onDrag = (e: MouseEvent, data: DraggableData) => {
+        setStyle("shape-on-drag")
         setCurrentPosition({ xRate: data.x, yRate: data.y });
     };
+    
+    const onStop  = () =>
+    {
+        setStyle("shape");
+        console.log("dropped");
+    }
     
     return (
         <Draggable
@@ -27,9 +40,10 @@ const Shape = (({post}) => {
                 y: currentPosition.yRate
             }}
             grid={[20, 20]}
-            onDrag={onDrag}>
+            onDrag={onDrag}
+            onStop ={onStop }>
         
-        <div className="shape">
+        <div className={style}>
             {post.body}
         </div>
             

@@ -8,7 +8,6 @@
     overflow-y: scroll;
     overflow-x: scroll;
     width: calc(100% - 20px);
-    position: relative;
 }
 
 .dot-pattern-canvas-container {
@@ -25,5 +24,12 @@
 
 .shape {
     display: inline-block;
-    position: absolute;
+    color: black;
+}
+
+.shape-on-drag {
+    display: inline-block;
+    color: var(--canvas-dot-pattern-color);
+    border:  2px dashed var(--draggable-element-border-color);
+    margin: -2px -2px -2px -1px;
 }
