@@ -5,10 +5,7 @@ import "./styles/footerStyles.css";
  * Нижняя панель приложения. Отображает номер текущей страницы и позволяет настраивать 
  * масштаб монтажной поверхности при помощи бегунка.
  */
-export class Footer extends Component {
-    static displayName = Footer.name;
-
-    render() {
+const Footer = () => {
         return (
             <footer className="footer">
                 <p className="footer-text">Page 2 of 2</p>
@@ -20,5 +17,6 @@ export class Footer extends Component {
                 </div>
             </footer>
         );
-    }
 }
+
+export default Footer;

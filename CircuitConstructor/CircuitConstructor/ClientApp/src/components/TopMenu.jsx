@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import "./styles/mainContentStyles.css";
 import {ReactComponent as SaveFileIcon} from "./svgElements/interfaceElements/SaveFileIcon.svg";
 import {ReactComponent as UploadFileIcon} from "./svgElements/interfaceElements/UploadFileIcon.svg";
+import Sidebar from "./Sidebar";
 
 /**
  * Верхняя панель с кнопками сохранения и загрузки.
  */
-export class TopMenu extends Component {
-    static displayName = TopMenu.name;
-    render() {
+const TopMenu = () => {
         return (
             <div className="top-panel">
                 <button className="top-panel-button">
-                    <SaveFileIcon/>
+                    <SaveFileIcon />
                 </button>
                 <button className="top-panel-button">
-                    <UploadFileIcon/>
+                    <UploadFileIcon />
                 </button>
             </div>
         );
-    }
 }
+
+export default TopMenu;

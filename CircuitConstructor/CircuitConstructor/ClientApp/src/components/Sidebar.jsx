@@ -18,7 +18,7 @@ const useToggle = () => {
      * Раскрывает или скрывает содержимое раскрывающегося списка.
      */
     const toggler = () => { setToggleValue(!toggleValue) };
-    return [toggleValue, toggler]
+    return [toggleValue, toggler];
 };
 
 /**
@@ -31,19 +31,19 @@ const Sidebar = ({addNewShape}) => {
     /**
      * Хранит и устанавливает раскрывающийся список.
      */
-    const [toggle, setToggle] = useToggle()
+    const [toggle, setToggle] = useToggle();
 
     /**
      * Хранит и устанавливает элемент электрической цепи.
      */
-    const [shape, setShape] = useState({body: null})
+    const [shape, setShape] = useState({body: null});
     
     /**
      * Вызывает createNewShape перед отрисовкой элемента на монтажной поверхности.
      */
     useEffect(() => {
-        createNewShape()
-    }, [shape])
+        createNewShape();
+    }, [shape]);
     
     /**
      * Создает элемент и передает его в комнонент App.
@@ -53,14 +53,14 @@ const Sidebar = ({addNewShape}) => {
             id: Date.now(),
             ...shape
         }
-        addNewShape(newShape)
+        addNewShape(newShape);
     }
     
     /**
      * Получает элемент, выбранный из левой панели элементов.
      */
     const getShapeFromSidebar = () => {
-        setShape(shape)
+        setShape(shape);
     }
     
         return (
@@ -73,15 +73,15 @@ const Sidebar = ({addNewShape}) => {
                                   className="shape-type-select-button">Fundamental Items</span>
                             {toggle && (
                                 <ul>
-                                    <span onClick={event => setShape({body:<Resistor/>})}>
+                                    <span onClick={event => setShape({body:<Resistor />})}>
                                         <AddShapeButton onClick={getShapeFromSidebar}>
-                                        <Resistor className="shape-button-icon"/>Resistor</AddShapeButton></span>
-                                    <span onClick={event => setShape({body:<Inductor/>})}>
+                                        <Resistor className="shape-button-icon" />Resistor</AddShapeButton></span>
+                                    <span onClick={event => setShape({body:<Inductor />})}>
                                         <AddShapeButton onClick={getShapeFromSidebar}>
-                                        <Inductor className="shape-button-icon"/>Inductor</AddShapeButton></span>
-                                    <span onClick={event => setShape({body:<Capacitor/>})}>
+                                        <Inductor className="shape-button-icon" />Inductor</AddShapeButton></span>
+                                    <span onClick={event => setShape({body:<Capacitor />})}>
                                         <AddShapeButton onClick={getShapeFromSidebar}>
-                                        <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton></span>
+                                        <Capacitor className="shape-button-icon" />Capacitor</AddShapeButton></span>
                                 </ul>
                             )}
                         </li>
