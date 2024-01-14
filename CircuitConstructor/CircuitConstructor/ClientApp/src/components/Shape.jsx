@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./styles/canvasStyles.css";
 
 /**
@@ -7,10 +7,22 @@ import "./styles/canvasStyles.css";
  * @returns {JSX.Element}
  * @constructor
  */
-const Shape = React.forwardRef((props, ref) => {
+const Shape = React.forwardRef(({post, bb}, ref) => {
+
+    const [startX, setStartX] = useState(0);
+    const [startY, setStartY] = useState(0);
+    const [lastX, setLastX] = useState(0);
+    const [lastY, setLastY] = useState(0);
+
+    useEffect(() => {
+        bb(startX, startY, lastX, lastY);
+        console.log('child' + startX);
+        console.log('child' + startY);
+    }, [startX, startY, lastX, lastY])
+    
     return (
         <div className="shape" ref={ref}>
-            {props.post.body}
+            {post.body}
         </div>
     );
 });

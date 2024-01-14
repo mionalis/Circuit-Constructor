@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Shape from "./Shape";
 import "./styles/canvasStyles.css";
 
@@ -12,14 +12,21 @@ const Canvas = ({shapes}) => {
     const shapeRef = useRef(null)
     const canvasRef = useRef(null)
 
-    const isClicked = useRef(false);
+    const [isClicked, setClicked] = useState(false);
+    
+    const [startX, setStartX] = useState(0);
+    const [startY, setStartY] = useState(0);
+    const [lastX, setLastX] = useState(0);
+    const [lastY, setLastY] = useState(0);
 
-    const coords = useRef({
-        startX: 0,
-        startY: 0,
-        lastX: 0,
-        lastY: 0
-    })
+    const bb = (starttX, starttY, lasttX, lasttY) => {
+        setStartX(starttX);
+        setStartY(starttY);
+        setLastX(lasttX);
+        setLastY(lasttY);
+        console.log('parent' + startX);
+        console.log('parent' + startY);
+    }
     
     useEffect( () => {
         if(!shapeRef.current || !canvasRef.current) return;
@@ -28,34 +35,35 @@ const Canvas = ({shapes}) => {
         const canvas = canvasRef.current;
         
         const onMouseDown = (e: MouseEvent) => {
-            isClicked.current = true;
-            coords.current.startX = e.clientX;
-            coords.current.startY = e.clientY;
-            console.log("is down " + isClicked.current);
+            setClicked(true);
+            console.log('dowwwn');
+            setStartX(e.clientX);
+            setStartY(e.clientY);
+            console.log(isClicked);
+            console.log(startY);
         }
 
         const onMouseUp = (e: MouseEvent) => {
-            isClicked.current = false;
-            coords.current.lastX = shape.offsetLeft;
-            coords.current.lastY = shape.offsetTop;
-            console.log("is up " + isClicked.current);
-            console.log(coords.current.lastX);
-            console.log(coords.current.lastY);
+            setClicked(false);
+            setLastX(shape.offsetLeft);
+            setLastY(shape.offsetTop);
         }
         
         const onMouseMove = (e: MouseEvent) => {
-            if (!isClicked.current) 
+            if (!isClicked) 
             {
                 return;
             }
 
-            console.log("is Move " + isClicked.current);
+            console.log("is Move " + isClicked);
             
-            const nextX = (e.clientX - coords.current.startX + coords.current.lastX);
-            const nextY = (e.clientY - coords.current.startY + coords.current.lastY);
+            const nextX = (e.clientX - startX + lastX);
+            const nextY = (e.clientY - startY + lastY);
             
-            var a = Math.round(nextX / 20) * 20;
-            var b = Math.round(nextY / 20) * 20;
+            let a = Math.round(nextX / 20) * 20;
+            let b = Math.round(nextY / 20) * 20;
+
+            bb(startX, startY, lastX, lastY);
             
             shape.style.top = `${b}px`
             shape.style.left = `${a}px`
@@ -71,13 +79,14 @@ const Canvas = ({shapes}) => {
             canvas.removeEventListener('mousemove', onMouseMove);
         }
         
-    }, [shapes])
+        return cleanup;
+    }, [shapes, startX, startY, lastX, lastY, isClicked])
     
     return (
         <div className="canvas" ref={canvasRef}>
             <div className="dot-pattern-canvas-container">
                 <div className="dot-pattern-canvas">
-                    {shapes.map(shape => <Shape post={shape} key={shape.id} ref={shapeRef}/>)}
+                    {shapes.map(shape => <Shape post={shape} key={shape.id} ref={shapeRef} bb={bb}/>)}
                 </div>
             </div>
         </div>
