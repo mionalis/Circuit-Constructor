@@ -1,14 +1,23 @@
-﻿import React, { Component } from 'react';
+import React from "react";
+import Shape from "./Shape";
 import "./styles/canvasStyles.css";
 
-export class Canvas extends Component {
-    static displayName = Canvas.name;
-
-    render() {
-        return (
-            <div className="canvas">
-
+/**
+ * Монтажная поверхность. Отрисовывает элементы электрической цепи.
+ * @param shapes - Массив элементов электрической цепи.
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const Canvas = ({shapes}) => {
+    return (
+        <div className="canvas">
+            <div className="dot-pattern-canvas-container">
+                <div className="dot-pattern-canvas">
+                    {shapes.map(shape => <Shape post={shape} key={shape.id} />)}
+                </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
+
+export default Canvas;

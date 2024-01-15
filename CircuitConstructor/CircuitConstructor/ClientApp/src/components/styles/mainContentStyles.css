@@ -12,9 +12,9 @@
 
 .canvas-container {
     align-items: end;
-    background-color: rgb(220, 220, 220);
+    background-color: var(--background-color);
     display: flex;
-    height: 100%;
+    height: 95%;
     flex-direction: column;
     justify-content: end;
     width: 100%;
@@ -59,12 +59,13 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    min-width: 0;
     padding: 0;
     width: 100%;
 }
 
 .pages-panel {
-    background-color: rgb(220, 220, 220);
+    background-color: var(--background-color);
     display: flex;
     height: 5%;
 }
@@ -80,6 +81,7 @@
 
 .pages-select option {
     display: inline-block !important;
+    color: var(--font-color);
     cursor: pointer;
     height: 100%;
     padding: 5px;
@@ -88,13 +90,13 @@
 }
 
 .pages-select option:hover {
-    background: rgb(97, 76, 234) linear-gradient(0deg, rgb(97, 76, 234) 0%, rgb(97, 76, 234) 100%);
+    background: var(--accent-color) linear-gradient(0deg, var(--accent-color) 0%, var(--accent-color) 100%);
     outline: none;
     -webkit-text-fill-color: white;
 }
 
 .pages-select option:checked {
-    background: rgb(97, 76, 234) linear-gradient(0deg, rgb(97, 76, 234) 0%, rgb(97, 76, 234) 100%);
+    background: var(--accent-color) linear-gradient(0deg, var(--accent-color) 0%, var(--accent-color) 100%);
     -webkit-text-fill-color: white;
 }
 
@@ -103,7 +105,7 @@
     background-color: transparent;
     border: none;
     display: flex;
-    color: rgb(26, 13, 59);
+    color: var(--font-color);
     font-size: 25px;
     height: 30px;
     justify-content: center;
@@ -111,9 +113,9 @@
 }
 
 .add-page-button:hover {
-    color: rgb(97, 76, 234);
+    color: var(--accent-color);
 }
 
 p {
-    color: rgb(26, 13, 59);
+    color: var(--font-color);
 }
