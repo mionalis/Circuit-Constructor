@@ -75,13 +75,19 @@ const Sidebar = ({addNewShape}) => {
                                 <ul>
                                     <span onClick={event => setShape({body:<Resistor />})}>
                                         <AddShapeButton onClick={getShapeFromSidebar}>
-                                        <Resistor className="shape-button-icon" />Resistor</AddShapeButton></span>
+                                            <Resistor className="shape-button-icon" />Resistor
+                                        </AddShapeButton>
+                                    </span>
                                     <span onClick={event => setShape({body:<Inductor />})}>
                                         <AddShapeButton onClick={getShapeFromSidebar}>
-                                        <Inductor className="shape-button-icon" />Inductor</AddShapeButton></span>
+                                            <Inductor className="shape-button-icon" />Inductor
+                                        </AddShapeButton>
+                                    </span>
                                     <span onClick={event => setShape({body:<Capacitor />})}>
                                         <AddShapeButton onClick={getShapeFromSidebar}>
-                                        <Capacitor className="shape-button-icon" />Capacitor</AddShapeButton></span>
+                                            <Capacitor className="shape-button-icon" />Capacitor
+                                        </AddShapeButton>
+                                    </span>
                                 </ul>
                             )}
                         </li>
