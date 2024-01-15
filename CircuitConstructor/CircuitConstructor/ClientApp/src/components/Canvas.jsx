@@ -12,10 +12,8 @@ const Canvas = ({shapes}) => {
 
     return (
         <div className="canvas">
-            <div className="dot-pattern-canvas-container">
-                <div className="dot-pattern-canvas">
+            <div className="dot-pattern-canvas">
                     {shapes.map(shape => <Shape post={shape} key={shape.id}/>)}
-                </div>
             </div>
         </div>
     );

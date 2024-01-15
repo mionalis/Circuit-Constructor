@@ -63,6 +63,22 @@ const Sidebar = ({addNewShape}) => {
         setShape(shape)
     }
     
+    const onDragOverHandler = (e) => {
+        console.log('is over');
+    }
+
+    const onDragLeaveHandler = (e) => {
+        console.log('is leave');
+    }
+
+    const onDragStartHandler = (e) => {
+        console.log('drag start');
+    }
+
+    const onDragEndHandler = (e) => {
+        console.log('drag end');
+    }
+    
         return (
             <div className="sidebar-container">
                 <h3>Shapes</h3>
@@ -74,7 +90,11 @@ const Sidebar = ({addNewShape}) => {
                             {toggle && (
                                 <ul>
                                     <span onClick={event => setShape({body:<Resistor/>})}>
-                                        <AddShapeButton onClick={getShapeFromSidebar}>
+                                        <AddShapeButton onClick={getShapeFromSidebar} draggable={true}
+                                            onDragOver={(e)=>onDragOverHandler(e)}
+                                            onDragLeave={(e)=>onDragLeaveHandler(e)}
+                                            onDragStart={(e)=>onDragStartHandler(e)}
+                                            onDragEnd={(e)=>onDragEndHandler(e)}>
                                         <Resistor className="shape-button-icon"/>Resistor</AddShapeButton></span>
                                     <span onClick={event => setShape({body:<Inductor/>})}>
                                         <AddShapeButton onClick={getShapeFromSidebar}>

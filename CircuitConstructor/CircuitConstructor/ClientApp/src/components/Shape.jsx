@@ -41,7 +41,7 @@ const Shape = (({post}) => {
             }}
             grid={[20, 20]}
             onDrag={onDrag}
-            onStop ={onStop }>
+            onStop ={onStop}>
         
         <div className={style}>
             {post.body}
