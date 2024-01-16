@@ -27,7 +27,7 @@ const useToggle = () => {
  * @returns {JSX.Element}
  * @constructor
  */
-const Sidebar = ({addNewShape}) => {
+const Sidebar = (props) => {
     /**
      * Хранит и устанавливает раскрывающийся список.
      */
@@ -53,7 +53,7 @@ const Sidebar = ({addNewShape}) => {
             id: Date.now(),
             ...shape
         }
-        addNewShape(newShape)
+        props.addNewShape(newShape)
     }
     
     /**
@@ -62,25 +62,16 @@ const Sidebar = ({addNewShape}) => {
     const getShapeFromSidebar = () => {
         setShape(shape)
     }
-    
-    const onDragOverHandler = (e) => {
-        console.log('is over');
-    }
 
-    const onDragLeaveHandler = (e) => {
-        console.log('is leave');
-    }
-
-    const onDragStartHandler = (e) => {
-        console.log('drag start');
-    }
-
-    const onDragEndHandler = (e) => {
-        console.log('drag end');
+    const onDragEndHandler = (e, shape) => {
+        if (!props.isCanBeDropped) {
+            return;
+        }
+        setShape({body:<Resistor/>});
     }
     
         return (
-            <div className="sidebar-container">
+            <div className="sidebar-container" onDragOver={(e)=>props.onDragOverHandler(e)}>
                 <h3>Shapes</h3>
                 <input className="search-shapes-input" placeholder="Search shape"></input>
                 <div className="shapes-container">
@@ -91,10 +82,7 @@ const Sidebar = ({addNewShape}) => {
                                 <ul>
                                     <span onClick={event => setShape({body:<Resistor/>})}>
                                         <AddShapeButton onClick={getShapeFromSidebar} draggable={true}
-                                            onDragOver={(e)=>onDragOverHandler(e)}
-                                            onDragLeave={(e)=>onDragLeaveHandler(e)}
-                                            onDragStart={(e)=>onDragStartHandler(e)}
-                                            onDragEnd={(e)=>onDragEndHandler(e)}>
+                                                        onDragEnd={(e)=>onDragEndHandler(e)}>
                                         <Resistor className="shape-button-icon"/>Resistor</AddShapeButton></span>
                                     <span onClick={event => setShape({body:<Inductor/>})}>
                                         <AddShapeButton onClick={getShapeFromSidebar}>

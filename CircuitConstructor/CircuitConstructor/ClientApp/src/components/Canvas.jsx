@@ -8,10 +8,10 @@ import "./styles/canvasStyles.css";
  * @returns {JSX.Element}
  * @constructor
  */
-const Canvas = ({shapes}) => {
+const Canvas = ({shapes, onDragEnterHandler}) => {
 
     return (
-        <div className="canvas">
+        <div className="canvas" onDragEnter={onDragEnterHandler}>
             <div className="dot-pattern-canvas">
                     {shapes.map(shape => <Shape post={shape} key={shape.id}/>)}
             </div>

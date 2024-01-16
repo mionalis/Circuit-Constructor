@@ -26,15 +26,40 @@ function App() {
     const addNewShape = (newShape) => {
         setShapes([...shapes, newShape])
     }
+
+    const [isCanBeDropped, setIsCanBeDropped] = useState(false);
+    
+    const onDragOverHandler = (e) => {
+
+    }
+
+    const onDragLeaveHandler = (e) => {
+
+    }
+
+    const onDragStartHandler = (e) => {
+    
+    }
+    
+    const onDragEnterHandler = (e) => {
+        setIsCanBeDropped(true);
+        console.log('is enter');
+    }
     
     return (
         <div className="main-container">
             <div className="content-container">
-                <Sidebar addNewShape={addNewShape}/>
+                <Sidebar addNewShape={addNewShape}
+                         onDragOverHandler={onDragOverHandler}
+                         onDragLeaveHandler={onDragLeaveHandler}
+                         onDragStartHandler={onDragStartHandler}
+                         isCanBeDropped={isCanBeDropped}
+                         onDragEnter={onDragEnterHandler}
+                />
                 <div className="right-panel">
                     <div className="canvas-container">
                         <TopMenu/>
-                        <Canvas shapes={shapes}/>
+                        <Canvas shapes={shapes} onDragEnterHandler={onDragEnterHandler}/>
                     </div>
                     <PagesPanel/>
                 </div>
