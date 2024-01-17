@@ -60,46 +60,54 @@ const Sidebar = (props) => {
      * Получает элемент, выбранный из левой панели элементов.
      */
     const getShapeFromSidebar = () => {
+        props.setThisFromSidebar(false);
         setShape(shape)
     }
-
-    const onDragEndHandler = (e, shape) => {
+    
+    const onDragEndHandler = (e) => {
         if (!props.isCanBeDropped) {
             return;
         }
         setShape({body:<Resistor/>});
+        props.setIsCanBeDropped(false);
+        props.setThisFromSidebar(true);
+        let a = e.clientX - (window.innerWidth - props.canvasWidth);
+        let b = e.clientY - props.topMenuHeight;
+        console.log(a);
+        props.setDefaultPosition({x: a, y: b});
     }
-    
-        return (
-            <div className="sidebar-container" onDragOver={(e)=>props.onDragOverHandler(e)}>
-                <h3>Shapes</h3>
-                <input className="search-shapes-input" placeholder="Search shape"></input>
-                <div className="shapes-container">
-                    <ul>
-                        <li><span onClick={setToggle}
-                                  className="shape-type-select-button">Fundamental Items</span>
-                            {toggle && (
-                                <ul>
-                                    <span onClick={event => setShape({body:<Resistor/>})}>
-                                        <AddShapeButton onClick={getShapeFromSidebar} draggable={true}
-                                                        onDragEnd={(e)=>onDragEndHandler(e)}>
-                                        <Resistor className="shape-button-icon"/>Resistor</AddShapeButton></span>
-                                    <span onClick={event => setShape({body:<Inductor/>})}>
-                                        <AddShapeButton onClick={getShapeFromSidebar}>
-                                        <Inductor className="shape-button-icon"/>Inductor</AddShapeButton></span>
-                                    <span onClick={event => setShape({body:<Capacitor/>})}>
-                                        <AddShapeButton onClick={getShapeFromSidebar}>
-                                        <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton></span>
-                                </ul>
-                            )}
-                        </li>
-                    </ul>
-                    <ul>
-                        <li><span className="shape-type-select-button">Other</span></li>
-                    </ul>
-                </div>
+
+    return (
+        <div className="sidebar-container">
+            <h3>Shapes</h3>
+            <input className="search-shapes-input" placeholder="Search shape"></input>
+            <div className="shapes-container">
+                <ul>
+                    <li><span onClick={setToggle}
+                              className="shape-type-select-button">Fundamental Items</span>
+                        {toggle && (
+                            <ul>
+                                <span onClick={event => setShape({body:<Resistor/>})}>
+                                    <AddShapeButton onClick={getShapeFromSidebar} draggable={true}
+                                                    onDragEnd={(e)=>onDragEndHandler(e)}
+                                                    onDrag={(e)=>props.onDragHandler(e)}>
+                                    <Resistor className="shape-button-icon"/>Resistor</AddShapeButton></span>
+                                <span onClick={event => setShape({body:<Inductor/>})}>
+                                    <AddShapeButton onClick={getShapeFromSidebar}>
+                                    <Inductor className="shape-button-icon"/>Inductor</AddShapeButton></span>
+                                <span onClick={event => setShape({body:<Capacitor/>})}>
+                                    <AddShapeButton onClick={getShapeFromSidebar}>
+                                    <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton></span>
+                            </ul>
+                        )}
+                    </li>
+                </ul>
+                <ul>
+                    <li><span className="shape-type-select-button">Other</span></li>
+                </ul>
             </div>
-        );
+        </div>
+    );
 }
 
 export default Sidebar;

@@ -8,12 +8,19 @@ import "./styles/canvasStyles.css";
  * @returns {JSX.Element}
  * @constructor
  */
-const Canvas = ({shapes, onDragEnterHandler}) => {
+const Canvas = (props) => {
+    const ref = useRef(null);
 
+    useEffect(() => {
+        props.setCanvasWidth(ref.current.clientWidth);
+    })
+    
     return (
-        <div className="canvas" onDragEnter={onDragEnterHandler}>
+        <div className="canvas" onDragEnter={props.onDragEnterHandler} ref={ref}>
             <div className="dot-pattern-canvas">
-                    {shapes.map(shape => <Shape post={shape} key={shape.id}/>)}
+                    {props.shapes.map(shape => <Shape post={shape} key={shape.id} thisFromSidebar={props.thisFromSidebar}
+                                                      setDefaultPosition={props.setDefaultPosition}
+                                                      defaultPosition={props.defaultPosition}/>)}
             </div>
         </div>
     );

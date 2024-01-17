@@ -1,7 +1,6 @@
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import React, {useEffect, useState} from 'react';
 import "./styles/canvasStyles.css";
-import Canvas from "./Canvas";
 
 /**
  * Элемент электрической цепи, отображаемый на монтажной поверхности.
@@ -9,12 +8,15 @@ import Canvas from "./Canvas";
  * @returns {JSX.Element}
  * @constructor
  */
-const Shape = (({post}) => {
+const Shape = ((props) => {
 
     const [style, setStyle] = useState("");
 
     useEffect(() => {
         setStyle("shape");
+        if (props.thisFromSidebar) {
+            setCurrentPosition({xRate: props.defaultPosition.x, yRate: props.defaultPosition.y});
+        }
     }, [])
     
     const [currentPosition, setCurrentPosition] = useState({
@@ -43,8 +45,8 @@ const Shape = (({post}) => {
             onDrag={onDrag}
             onStop ={onStop}>
         
-        <div className={style}>
-            {post.body}
+        <div className={style} >
+            {props.post.body}
         </div>
             
         </Draggable>

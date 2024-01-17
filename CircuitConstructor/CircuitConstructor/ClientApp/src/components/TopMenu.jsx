@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component, useEffect, useRef} from 'react';
 import "./styles/mainContentStyles.css";
 import {ReactComponent as SaveFileIcon} from "./svgElements/interfaceElements/SaveFileIcon.svg";
 import {ReactComponent as UploadFileIcon} from "./svgElements/interfaceElements/UploadFileIcon.svg";
@@ -6,18 +6,24 @@ import {ReactComponent as UploadFileIcon} from "./svgElements/interfaceElements/
 /**
  * Верхняя панель с кнопками сохранения и загрузки.
  */
-export class TopMenu extends Component {
-    static displayName = TopMenu.name;
-    render() {
-        return (
-            <div className="top-panel">
-                <button className="top-panel-button">
-                    <SaveFileIcon/>
-                </button>
-                <button className="top-panel-button">
-                    <UploadFileIcon/>
-                </button>
-            </div>
-        );
-    }
+const TopMenu = (props) => {
+
+    const ref = useRef(null);
+
+    useEffect(() => {
+        props.setTopMenuHeight(ref.current.clientHeight);
+    })
+    
+    return (
+        <div className="top-panel" ref={ref}>
+            <button className="top-panel-button">
+                <SaveFileIcon/>
+            </button>
+            <button className="top-panel-button">
+                <UploadFileIcon/>
+            </button>
+        </div>
+    );
 }
+
+export default TopMenu;
