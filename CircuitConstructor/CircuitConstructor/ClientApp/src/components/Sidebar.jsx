@@ -71,9 +71,8 @@ const Sidebar = (props) => {
         setShape({body:<Resistor/>});
         props.setIsCanBeDropped(false);
         props.setThisFromSidebar(true);
-        let a = e.clientX - (window.innerWidth - props.canvasWidth);
-        let b = e.clientY - props.topMenuHeight;
-        console.log(a);
+        let a = Math.round((e.clientX - (window.innerWidth - props.canvasWidth)) / 20) * 20 - 20;
+        let b = Math.round((e.clientY - props.topMenuHeight) / 20) * 20 - 20;
         props.setDefaultPosition({x: a, y: b});
     }
 
