@@ -26,7 +26,9 @@ const Shape = ((props) => {
     
     const onDrag = (e: MouseEvent, data: DraggableData) => {
         setStyle("shape-on-drag")
-        setCurrentPosition({ xRate: data.x, yRate: data.y });
+        if (data.x >= 0 && data.y >= 0) {
+            setCurrentPosition({xRate: data.x, yRate: data.y});
+        }
     };
     
     const onStop  = () =>

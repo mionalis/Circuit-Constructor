@@ -37,13 +37,13 @@ function App() {
     const onDragEnterHandler = (e) => {
         setIsCanBeDropped(true);
     }
-
-    const onDragHandler = (e:MouseEvent) => {
+    
+    const onDragHandler = (e) => {
     }
 
     const [defaultPosition, setDefaultPosition] = useState({
         x: 0,
-        y: 0,
+        y: 0
     });
 
     const GetPosition = (x, y) => {

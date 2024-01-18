@@ -61,7 +61,7 @@ const Sidebar = (props) => {
      */
     const getShapeFromSidebar = () => {
         props.setThisFromSidebar(false);
-        setShape(shape)
+        setShape(shape);
     }
     
     const onDragEndHandler = (e) => {
@@ -71,11 +71,24 @@ const Sidebar = (props) => {
         setShape({body:<Resistor/>});
         props.setIsCanBeDropped(false);
         props.setThisFromSidebar(true);
-        let a = Math.round((e.clientX - (window.innerWidth - props.canvasWidth)) / 20) * 20 - 20;
+        let a = Math.round((e.clientX - (window.innerWidth - props.canvasWidth)) / 20) * 20;
         let b = Math.round((e.clientY - props.topMenuHeight) / 20) * 20 - 20;
         props.setDefaultPosition({x: a, y: b});
     }
+    
+    const onDragStartHandler = (e) => {
+        e.dataTransfer.dropEffect = "move";
+        let button = document.getElementById("shape-button");
+        let icon = document.getElementById("resistor");
+        var crt = icon.cloneNode(true);
+        document.getElementById("shape-button").appendChild(crt);
+        e.dataTransfer.setDragImage(crt, 0, 0);
 
+        window.setTimeout(function() {
+            crt.parentNode.removeChild(crt);
+        }, 10);
+    }
+    
     return (
         <div className="sidebar-container">
             <h3>Shapes</h3>
@@ -87,10 +100,11 @@ const Sidebar = (props) => {
                         {toggle && (
                             <ul>
                                 <span onClick={event => setShape({body:<Resistor/>})}>
-                                    <AddShapeButton onClick={getShapeFromSidebar} draggable={true}
+                                    <AddShapeButton id="shape-button" onClick={getShapeFromSidebar} draggable={true}
                                                     onDragEnd={(e)=>onDragEndHandler(e)}
-                                                    onDrag={(e)=>props.onDragHandler(e)}>
-                                    <Resistor className="shape-button-icon"/>Resistor</AddShapeButton></span>
+                                                    onDrag={(e)=>props.onDragHandler(e)}
+                                                    onDragStart={onDragStartHandler}>
+                                    <Resistor className="shape-button-icon" id="resistor" />Resistor</AddShapeButton></span>
                                 <span onClick={event => setShape({body:<Inductor/>})}>
                                     <AddShapeButton onClick={getShapeFromSidebar}>
                                     <Inductor className="shape-button-icon"/>Inductor</AddShapeButton></span>

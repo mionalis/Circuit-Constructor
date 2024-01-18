@@ -13,6 +13,9 @@ const Canvas = (props) => {
 
     useEffect(() => {
         props.setCanvasWidth(ref.current.clientWidth);
+        ref.current.addEventListener("dragover", (event) => {
+            event.preventDefault();
+        });
     })
     
     return (
