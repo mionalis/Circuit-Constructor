@@ -32,62 +32,6 @@ const Sidebar = (props) => {
      * Хранит и устанавливает раскрывающийся список.
      */
     const [toggle, setToggle] = useToggle()
-
-    /**
-     * Хранит и устанавливает элемент электрической цепи.
-     */
-    const [shape, setShape] = useState({body: null})
-    
-    /**
-     * Вызывает createNewShape перед отрисовкой элемента на монтажной поверхности.
-     */
-    useEffect(() => {
-        createNewShape()
-    }, [shape])
-    
-    /**
-     * Создает элемент и передает его в комнонент App.
-     */
-    const createNewShape = () => {
-        const newShape = {
-            id: Date.now(),
-            ...shape
-        }
-        props.addNewShape(newShape)
-    }
-    
-    /**
-     * Получает элемент, выбранный из левой панели элементов.
-     */
-    const getShapeFromSidebar = () => {
-        props.setThisFromSidebar(false);
-        setShape(shape);
-    }
-    
-    const onDragEndHandler = (e) => {
-        if (!props.isCanBeDropped) {
-            return;
-        }
-        setShape({body:<Resistor/>});
-        props.setIsCanBeDropped(false);
-        props.setThisFromSidebar(true);
-        let a = Math.round((e.clientX - props.canvasWidth.x) / 20) * 20;
-        let b = Math.round((e.clientY -  props.canvasWidth.y) / 20) * 20 - 20;
-        props.setDefaultPosition({x: a, y: b});
-    }
-    
-    const onDragStartHandler = (e) => {
-        e.dataTransfer.dropEffect = "move";
-        let button = document.getElementById("shape-button");
-        let icon = document.getElementById("resistor");
-        var crt = icon.cloneNode(true);
-        document.getElementById("shape-button").appendChild(crt);
-        e.dataTransfer.setDragImage(crt, 0, 0);
-
-        window.setTimeout(function() {
-            crt.parentNode.removeChild(crt);
-        }, 10);
-    }
     
     return (
         <div className="sidebar-container">
@@ -99,16 +43,16 @@ const Sidebar = (props) => {
                               className="shape-type-select-button">Fundamental Items</span>
                         {toggle && (
                             <ul>
-                                <span onClick={event => setShape({body:<Resistor/>})}>
-                                    <AddShapeButton id="shape-button" onClick={getShapeFromSidebar} draggable={true}
-                                                    onDragEnd={(e)=>onDragEndHandler(e)}
-                                                    onDragStart={onDragStartHandler}>
+                                <span onClick={event => props.setShape({body:<Resistor/>})}>
+                                    <AddShapeButton id="shape-button" onClick={props.getShapeFromSidebar} draggable={true}
+                                                    onDragEnd={(e, shapeType)=>props.onDragEndHandler(e, {body:<Resistor/>})}
+                                                    onDragStart={(e)=>props.onDragStartHandler(e)}>
                                     <Resistor className="shape-button-icon" id="resistor" />Resistor</AddShapeButton></span>
-                                <span onClick={event => setShape({body:<Inductor/>})}>
-                                    <AddShapeButton onClick={getShapeFromSidebar}>
+                                <span onClick={event => props.setShape({body:<Inductor/>})}>
+                                    <AddShapeButton onClick={props.getShapeFromSidebar}>
                                     <Inductor className="shape-button-icon"/>Inductor</AddShapeButton></span>
-                                <span onClick={event => setShape({body:<Capacitor/>})}>
-                                    <AddShapeButton onClick={getShapeFromSidebar}>
+                                <span onClick={event => props.setShape({body:<Capacitor/>})}>
+                                    <AddShapeButton onClick={props.getShapeFromSidebar}>
                                     <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton></span>
                             </ul>
                         )}

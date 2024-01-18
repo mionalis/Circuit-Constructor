@@ -7,7 +7,7 @@ import {PagesPanel} from "./components/PagesPanel";
 import {Footer} from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import Canvas from "./components/Canvas";
-import canvas from "./components/Canvas";
+import {ReactComponent as Resistor} from "./components/svgElements/circuitElements/Resistor.svg";
 
 /**
  * Главный компонент, агрегирует в себе все компоненты приложения. 
@@ -41,17 +41,69 @@ function App() {
         x: 0,
         y: 0
     });
+
+    /**
+     * Хранит и устанавливает элемент электрической цепи.
+     */
+    const [shape, setShape] = useState({body: null})
+    
+    /**
+     * Вызывает createNewShape перед отрисовкой элемента на монтажной поверхности.
+     */
+    useEffect(() => {
+        createNewShape()
+    }, [shape])
+
+    /**
+     * Создает элемент и передает его в комнонент App.
+     */
+    const createNewShape = () => {
+        const newShape = {
+            id: Date.now(),
+            ...shape
+        }
+        addNewShape(newShape)
+    }
+
+    const getShapeFromSidebar = () => {
+        setThisFromSidebar(false);
+        setShape(shape);
+        console.log(shape);
+    }
+
+    const onDragEndHandler = (e, shapeType) => {
+        if (!isCanBeDropped) {
+            return;
+        }
+        setShape(shapeType);
+        setIsCanBeDropped(false);
+        setThisFromSidebar(true);
+        let u = Math.round((e.clientX - canvasWidth.x) / 20) * 20;
+        let b = Math.round((e.clientY -  canvasWidth.y) / 20) * 20 - 20;
+        setDefaultPosition({x: u, y: b});
+    }
+
+    const onDragStartHandler = (e) => {
+        e.dataTransfer.dropEffect = "move";
+        let button = document.getElementById("shape-button");
+        let icon = document.getElementById("resistor");
+        var crt = icon.cloneNode(true);
+        document.getElementById("shape-button").appendChild(crt);
+        e.dataTransfer.setDragImage(crt, 0, 0);
+
+        window.setTimeout(function() {
+            crt.parentNode.removeChild(crt);
+        }, 10);
+    }
     
     return (
         <div className="main-container">
             <div className="content-container">
-                <Sidebar addNewShape={addNewShape}
-                         isCanBeDropped={isCanBeDropped}
-                         setIsCanBeDropped={setIsCanBeDropped}
-                         setThisFromSidebar={setThisFromSidebar}
-                         onDragEnter={onDragEnterHandler}
-                         setDefaultPosition={setDefaultPosition}
-                         canvasWidth={canvasWidth}
+                <Sidebar
+                         onDragEndHandler={onDragEndHandler}
+                         onDragStartHandler={onDragStartHandler}
+                         setShape={setShape}
+                         getShapeFromSidebar={getShapeFromSidebar}
                 />
                 <div className="right-panel">
                     <div className="canvas-container">

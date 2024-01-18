@@ -16,7 +16,7 @@ const Canvas = (props) => {
         ref.current.addEventListener("dragover", (event) => {
             event.preventDefault();
         });
-    })
+    }, [])
     
     return (
         <div className="canvas" onDragEnter={props.onDragEnterHandler} ref={ref}>
