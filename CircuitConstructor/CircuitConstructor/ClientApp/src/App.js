@@ -30,43 +30,32 @@ function App() {
 
     const [isCanBeDropped, setIsCanBeDropped] = useState(false);
     const [thisFromSidebar, setThisFromSidebar] = useState(false);
-
-    const [topMenuHeight, setTopMenuHeight] = useState(0);
-    const [canvasWidth, setCanvasWidth] = useState(0);
+    
+    const [canvasWidth, setCanvasWidth] = useState({});
     
     const onDragEnterHandler = (e) => {
         setIsCanBeDropped(true);
-    }
-    
-    const onDragHandler = (e) => {
     }
 
     const [defaultPosition, setDefaultPosition] = useState({
         x: 0,
         y: 0
     });
-
-    const GetPosition = (x, y) => {
-        
-    }
     
     return (
         <div className="main-container">
             <div className="content-container">
                 <Sidebar addNewShape={addNewShape}
-                         onDragHandler={onDragHandler}
                          isCanBeDropped={isCanBeDropped}
                          setIsCanBeDropped={setIsCanBeDropped}
                          setThisFromSidebar={setThisFromSidebar}
                          onDragEnter={onDragEnterHandler}
                          setDefaultPosition={setDefaultPosition}
-                         GetPosition={GetPosition}
-                         topMenuHeight={topMenuHeight}
                          canvasWidth={canvasWidth}
                 />
                 <div className="right-panel">
                     <div className="canvas-container">
-                        <TopMenu setTopMenuHeight={setTopMenuHeight}/>
+                        <TopMenu/>
                         <Canvas shapes={shapes} onDragEnterHandler={onDragEnterHandler}
                                 thisFromSidebar={thisFromSidebar}
                                 setDefaultPosition={setDefaultPosition}

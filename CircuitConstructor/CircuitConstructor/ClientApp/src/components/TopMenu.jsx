@@ -6,16 +6,9 @@ import {ReactComponent as UploadFileIcon} from "./svgElements/interfaceElements/
 /**
  * Верхняя панель с кнопками сохранения и загрузки.
  */
-const TopMenu = (props) => {
-
-    const ref = useRef(null);
-
-    useEffect(() => {
-        props.setTopMenuHeight(ref.current.clientHeight);
-    })
-    
+const TopMenu = () => {
     return (
-        <div className="top-panel" ref={ref}>
+        <div className="top-panel">
             <button className="top-panel-button">
                 <SaveFileIcon/>
             </button>

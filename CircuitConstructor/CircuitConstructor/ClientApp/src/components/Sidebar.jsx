@@ -71,8 +71,8 @@ const Sidebar = (props) => {
         setShape({body:<Resistor/>});
         props.setIsCanBeDropped(false);
         props.setThisFromSidebar(true);
-        let a = Math.round((e.clientX - (window.innerWidth - props.canvasWidth)) / 20) * 20;
-        let b = Math.round((e.clientY - props.topMenuHeight) / 20) * 20 - 20;
+        let a = Math.round((e.clientX - props.canvasWidth.x) / 20) * 20;
+        let b = Math.round((e.clientY -  props.canvasWidth.y) / 20) * 20 - 20;
         props.setDefaultPosition({x: a, y: b});
     }
     
@@ -102,7 +102,6 @@ const Sidebar = (props) => {
                                 <span onClick={event => setShape({body:<Resistor/>})}>
                                     <AddShapeButton id="shape-button" onClick={getShapeFromSidebar} draggable={true}
                                                     onDragEnd={(e)=>onDragEndHandler(e)}
-                                                    onDrag={(e)=>props.onDragHandler(e)}
                                                     onDragStart={onDragStartHandler}>
                                     <Resistor className="shape-button-icon" id="resistor" />Resistor</AddShapeButton></span>
                                 <span onClick={event => setShape({body:<Inductor/>})}>

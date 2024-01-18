@@ -12,7 +12,7 @@ const Canvas = (props) => {
     const ref = useRef(null);
 
     useEffect(() => {
-        props.setCanvasWidth(ref.current.clientWidth);
+        props.setCanvasWidth({x: ref.current.offsetLeft, y: ref.current.offsetTop});
         ref.current.addEventListener("dragover", (event) => {
             event.preventDefault();
         });
@@ -20,11 +20,9 @@ const Canvas = (props) => {
     
     return (
         <div className="canvas" onDragEnter={props.onDragEnterHandler} ref={ref}>
-            <div className="dot-pattern-canvas">
-                    {props.shapes.map(shape => <Shape post={shape} key={shape.id} thisFromSidebar={props.thisFromSidebar}
-                                                      setDefaultPosition={props.setDefaultPosition}
-                                                      defaultPosition={props.defaultPosition}/>)}
-            </div>
+                {props.shapes.map(shape => <Shape post={shape} key={shape.id} thisFromSidebar={props.thisFromSidebar}
+                                                  setDefaultPosition={props.setDefaultPosition}
+                                                  defaultPosition={props.defaultPosition}/>)}
         </div>
     );
 }
