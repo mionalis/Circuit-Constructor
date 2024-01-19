@@ -9,17 +9,16 @@ import "./styles/canvasStyles.css";
  * @param props
  */
 const Canvas = (props) => {
-    const canvasRef = useRef(null);
 
     useEffect(() => {
-        props.setCanvasOffset({x: canvasRef.current.offsetLeft, y: canvasRef.current.offsetTop});
-        canvasRef.current.addEventListener("dragover", (event) => {
+        const canvas = document.getElementById("canvas");
+        canvas.addEventListener("dragover", (event) => {
             event.preventDefault();
         });
     }, [])
     
     return (
-        <div className="canvas" onDragEnter={props.onDragEnterHandler} ref={canvasRef}>
+        <div className="canvas" onDragEnter={props.onDragEnterHandler} id="canvas">
                 {props.shapes.map(shape => <Shape post={shape} 
                                                   key={shape.id}
                                                   isDragged={props.isDragged}

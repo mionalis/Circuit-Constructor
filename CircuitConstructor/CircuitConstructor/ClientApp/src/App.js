@@ -19,16 +19,25 @@ function App() {
      */
     const [shapes, setShapes] = useState([]);
 
+    /**
+     * Хранит и устанавливает булевое значение, которое определяет, возможен ли дроп элемента при перетаскивании. 
+     */
     const [isCanBeDropped, setIsCanBeDropped] = useState(false);
-    
+
+    /**
+     * Хранит и устанавливает булевое значение, которое определяет, был ли элемент добавлен на Canvas 
+     * при помощи перетаскивания.
+     */
     const [isDragged, setIsDragged] = useState(false);
 
-    const [canvasOffset, setCanvasOffset] = useState({});
-
+    /**
+     * Хранит и устанавливает координаты элемента после перетаскивания.
+     */
     const [shapeDropPosition, setShapeDropPosition] = useState({});
 
     /**
-     * Создает элемент и передает его в комнонент App.
+     * Создает элемент электрической цепи и добавляет его в массив.
+     * @param shapeType - Тип добавляемой фигуры.
      */
     const createNewShape = (shapeType) => {
         const newShape = {
@@ -38,15 +47,27 @@ function App() {
         
         setShapes([...shapes, newShape]);
     }
-    
+
+    /**
+     * Срабатывает, когда пользователь начинает перетаскивать элемент.
+     * @param event
+     */
     const onDragStartHandler = (event) => {
         setGhostDragImage(event);
     }
 
+    /**
+     * Срабатывает, когда перетаскиваемый элемент входит на Canvas. 
+     */
     const onDragEnterHandler = () => {
         setIsCanBeDropped(true);
     }
-    
+
+    /**
+     * Срабатывает, когда пользователь заканчивает перетаскивать элемент.
+     * @param event
+     * @param shapeType - Тип выбранной фигуры.
+     */
     const onDragEndHandler = (event, shapeType) => {
         if (!isCanBeDropped) {
             return;
@@ -55,12 +76,18 @@ function App() {
         createNewShape(shapeType);
         setIsCanBeDropped(false);
         setIsDragged(true);
+
+        const canvas = document.getElementById("canvas");
         
-        const x = setOnGrid(event.clientX - canvasOffset.x, 20);
-        const y = setOnGrid(event.clientY -  canvasOffset.y, 20);
+        const x = setOnGrid(event.clientX - canvas.offsetLeft, 20);
+        const y = setOnGrid(event.clientY - canvas.offsetTop, 20);
         setShapeDropPosition({x: x, y: y});
     }
 
+    /**
+     * Устанавливает изображение, показываемое при перетаскивании фигуры.
+     * @param event
+     */
     const setGhostDragImage = (event) => {
         const button = document.getElementById("shape-button");
         const icon = document.getElementById("resistor");
@@ -73,9 +100,15 @@ function App() {
             ghostDragImage.parentNode.removeChild(ghostDragImage);
         }, 10);
     }
-    
-    const setOnGrid = (value, gridStep)  => {
-        return Math.round(value / gridStep) * gridStep;
+
+    /**
+     * Устанавливает координату по сетке.
+     * @param coordinateValue - Значение координаты.
+     * @param gridStep - Шаг сетки.
+     * @returns {number} - Значение координаты, вписываемое в сетку.
+     */
+    const setOnGrid = (coordinateValue, gridStep)  => {
+        return Math.round(coordinateValue / gridStep) * gridStep;
     }
     
     return (
@@ -84,7 +117,7 @@ function App() {
                 <Sidebar onDragEndHandler={onDragEndHandler}
                          onDragStartHandler={onDragStartHandler}
                          createNewShape={createNewShape}
-                         setIsDragged={setIsDragged}/>
+                         setIsDragged={setIsDragged} />
                 <div className="right-panel">
                     <div className="canvas-container">
                         <TopMenu />
@@ -92,7 +125,6 @@ function App() {
                                 onDragEnterHandler={onDragEnterHandler}
                                 isDragged={isDragged}
                                 shapeDropPosition={shapeDropPosition}
-                                setCanvasOffset={setCanvasOffset}
                                 setOnGrid={setOnGrid} />
                     </div>
                     <PagesPanel />
