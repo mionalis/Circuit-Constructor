@@ -38,18 +38,9 @@ function App() {
         
         setShapes([...shapes, newShape]);
     }
-
+    
     const onDragStartHandler = (event) => {
-        const button = document.getElementById("shape-button");
-        const icon = document.getElementById("resistor");
-        const ghostDragImage = icon.cloneNode(true);
-        
-        button.appendChild(ghostDragImage);
-        event.dataTransfer.setDragImage(ghostDragImage, 0, 0);
-
-        window.setTimeout(function() {
-            ghostDragImage.parentNode.removeChild(ghostDragImage);
-        }, 10);
+        setGhostDragImage(event);
     }
 
     const onDragEnterHandler = () => {
@@ -68,6 +59,19 @@ function App() {
         const x = setOnGrid(event.clientX - canvasOffset.x, 20);
         const y = setOnGrid(event.clientY -  canvasOffset.y, 20);
         setShapeDropPosition({x: x, y: y});
+    }
+
+    const setGhostDragImage = (event) => {
+        const button = document.getElementById("shape-button");
+        const icon = document.getElementById("resistor");
+        const ghostDragImage = icon.cloneNode(true);
+
+        button.appendChild(ghostDragImage);
+        event.dataTransfer.setDragImage(ghostDragImage, 0, 0);
+
+        window.setTimeout(function() {
+            ghostDragImage.parentNode.removeChild(ghostDragImage);
+        }, 10);
     }
     
     const setOnGrid = (value, gridStep)  => {
