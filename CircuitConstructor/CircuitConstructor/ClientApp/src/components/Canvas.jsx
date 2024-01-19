@@ -10,6 +10,9 @@ import "./styles/canvasStyles.css";
  */
 const Canvas = (props) => {
 
+    /**
+     * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
+     */
     useEffect(() => {
         const canvas = document.getElementById("canvas");
         canvas.addEventListener("dragover", (event) => {
@@ -18,7 +21,7 @@ const Canvas = (props) => {
     }, [])
     
     return (
-        <div className="canvas" onDragEnter={props.onDragEnterHandler} id="canvas">
+        <div className="canvas" id="canvas" onDragEnter={props.onDragEnterHandler}>
                 {props.shapes.map(shape => <Shape post={shape} 
                                                   key={shape.id}
                                                   isDragged={props.isDragged}
