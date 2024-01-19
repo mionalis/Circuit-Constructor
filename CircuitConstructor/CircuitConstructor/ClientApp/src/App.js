@@ -31,6 +31,13 @@ function App() {
     const [canvasOffset, setCanvasOffset] = useState({});
 
     const [shapeDropPosition, setShapeDropPosition] = useState({});
+
+    /**
+     * Вызывает createNewShape перед отрисовкой элемента на монтажной поверхности.
+     */
+    useEffect(() => {
+        createNewShape()
+    }, [shape])
     
     /**
      * Добавляет элемент электрической цепи в массив.
@@ -39,13 +46,6 @@ function App() {
     const addNewShape = (newShape) => {
         setShapes([...shapes, newShape]);
     }
-    
-    /**
-     * Вызывает createNewShape перед отрисовкой элемента на монтажной поверхности.
-     */
-    useEffect(() => {
-        createNewShape()
-    }, [shape])
 
     /**
      * Создает элемент и передает его в комнонент App.
@@ -87,9 +87,14 @@ function App() {
         setShape(shapeType);
         setIsCanBeDropped(false);
         setIsDragged(true);
-        let x = Math.round((event.clientX - canvasOffset.x) / 20) * 20;
-        let y = Math.round((event.clientY -  canvasOffset.y) / 20) * 20;
+        
+        const x = setOnGrid(event.clientX - canvasOffset.x, 20);
+        const y = setOnGrid(event.clientY -  canvasOffset.y, 20);
         setShapeDropPosition({x: x, y: y});
+    }
+    
+    const setOnGrid = (value, gridStep)  => {
+        return Math.round(value / gridStep) * gridStep;
     }
     
     return (
