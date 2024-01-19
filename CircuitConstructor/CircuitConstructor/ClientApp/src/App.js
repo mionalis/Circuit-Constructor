@@ -26,29 +26,17 @@ function App() {
     const [canvasOffset, setCanvasOffset] = useState({});
 
     const [shapeDropPosition, setShapeDropPosition] = useState({});
-    
-    /**
-     * Добавляет элемент электрической цепи в массив.
-     * @param newShape - Добавляемый элемент электрической цепи.
-     */
-    const addNewShape = (newShape) => {
-        setShapes([...shapes, newShape]);
-    }
 
     /**
      * Создает элемент и передает его в комнонент App.
      */
-    const createNewShape = (a) => {
+    const createNewShape = (shapeType) => {
         const newShape = {
             id: Date.now(),
-            body: a
+            body: shapeType
         }
-        addNewShape(newShape)
-    }
-
-    const getShapeFromSidebar = () => {
-        setIsDragged(false);
-      /*  createNewShape(shape);*/
+        
+        setShapes([...shapes, newShape]);
     }
 
     const onDragStartHandler = (event) => {
@@ -91,7 +79,7 @@ function App() {
                 <Sidebar onDragEndHandler={onDragEndHandler}
                          onDragStartHandler={onDragStartHandler}
                          createNewShape={createNewShape}
-                         getShapeFromSidebar={getShapeFromSidebar} />
+                         setIsDragged={setIsDragged}/>
                 <div className="right-panel">
                     <div className="canvas-container">
                         <TopMenu />

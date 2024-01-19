@@ -44,16 +44,16 @@ const Sidebar = (props) => {
                         {toggle && (
                             <ul>
                                 <span onClick={event => props.createNewShape(<Resistor/>)}>
-                                    <AddShapeButton onClick={props.getShapeFromSidebar}
+                                    <AddShapeButton onClick={props.setIsDragged(false)}
                                         id="shape-button" draggable={true}
                                                     onDragEnd={(e, shapeType)=>props.onDragEndHandler(e, <Resistor/>)}
                                                     onDragStart={(e)=>props.onDragStartHandler(e)}>
                                     <Resistor className="shape-button-icon" id="resistor" />Resistor</AddShapeButton></span>
                                 <span onClick={event => props.createNewShape(<Inductor/>)}>
-                                    <AddShapeButton onClick={props.getShapeFromSidebar}>
+                                    <AddShapeButton onClick={props.setIsDragged(false)}>
                                     <Inductor className="shape-button-icon"/>Inductor</AddShapeButton></span>
                                 <span onClick={event => props.createNewShape(<Capacitor/>)}>
-                                    <AddShapeButton onClick={props.getShapeFromSidebar}>
+                                    <AddShapeButton onClick={props.setIsDragged(false)}>
                                     <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton></span>
                             </ul>
                         )}
