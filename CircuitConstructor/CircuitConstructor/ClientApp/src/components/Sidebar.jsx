@@ -1,9 +1,9 @@
-﻿import React, {Component, useEffect, useState} from 'react';
-import "./styles/sidebarStyles.css";
+﻿import React, {useEffect, useState} from 'react';
 import AddShapeButton from "./AddShapeButton";
 import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor.svg";
 import {ReactComponent as Inductor} from "./svgElements/circuitElements/Inductor.svg";
 import {ReactComponent as Capacitor} from "./svgElements/circuitElements/Capacitor.svg";
+import "./styles/sidebarStyles.css";
 
 /**
  * Реализует раскрывающийся список.
@@ -18,7 +18,7 @@ const useToggle = () => {
      * Раскрывает или скрывает содержимое раскрывающегося списка.
      */
     const toggler = () => { setToggleValue(!toggleValue) };
-    return [toggleValue, toggler]
+    return [toggleValue, toggler];
 };
 
 /**

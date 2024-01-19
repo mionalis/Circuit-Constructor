@@ -1,13 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import TopMenu from "./components/TopMenu";
+import PagesPanel from "./components/PagesPanel";
+import Footer from "./components/Footer";
+import Sidebar from "./components/Sidebar";
+import Canvas from "./components/Canvas";
 import './custom.css';
 import "./components/styles/mainContentStyles.css";
 import "./components/styles/colors.css";
-import TopMenu from "./components/TopMenu";
-import {PagesPanel} from "./components/PagesPanel";
-import {Footer} from "./components/Footer";
-import Sidebar from "./components/Sidebar";
-import Canvas from "./components/Canvas";
-import {ReactComponent as Resistor} from "./components/svgElements/circuitElements/Resistor.svg";
 
 /**
  * Главный компонент, агрегирует в себе все компоненты приложения. 
@@ -18,14 +17,14 @@ function App() {
     /**
      * Хранит и устанавливает массив элементов электрической цепи.
      */
-    const [shapes, setShapes] = useState([])
+    const [shapes, setShapes] = useState([]);
     
     /**
      * Добавляет элемент электрической цепи в массив.
      * @param newShape - Добавляемый элемент электрической цепи.
      */
     const addNewShape = (newShape) => {
-        setShapes([...shapes, newShape])
+        setShapes([...shapes, newShape]);
     }
 
     const [isCanBeDropped, setIsCanBeDropped] = useState(false);
@@ -87,7 +86,7 @@ function App() {
         e.dataTransfer.dropEffect = "move";
         let button = document.getElementById("shape-button");
         let icon = document.getElementById("resistor");
-        var crt = icon.cloneNode(true);
+        let crt = icon.cloneNode(true);
         document.getElementById("shape-button").appendChild(crt);
         e.dataTransfer.setDragImage(crt, 0, 0);
 
@@ -114,10 +113,10 @@ function App() {
                                 defaultPosition={defaultPosition}
                                 setCanvasWidth={setCanvasWidth}/>
                     </div>
-                    <PagesPanel/>
+                    <PagesPanel />
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }
