@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import TopMenu from "./components/TopMenu";
 import PagesPanel from "./components/PagesPanel";
 import Footer from "./components/Footer";
@@ -34,15 +34,16 @@ function App() {
         const newShape = {
             id: Date.now(),
             body: shapeType
-        }
+        };
         
         setShapes([...shapes, newShape]);
     }
 
     const onDragStartHandler = (event) => {
-        let button = document.getElementById("shape-button");
-        let icon = document.getElementById("resistor");
-        let ghostDragImage = icon.cloneNode(true);
+        const button = document.getElementById("shape-button");
+        const icon = document.getElementById("resistor");
+        const ghostDragImage = icon.cloneNode(true);
+        
         button.appendChild(ghostDragImage);
         event.dataTransfer.setDragImage(ghostDragImage, 0, 0);
 
@@ -85,9 +86,10 @@ function App() {
                         <TopMenu />
                         <Canvas shapes={shapes}
                                 onDragEnterHandler={onDragEnterHandler}
-                                thisFromSidebar={isDragged}
-                                defaultPosition={shapeDropPosition}
-                                setCanvasWidth={setCanvasOffset} />
+                                isDragged={isDragged}
+                                shapeDropPosition={shapeDropPosition}
+                                setCanvasOffset={setCanvasOffset}
+                                setOnGrid={setOnGrid} />
                     </div>
                     <PagesPanel />
                 </div>

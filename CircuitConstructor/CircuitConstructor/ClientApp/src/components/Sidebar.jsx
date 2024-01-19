@@ -1,4 +1,4 @@
-﻿import React, {useEffect, useState} from 'react';
+﻿import React, {useState} from 'react';
 import AddShapeButton from "./AddShapeButton";
 import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor.svg";
 import {ReactComponent as Inductor} from "./svgElements/circuitElements/Inductor.svg";
@@ -23,15 +23,15 @@ const useToggle = () => {
 
 /**
  * Описывает левую панель с элементами.
- * @param addNewShape - Добавляет элемент электрической цепи в массив.
  * @returns {JSX.Element}
  * @constructor
+ * @param props
  */
 const Sidebar = (props) => {
     /**
      * Хранит и устанавливает раскрывающийся список.
      */
-    const [toggle, setToggle] = useToggle()
+    const [toggle, setToggle] = useToggle();
     
     return (
         <div className="sidebar-container">
@@ -43,18 +43,25 @@ const Sidebar = (props) => {
                               className="shape-type-select-button">Fundamental Items</span>
                         {toggle && (
                             <ul>
-                                <span onClick={event => props.createNewShape(<Resistor/>)}>
-                                    <AddShapeButton onClick={props.setIsDragged(false)}
-                                        id="shape-button" draggable={true}
-                                                    onDragEnd={(e, shapeType)=>props.onDragEndHandler(e, <Resistor/>)}
+                                <span onClick={event => props.createNewShape(<Resistor />)}>
+                                    <AddShapeButton onClick={props.setIsDragged(false)} 
+                                                    id="shape-button" 
+                                                    draggable
+                                                    onDragEnd={(e, shapeType)=>props.onDragEndHandler(e, <Resistor />)}
                                                     onDragStart={(e)=>props.onDragStartHandler(e)}>
-                                    <Resistor className="shape-button-icon" id="resistor" />Resistor</AddShapeButton></span>
-                                <span onClick={event => props.createNewShape(<Inductor/>)}>
+                                        <Resistor className="shape-button-icon" id="resistor" />Resistor
+                                    </AddShapeButton>
+                                </span>
+                                <span onClick={event => props.createNewShape(<Inductor />)}>
                                     <AddShapeButton onClick={props.setIsDragged(false)}>
-                                    <Inductor className="shape-button-icon"/>Inductor</AddShapeButton></span>
-                                <span onClick={event => props.createNewShape(<Capacitor/>)}>
+                                        <Inductor className="shape-button-icon"/>Inductor
+                                    </AddShapeButton>
+                                </span>
+                                <span onClick={event => props.createNewShape(<Capacitor />)}>
                                     <AddShapeButton onClick={props.setIsDragged(false)}>
-                                    <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton></span>
+                                        <Capacitor className="shape-button-icon"/>Capacitor
+                                    </AddShapeButton>
+                                </span>
                             </ul>
                         )}
                     </li>

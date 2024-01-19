@@ -1,4 +1,4 @@
-import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
+import Draggable, { DraggableData } from "react-draggable";
 import React, {useEffect, useState} from 'react';
 import "./styles/canvasStyles.css";
 
@@ -11,36 +11,30 @@ import "./styles/canvasStyles.css";
 const Shape = ((props) => {
 
     const [style, setStyle] = useState("");
+    const [currentPosition, setCurrentPosition] = useState({x: 0, y: 0});
 
     useEffect(() => {
         setStyle("shape");
         
-        if (props.thisFromSidebar) {
-            setCurrentPosition({xRate: props.defaultPosition.x, yRate: props.defaultPosition.y});
+        if (props.isDragged) {
+            setCurrentPosition({x: props.shapeDropPosition.x, y: props.shapeDropPosition.y});
         }
     }, [])
     
-    const [currentPosition, setCurrentPosition] = useState({
-        xRate: 0,
-        yRate: 0,
-    });
-    
-    const onDrag = (e: MouseEvent, data: DraggableData) => {
+    const onDrag = (event: MouseEvent, data: DraggableData) => {
         setStyle("shape-on-drag");
         if (data.x >= 0 && data.y >= 0) {
-            setCurrentPosition({xRate: data.x, yRate: data.y});
+            setCurrentPosition({x: data.x, y: data.y});
         }
     };
     
-    const onStop  = () => {
+    const onStop  = (event: MouseEvent, data: DraggableData) => {
         setStyle("shape");
+        setCurrentPosition({x: props.setOnGrid(data.x, 20), y: props.setOnGrid(data.y, 20)});
     }
     
     return (
-        <Draggable position={{
-            x: currentPosition.xRate,
-            y: currentPosition.yRate}} 
-                   grid={[20, 20]} 
+        <Draggable position={{x: currentPosition.x, y: currentPosition.y}}
                    onDrag={onDrag} 
                    onStop ={onStop}>
             <div className={style}>
