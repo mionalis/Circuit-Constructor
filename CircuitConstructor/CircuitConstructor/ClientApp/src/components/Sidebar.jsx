@@ -6,6 +6,16 @@ import {ReactComponent as Capacitor} from "./svgElements/circuitElements/Capacit
 import "./styles/sidebarStyles.css";
 
 /**
+ * Перечисление, хранящее названия элементов.
+ * @type {{RESISTOR: string, CONDUCTOR: string, CAPACITOR: string}}
+ */
+const shapeTypes = {
+    RESISTOR: 'resistor',
+    CONDUCTOR: 'conductor',
+    CAPACITOR: 'capacitor'
+};
+
+/**
  * Реализует раскрывающийся список.
  * @returns {[toggleValue, toggler]}
  */
@@ -47,19 +57,27 @@ const Sidebar = (props) => {
                                     <AddShapeButton onClick={props.setIsDragged(false)} 
                                                     id="shape-button" 
                                                     draggable
-                                                    onDragEnd={(e, shapeType)=>props.onDragEndHandler(e, <Resistor />)}
-                                                    onDragStart={(e)=>props.onDragStartHandler(e)}>
+                                                    onDragEnd={(e)=>props.onDragEndHandler(e, <Resistor />)}
+                                                    onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.RESISTOR)}>
                                         <Resistor className="shape-button-icon" id="resistor" />Resistor
                                     </AddShapeButton>
                                 </span>
                                 <span onClick={event => props.createNewShape(<Inductor />)}>
-                                    <AddShapeButton onClick={props.setIsDragged(false)}>
-                                        <Inductor className="shape-button-icon"/>Inductor
+                                    <AddShapeButton onClick={props.setIsDragged(false)}
+                                                    id="shape-button"
+                                                    draggable
+                                                    onDragEnd={(e)=>props.onDragEndHandler(e, <Inductor />)}
+                                                    onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.CONDUCTOR)}>
+                                        <Inductor className="shape-button-icon" id="conductor" />Inductor
                                     </AddShapeButton>
                                 </span>
                                 <span onClick={event => props.createNewShape(<Capacitor />)}>
-                                    <AddShapeButton onClick={props.setIsDragged(false)}>
-                                        <Capacitor className="shape-button-icon"/>Capacitor
+                                    <AddShapeButton onClick={props.setIsDragged(false)}
+                                                    id="shape-button"
+                                                    draggable
+                                                    onDragEnd={(e)=>props.onDragEndHandler(e, <Capacitor />)}
+                                                    onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.CAPACITOR)}>
+                                        <Capacitor className="shape-button-icon" id="capacitor"/>Capacitor
                                     </AddShapeButton>
                                 </span>
                             </ul>

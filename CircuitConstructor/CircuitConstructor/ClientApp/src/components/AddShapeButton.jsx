@@ -8,6 +8,7 @@ import "./styles/canvasStyles.css";
  * @constructor
  */
 const AddShapeButton = (props) => {
+    
     return (
         <li {...props} className="shape-button">
             {props.children}

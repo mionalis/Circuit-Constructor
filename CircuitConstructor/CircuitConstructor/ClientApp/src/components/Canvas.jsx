@@ -9,7 +9,6 @@ import "./styles/canvasStyles.css";
  * @param props
  */
 const Canvas = (props) => {
-
     /**
      * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
      */

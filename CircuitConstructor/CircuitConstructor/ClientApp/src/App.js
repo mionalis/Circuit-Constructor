@@ -51,9 +51,11 @@ function App() {
     /**
      * Срабатывает, когда пользователь начинает перетаскивать элемент.
      * @param event
+     * @param shapeType - Тип элемента.
      */
-    const onDragStartHandler = (event) => {
-        setGhostDragImage(event);
+    const onDragStartHandler = (event, shapeType) => {
+        console.log(shapeType);
+        setGhostDragImage(event, shapeType);
     }
 
     /**
@@ -87,18 +89,22 @@ function App() {
     /**
      * Устанавливает изображение, показываемое при перетаскивании фигуры.
      * @param event
+     * @param shapeType - Тип элемента.
      */
-    const setGhostDragImage = (event) => {
+    const setGhostDragImage = (event, shapeType) => {
         const button = document.getElementById("shape-button");
-        const icon = document.getElementById("resistor");
+        const icon = document.getElementById(shapeType);
         const ghostDragImage = icon.cloneNode(true);
 
+        ghostDragImage.style.position = "absolute"; 
+        ghostDragImage.style.top = "-60px";
+        ghostDragImage.style.right = "-60px";
         button.appendChild(ghostDragImage);
         event.dataTransfer.setDragImage(ghostDragImage, 0, 0);
 
         window.setTimeout(function() {
             ghostDragImage.parentNode.removeChild(ghostDragImage);
-        }, 10);
+        }, 0);
     }
 
     /**
