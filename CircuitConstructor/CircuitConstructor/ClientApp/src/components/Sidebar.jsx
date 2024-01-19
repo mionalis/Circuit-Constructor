@@ -43,15 +43,16 @@ const Sidebar = (props) => {
                               className="shape-type-select-button">Fundamental Items</span>
                         {toggle && (
                             <ul>
-                                <span onClick={event => props.setShape({body:<Resistor/>})}>
-                                    <AddShapeButton id="shape-button" onClick={props.getShapeFromSidebar} draggable={true}
-                                                    onDragEnd={(e, shapeType)=>props.onDragEndHandler(e, {body:<Resistor/>})}
+                                <span onClick={event => props.createNewShape(<Resistor/>)}>
+                                    <AddShapeButton onClick={props.getShapeFromSidebar}
+                                        id="shape-button" draggable={true}
+                                                    onDragEnd={(e, shapeType)=>props.onDragEndHandler(e, <Resistor/>)}
                                                     onDragStart={(e)=>props.onDragStartHandler(e)}>
                                     <Resistor className="shape-button-icon" id="resistor" />Resistor</AddShapeButton></span>
-                                <span onClick={event => props.setShape({body:<Inductor/>})}>
+                                <span onClick={event => props.createNewShape(<Inductor/>)}>
                                     <AddShapeButton onClick={props.getShapeFromSidebar}>
                                     <Inductor className="shape-button-icon"/>Inductor</AddShapeButton></span>
-                                <span onClick={event => props.setShape({body:<Capacitor/>})}>
+                                <span onClick={event => props.createNewShape(<Capacitor/>)}>
                                     <AddShapeButton onClick={props.getShapeFromSidebar}>
                                     <Capacitor className="shape-button-icon"/>Capacitor</AddShapeButton></span>
                             </ul>

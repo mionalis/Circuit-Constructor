@@ -15,11 +15,6 @@ import "./components/styles/colors.css";
  */
 function App() {
     /**
-     * Хранит и устанавливает элемент электрической цепи.
-     */
-    const [shape, setShape] = useState({body: null})
-    
-    /**
      * Хранит и устанавливает массив элементов электрической цепи.
      */
     const [shapes, setShapes] = useState([]);
@@ -31,13 +26,6 @@ function App() {
     const [canvasOffset, setCanvasOffset] = useState({});
 
     const [shapeDropPosition, setShapeDropPosition] = useState({});
-
-    /**
-     * Вызывает createNewShape перед отрисовкой элемента на монтажной поверхности.
-     */
-    useEffect(() => {
-        createNewShape()
-    }, [shape])
     
     /**
      * Добавляет элемент электрической цепи в массив.
@@ -50,17 +38,17 @@ function App() {
     /**
      * Создает элемент и передает его в комнонент App.
      */
-    const createNewShape = () => {
+    const createNewShape = (a) => {
         const newShape = {
             id: Date.now(),
-            ...shape
+            body: a
         }
         addNewShape(newShape)
     }
 
     const getShapeFromSidebar = () => {
         setIsDragged(false);
-        setShape(shape);
+      /*  createNewShape(shape);*/
     }
 
     const onDragStartHandler = (event) => {
@@ -83,8 +71,8 @@ function App() {
         if (!isCanBeDropped) {
             return;
         }
-        
-        setShape(shapeType);
+
+        createNewShape(shapeType);
         setIsCanBeDropped(false);
         setIsDragged(true);
         
@@ -102,7 +90,7 @@ function App() {
             <div className="content-container">
                 <Sidebar onDragEndHandler={onDragEndHandler}
                          onDragStartHandler={onDragStartHandler}
-                         setShape={setShape}
+                         createNewShape={createNewShape}
                          getShapeFromSidebar={getShapeFromSidebar} />
                 <div className="right-panel">
                     <div className="canvas-container">
