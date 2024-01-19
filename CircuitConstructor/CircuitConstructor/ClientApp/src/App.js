@@ -15,9 +15,22 @@ import "./components/styles/colors.css";
  */
 function App() {
     /**
+     * Хранит и устанавливает элемент электрической цепи.
+     */
+    const [shape, setShape] = useState({body: null})
+    
+    /**
      * Хранит и устанавливает массив элементов электрической цепи.
      */
     const [shapes, setShapes] = useState([]);
+
+    const [isCanBeDropped, setIsCanBeDropped] = useState(false);
+    
+    const [isDragged, setIsDragged] = useState(false);
+
+    const [canvasOffset, setCanvasOffset] = useState({});
+
+    const [shapeDropPosition, setShapeDropPosition] = useState({});
     
     /**
      * Добавляет элемент электрической цепи в массив.
@@ -26,25 +39,6 @@ function App() {
     const addNewShape = (newShape) => {
         setShapes([...shapes, newShape]);
     }
-
-    const [isCanBeDropped, setIsCanBeDropped] = useState(false);
-    const [thisFromSidebar, setThisFromSidebar] = useState(false);
-    
-    const [canvasWidth, setCanvasWidth] = useState({});
-    
-    const onDragEnterHandler = (e) => {
-        setIsCanBeDropped(true);
-    }
-
-    const [defaultPosition, setDefaultPosition] = useState({
-        x: 0,
-        y: 0
-    });
-
-    /**
-     * Хранит и устанавливает элемент электрической цепи.
-     */
-    const [shape, setShape] = useState({body: null})
     
     /**
      * Вызывает createNewShape перед отрисовкой элемента на монтажной поверхности.
@@ -65,53 +59,54 @@ function App() {
     }
 
     const getShapeFromSidebar = () => {
-        setThisFromSidebar(false);
+        setIsDragged(false);
         setShape(shape);
-        console.log(shape);
     }
 
-    const onDragEndHandler = (e, shapeType) => {
+    const onDragStartHandler = (event) => {
+        let button = document.getElementById("shape-button");
+        let icon = document.getElementById("resistor");
+        let ghostDragImage = icon.cloneNode(true);
+        button.appendChild(ghostDragImage);
+        event.dataTransfer.setDragImage(ghostDragImage, 0, 0);
+
+        window.setTimeout(function() {
+            ghostDragImage.parentNode.removeChild(ghostDragImage);
+        }, 10);
+    }
+
+    const onDragEnterHandler = () => {
+        setIsCanBeDropped(true);
+    }
+    
+    const onDragEndHandler = (event, shapeType) => {
         if (!isCanBeDropped) {
             return;
         }
+        
         setShape(shapeType);
         setIsCanBeDropped(false);
-        setThisFromSidebar(true);
-        let u = Math.round((e.clientX - canvasWidth.x) / 20) * 20;
-        let b = Math.round((e.clientY -  canvasWidth.y) / 20) * 20 - 20;
-        setDefaultPosition({x: u, y: b});
-    }
-
-    const onDragStartHandler = (e) => {
-        e.dataTransfer.dropEffect = "move";
-        let button = document.getElementById("shape-button");
-        let icon = document.getElementById("resistor");
-        let crt = icon.cloneNode(true);
-        document.getElementById("shape-button").appendChild(crt);
-        e.dataTransfer.setDragImage(crt, 0, 0);
-
-        window.setTimeout(function() {
-            crt.parentNode.removeChild(crt);
-        }, 10);
+        setIsDragged(true);
+        let x = Math.round((event.clientX - canvasOffset.x) / 20) * 20;
+        let y = Math.round((event.clientY -  canvasOffset.y) / 20) * 20;
+        setShapeDropPosition({x: x, y: y});
     }
     
     return (
         <div className="main-container">
             <div className="content-container">
-                <Sidebar
-                         onDragEndHandler={onDragEndHandler}
+                <Sidebar onDragEndHandler={onDragEndHandler}
                          onDragStartHandler={onDragStartHandler}
                          setShape={setShape}
-                         getShapeFromSidebar={getShapeFromSidebar}
-                />
+                         getShapeFromSidebar={getShapeFromSidebar} />
                 <div className="right-panel">
                     <div className="canvas-container">
-                        <TopMenu/>
-                        <Canvas shapes={shapes} onDragEnterHandler={onDragEnterHandler}
-                                thisFromSidebar={thisFromSidebar}
-                                setDefaultPosition={setDefaultPosition}
-                                defaultPosition={defaultPosition}
-                                setCanvasWidth={setCanvasWidth}/>
+                        <TopMenu />
+                        <Canvas shapes={shapes}
+                                onDragEnterHandler={onDragEnterHandler}
+                                thisFromSidebar={isDragged}
+                                defaultPosition={shapeDropPosition}
+                                setCanvasWidth={setCanvasOffset} />
                     </div>
                     <PagesPanel />
                 </div>
