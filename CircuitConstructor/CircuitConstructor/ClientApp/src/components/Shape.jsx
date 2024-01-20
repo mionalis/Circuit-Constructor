@@ -9,7 +9,6 @@ import "./styles/canvasStyles.css";
  * @constructor
  */
 const Shape = ((props) => {
-
     /**
      * Хранит и устанавливает стиль элемента электрической цепи.
      */

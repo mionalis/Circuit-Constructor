@@ -9,7 +9,6 @@ import "./styles/canvasStyles.css";
  * @param props
  */
 const Canvas = (props) => {
-
     /**
      * Ссылка на компонент Canvas.
      * @type {React.MutableRefObject<undefined>}
