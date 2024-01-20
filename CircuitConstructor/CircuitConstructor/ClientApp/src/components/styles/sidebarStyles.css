@@ -59,7 +59,7 @@ ul {
 }
 
 .shape-button {
-    background-color: var(--background-color);
+    background-color: transparent;
     border: none;
     border-radius: 5px;
     color: var(--font-color);
@@ -71,11 +71,11 @@ ul {
 }
 
 .shape-button:hover {
-    background-color: var(--light-button-hover-color);
+    background-color: var(--background-color);
 }
 
 .shape-button-icon {
-    margin: 8px 20px 8px 20px;
+    margin: 6px 20px 6px 20px;
     width: 100px;
     height: 42px;
 }

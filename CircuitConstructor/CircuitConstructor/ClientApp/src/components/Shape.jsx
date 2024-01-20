@@ -52,7 +52,9 @@ const Shape = ((props) => {
      */
     const OnDragStopHandler  = (event: MouseEvent, data: DraggableData) => {
         setStyle("shape");
-        setCurrentPosition({x: props.setOnGrid(data.x, 20), y: props.setOnGrid(data.y, 20)});
+        if (data.x >= 0 && data.y >= 0) {
+            setCurrentPosition({x: props.setOnGrid(data.x, 20), y: props.setOnGrid(data.y, 20)});
+        }
     }
     
     return (
