@@ -8,7 +8,7 @@ import "./styles/canvasStyles.css";
  * @returns {JSX.Element}
  * @constructor
  */
-const Shape = ((props) => {
+const Shape = (props) => {
     /**
      * Хранит и устанавливает стиль элемента электрической цепи.
      */
@@ -29,7 +29,7 @@ const Shape = ((props) => {
         if (props.isDragged) {
             setCurrentPosition({x: props.shapeDropPosition.x, y: props.shapeDropPosition.y});
         }
-    }, [])
+    }, []);
 
     /**
      * Срабатывает при перемещении элемента по Canvas.
@@ -41,7 +41,7 @@ const Shape = ((props) => {
         if (data.x >= 0 && data.y >= 0) {
             setCurrentPosition({x: data.x, y: data.y});
         }
-    };
+    }
 
     /**
      * Срабатывает, когда пользователь заканчивает перемещение элемента по Canvas.
@@ -65,6 +65,6 @@ const Shape = ((props) => {
             </div>
         </Draggable>
     );
-});
+}
 
 export default Shape;

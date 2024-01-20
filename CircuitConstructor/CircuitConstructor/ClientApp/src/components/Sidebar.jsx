@@ -27,7 +27,7 @@ const useToggle = () => {
     /**
      * Раскрывает или скрывает содержимое раскрывающегося списка.
      */
-    const toggler = () => { setToggleValue(!toggleValue) };
+    const toggler = () => {setToggleValue(!toggleValue)};
     return [toggleValue, toggler];
 };
 
@@ -68,7 +68,7 @@ const Sidebar = (props) => {
                                                     draggable
                                                     onDragEnd={(e)=>props.onDragEndHandler(e, <Inductor />)}
                                                     onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.Inductor)}>
-                                        <Inductor className="shape-button-icon" id="inductor"/>Inductor
+                                        <Inductor className="shape-button-icon" id="inductor" />Inductor
                                     </AddShapeButton>
                                 </span>
                                 <span onClick={event => props.createNewShape(<Capacitor />)}>
@@ -77,7 +77,7 @@ const Sidebar = (props) => {
                                                     draggable
                                                     onDragEnd={(e)=>props.onDragEndHandler(e, <Capacitor />)}
                                                     onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.Capacitor)}>
-                                        <Capacitor className="shape-button-icon" id="capacitor"/>Capacitor
+                                        <Capacitor className="shape-button-icon" id="capacitor" />Capacitor
                                     </AddShapeButton>
                                 </span>
                             </ul>
@@ -85,7 +85,11 @@ const Sidebar = (props) => {
                     </li>
                 </ul>
                 <ul>
-                    <li><span className="shape-type-select-button">Other</span></li>
+                    <li>
+                        <span className="shape-type-select-button">
+                            Other
+                        </span>
+                    </li>
                 </ul>
             </div>
         </div>
