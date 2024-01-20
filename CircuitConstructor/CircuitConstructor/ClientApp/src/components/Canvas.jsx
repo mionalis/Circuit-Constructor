@@ -9,18 +9,24 @@ import "./styles/canvasStyles.css";
  * @param props
  */
 const Canvas = (props) => {
+
+    /**
+     * Ссылка на компонент Canvas.
+     * @type {React.MutableRefObject<undefined>}
+     */
+    const canvasRef = useRef();
+    
     /**
      * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
      */
     useEffect(() => {
-        const canvas = document.getElementById("canvas");
-        canvas.addEventListener("dragover", (event) => {
+        canvasRef.current.addEventListener("dragover", (event) => {
             event.preventDefault();
         });
     }, [])
     
     return (
-        <div className="canvas" id="canvas" onDragEnter={props.onDragEnterHandler}>
+        <div className="canvas" id="canvas" ref={canvasRef} onDragEnter={props.onDragEnterHandler}>
                 {props.shapes.map(shape => <Shape post={shape} 
                                                   key={shape.id}
                                                   isDragged={props.isDragged}
