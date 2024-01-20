@@ -54,7 +54,6 @@ function App() {
      * @param shapeType - Тип элемента.
      */
     const onDragStartHandler = (event, shapeType) => {
-        console.log(shapeType);
         setGhostDragImage(event, shapeType);
     }
 
