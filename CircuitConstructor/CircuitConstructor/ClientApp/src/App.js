@@ -96,9 +96,8 @@ function App() {
         const icon = document.getElementById(shapeType);
         const ghostDragImage = icon.cloneNode(true);
 
-        ghostDragImage.style.position = "absolute"; 
-        ghostDragImage.style.top = "-60px";
-        ghostDragImage.style.right = "-60px";
+        ghostDragImage.classList.add("ghost-drag-image");
+        
         button.appendChild(ghostDragImage);
         event.dataTransfer.setDragImage(ghostDragImage, 0, 0);
 

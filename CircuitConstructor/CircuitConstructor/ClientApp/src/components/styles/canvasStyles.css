@@ -33,3 +33,9 @@
     margin: -2px -2px -2px -1px;
     position: absolute;
 }
+
+.ghost-drag-image {
+    position: absolute;
+    top: -60px;
+    right: -60px;
+}
