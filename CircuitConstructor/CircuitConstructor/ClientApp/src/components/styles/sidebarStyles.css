@@ -3,9 +3,10 @@
     display: flex;
     flex-grow: 0;
     flex-direction: column;
+    flex-shrink: 0;
     height: auto;
-    width: 30%;
-    min-width: 250px;
+    max-width: 300px;
+    min-width: 300px;
 }
 
 h3 {
@@ -58,7 +59,7 @@ ul {
 }
 
 .shape-button {
-    background-color: var(--background-color);
+    background-color: transparent;
     border: none;
     border-radius: 5px;
     color: var(--font-color);
@@ -70,11 +71,11 @@ ul {
 }
 
 .shape-button:hover {
-    background-color: var(--light-button-hover-color);
+    background-color: var(--background-color);
 }
 
 .shape-button-icon {
-    margin: 10px 10px 10px 8px;
+    margin: 6px 20px 6px 20px;
     width: 100px;
     height: 42px;
 }

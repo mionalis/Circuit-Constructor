@@ -1,21 +1,40 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import Shape from "./Shape";
 import "./styles/canvasStyles.css";
 
 /**
  * Монтажная поверхность. Отрисовывает элементы электрической цепи.
- * @param shapes - Массив элементов электрической цепи.
  * @returns {JSX.Element}
  * @constructor
+ * @param props
  */
-const Canvas = ({shapes}) => {
+const Canvas = (props) => {
+    /**
+     * Ссылка на компонент Canvas.
+     * @type {React.MutableRefObject<undefined>}
+     */
+    const canvasRef = useRef();
+    
+    /**
+     * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
+     */
+    useEffect(() => {
+        canvasRef.current.addEventListener("dragover", (event) => {
+            event.preventDefault();
+        });
+    }, [])
+    
     return (
-        <div className="canvas">
-            <div className="dot-pattern-canvas-container">
-                <div className="dot-pattern-canvas">
-                    {shapes.map(shape => <Shape post={shape} key={shape.id} />)}
-                </div>
-            </div>
+        <div className="canvas"
+             id="canvas" 
+             ref={canvasRef} 
+             onDragEnter={props.onDragEnterHandler} 
+             onDragLeave={props.onDragLeaveHandler}>
+                {props.shapes.map(shape => <Shape post={shape} 
+                                                  key={shape.id}
+                                                  isDragged={props.isDragged}
+                                                  shapeDropPosition={props.shapeDropPosition}
+                                                  setOnGrid={props.setOnGrid} />)}
         </div>
     );
 }

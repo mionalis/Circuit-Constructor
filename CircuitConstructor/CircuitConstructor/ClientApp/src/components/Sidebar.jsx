@@ -1,9 +1,19 @@
-﻿import React, {useEffect, useState} from 'react';
+﻿import React, {useState} from 'react';
 import AddShapeButton from "./AddShapeButton";
 import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor.svg";
 import {ReactComponent as Inductor} from "./svgElements/circuitElements/Inductor.svg";
 import {ReactComponent as Capacitor} from "./svgElements/circuitElements/Capacitor.svg";
 import "./styles/sidebarStyles.css";
+
+/**
+ * Перечисление, хранящее названия элементов.
+ * @type {{RESISTOR: string, CONDUCTOR: string, CAPACITOR: string}}
+ */
+const shapeTypes = {
+    Resistor: 'resistor',
+    Inductor: 'inductor',
+    Capacitor: 'capacitor'
+};
 
 /**
  * Реализует раскрывающийся список.
@@ -17,87 +27,73 @@ const useToggle = () => {
     /**
      * Раскрывает или скрывает содержимое раскрывающегося списка.
      */
-    const toggler = () => { setToggleValue(!toggleValue) };
+    const toggler = () => {setToggleValue(!toggleValue)};
     return [toggleValue, toggler];
 };
 
 /**
  * Описывает левую панель с элементами.
- * @param addNewShape - Добавляет элемент электрической цепи в массив.
  * @returns {JSX.Element}
  * @constructor
+ * @param props
  */
-const Sidebar = ({addNewShape}) => {
+const Sidebar = (props) => {
     /**
      * Хранит и устанавливает раскрывающийся список.
      */
     const [toggle, setToggle] = useToggle();
-
-    /**
-     * Хранит и устанавливает элемент электрической цепи.
-     */
-    const [shape, setShape] = useState({body: null});
     
-    /**
-     * Вызывает createNewShape перед отрисовкой элемента на монтажной поверхности.
-     */
-    useEffect(() => {
-        createNewShape();
-    }, [shape]);
-    
-    /**
-     * Создает элемент и передает его в комнонент App.
-     */
-    const createNewShape = () => {
-        const newShape = {
-            id: Date.now(),
-            ...shape
-        }
-        addNewShape(newShape);
-    }
-    
-    /**
-     * Получает элемент, выбранный из левой панели элементов.
-     */
-    const getShapeFromSidebar = () => {
-        setShape(shape);
-    }
-    
-        return (
-            <div className="sidebar-container">
-                <h3>Shapes</h3>
-                <input className="search-shapes-input" placeholder="Search shape"></input>
-                <div className="shapes-container">
-                    <ul>
-                        <li><span onClick={setToggle}
-                                  className="shape-type-select-button">Fundamental Items</span>
-                            {toggle && (
-                                <ul>
-                                    <span onClick={event => setShape({body:<Resistor />})}>
-                                        <AddShapeButton onClick={getShapeFromSidebar}>
-                                            <Resistor className="shape-button-icon" />Resistor
-                                        </AddShapeButton>
-                                    </span>
-                                    <span onClick={event => setShape({body:<Inductor />})}>
-                                        <AddShapeButton onClick={getShapeFromSidebar}>
-                                            <Inductor className="shape-button-icon" />Inductor
-                                        </AddShapeButton>
-                                    </span>
-                                    <span onClick={event => setShape({body:<Capacitor />})}>
-                                        <AddShapeButton onClick={getShapeFromSidebar}>
-                                            <Capacitor className="shape-button-icon" />Capacitor
-                                        </AddShapeButton>
-                                    </span>
-                                </ul>
-                            )}
-                        </li>
-                    </ul>
-                    <ul>
-                        <li><span className="shape-type-select-button">Other</span></li>
-                    </ul>
-                </div>
+    return (
+        <div className="sidebar-container">
+            <h3>Shapes</h3>
+            <input className="search-shapes-input" placeholder="Search shape"></input>
+            <div className="shapes-container">
+                <ul>
+                    <li><span onClick={setToggle}
+                              className="shape-type-select-button">Fundamental Items</span>
+                        {toggle && (
+                            <ul>
+                                <span onClick={event => props.createNewShape(<Resistor />)}>
+                                    <AddShapeButton onClick={props.setIsDragged(false)} 
+                                                    id="shape-button" 
+                                                    draggable
+                                                    onDragEnd={(e)=>props.onDragEndHandler(e, <Resistor />)}
+                                                    onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.Resistor)}>
+                                        <Resistor className="shape-button-icon" id="resistor" />Resistor
+                                    </AddShapeButton>
+                                </span>
+                                <span onClick={event => props.createNewShape(<Inductor />)}>
+                                    <AddShapeButton onClick={props.setIsDragged(false)}
+                                                    id="shape-button"
+                                                    draggable
+                                                    onDragEnd={(e)=>props.onDragEndHandler(e, <Inductor />)}
+                                                    onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.Inductor)}>
+                                        <Inductor className="shape-button-icon" id="inductor" />Inductor
+                                    </AddShapeButton>
+                                </span>
+                                <span onClick={event => props.createNewShape(<Capacitor />)}>
+                                    <AddShapeButton onClick={props.setIsDragged(false)}
+                                                    id="shape-button"
+                                                    draggable
+                                                    onDragEnd={(e)=>props.onDragEndHandler(e, <Capacitor />)}
+                                                    onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.Capacitor)}>
+                                        <Capacitor className="shape-button-icon" id="capacitor" />Capacitor
+                                    </AddShapeButton>
+                                </span>
+                            </ul>
+                        )}
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <span className="shape-type-select-button">
+                            Other
+                        </span>
+                    </li>
+                </ul>
             </div>
-        );
+        </div>
+    );
 }
 
 export default Sidebar;
