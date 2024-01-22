@@ -78,10 +78,6 @@ function App() {
         setIsCanBeDropped(false);
     }
     
-    const onDragOverHandler = (e) => {
-        /*setIsCanBeDropped(true);*/
-    }
-    
     /**
      * Срабатывает, когда пользователь заканчивает перетаскивать элемент.
      * @param event
@@ -151,7 +147,6 @@ function App() {
                         <Canvas shapes={shapes}
                                 onDragEnterHandler={onDragEnterHandler}
                                 onDragLeaveHandler={onDragLeaveHandler}
-                                onDragOverHandler={onDragOverHandler}
                                 isDragged={isDragged}
                                 shapeDropPosition={shapeDropPosition}
                                 setOnGrid={setOnGrid} />
