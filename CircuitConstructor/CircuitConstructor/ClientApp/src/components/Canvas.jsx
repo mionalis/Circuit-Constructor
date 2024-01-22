@@ -23,15 +23,15 @@ const Canvas = (props) => {
             event.preventDefault();
         });
     }, [])
-
+    
     const increasePatternSize = (coordinate, property, sizeProperty, triggerZoneLength) => {
         const canvas = document.getElementById('canvas');
         const dotPattern = document.getElementById('pattern');
-
-        if (coordinate > canvas[sizeProperty] - triggerZoneLength) {
-            const patternSize = dotPattern[sizeProperty];
-            const newPatternSize = patternSize + patternSize / 3;
-            dotPattern.style[property] = `${newPatternSize}px`;
+        let patternSize = dotPattern[sizeProperty];
+        
+        if (coordinate > patternSize - triggerZoneLength) {
+            patternSize += canvas[sizeProperty] / 3;
+            dotPattern.style[property] = `${patternSize}px`;
         }
     };
     

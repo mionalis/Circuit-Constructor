@@ -75,8 +75,8 @@ const Shape = (props) => {
             setCurrentPosition({x: props.setOnGrid(data.x, 20), y: props.setOnGrid(data.y, 20)});
         }
         
-        props.increasePatternSize(data.y, 'height', 'clientHeight', 60);
-        props.increasePatternSize(data.x, 'width', 'clientWidth', 120);
+        props.increasePatternSize(data.y, 'height', 'clientHeight', 90);
+        props.increasePatternSize(data.x, 'width', 'clientWidth', 240);
     }
     
     const onClickHandler = () => {
