@@ -92,8 +92,8 @@ function App() {
 
         const canvas = document.getElementById("canvas");
         
-        const x = setOnGrid(event.clientX - canvas.offsetLeft, 20);
-        const y = setOnGrid(event.clientY - canvas.offsetTop, 20);
+        const x = setOnGrid(event.clientX - canvas.offsetLeft + canvas.scrollLeft, 20);
+        const y = setOnGrid(event.clientY - canvas.offsetTop + canvas.scrollTop, 20);
         setShapeDropPosition({x: x, y: y});
     }
 
