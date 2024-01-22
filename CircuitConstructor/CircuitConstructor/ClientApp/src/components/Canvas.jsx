@@ -29,7 +29,8 @@ const Canvas = (props) => {
              id="canvas" 
              ref={canvasRef} 
              onDragEnter={props.onDragEnterHandler} 
-             onDragLeave={props.onDragLeaveHandler}>
+             onDragLeave={props.onDragLeaveHandler}
+             onDragOver={props.onDragOver}>
                 {props.shapes.map(shape => <Shape post={shape} 
                                                   key={shape.id}
                                                   isDragged={props.isDragged}

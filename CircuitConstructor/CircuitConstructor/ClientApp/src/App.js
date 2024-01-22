@@ -54,21 +54,32 @@ function App() {
      * @param shapeType - Тип элемента.
      */
     const onDragStartHandler = (event, shapeType) => {
+        var shapes = document.querySelectorAll('.shape');
+        shapes.forEach(function(element) {
+            element.classList.add('shape-pointer-events-disable');
+        });
+        
         setGhostDragImage(event, shapeType);
     }
 
     /**
      * Срабатывает, когда перетаскиваемый элемент входит на Canvas. 
      */
-    const onDragEnterHandler = () => {
+    const onDragEnterHandler = (event) => {
+        event.preventDefault();
         setIsCanBeDropped(true);
     }
-
+    
     /**
      * Срабатывает, когда перетаскиваемый элемент покидает Canvas.
      */
-    const onDragLeaveHandler = () => {
+    const onDragLeaveHandler = (event) => {
+        event.preventDefault();
         setIsCanBeDropped(false);
+    }
+    
+    const onDragOverHandler = (e) => {
+        /*setIsCanBeDropped(true);*/
     }
     
     /**
@@ -81,6 +92,11 @@ function App() {
             return;
         }
 
+        var shapes = document.querySelectorAll('.shape');
+        shapes.forEach(function(element) {
+            element.classList.remove('shape-pointer-events-disable');
+        });
+        
         createNewShape(shapeType);
         setIsCanBeDropped(false);
         setIsDragged(true);
@@ -135,6 +151,7 @@ function App() {
                         <Canvas shapes={shapes}
                                 onDragEnterHandler={onDragEnterHandler}
                                 onDragLeaveHandler={onDragLeaveHandler}
+                                onDragOverHandler={onDragOverHandler}
                                 isDragged={isDragged}
                                 shapeDropPosition={shapeDropPosition}
                                 setOnGrid={setOnGrid} />

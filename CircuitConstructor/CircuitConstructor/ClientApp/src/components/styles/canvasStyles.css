@@ -26,6 +26,10 @@
     position: absolute;
 }
 
+.shape-pointer-events-disable {
+    pointer-events: none;
+}
+
 .shape-on-drag {
     display: inline-block;
     color: var(--canvas-dot-pattern-color);
