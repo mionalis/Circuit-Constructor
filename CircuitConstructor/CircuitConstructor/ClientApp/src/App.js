@@ -62,8 +62,8 @@ function App() {
      */
     const onDragEnterHandler = (event) => {
         event.preventDefault();
-        SetShapesPointerEventsDisable();
         setIsCanBeDropped(true);
+        SetShapesPointerEventsDisable();
     }
     
     /**
