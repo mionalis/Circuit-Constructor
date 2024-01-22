@@ -1,5 +1,6 @@
+import React, {useEffect, useMemo, useState} from 'react';
 import Draggable, { DraggableData } from "react-draggable";
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import useComponentVisible from './services/useComponentVisible';
 import "./styles/canvasStyles.css";
 
 /**
@@ -32,9 +33,10 @@ const Shape = (props) => {
      * Устанавливает стартовый стиль элемента.
      */
     useEffect(() => {
+        setIsComponentVisible(true);
         setStyle("shape");
     }, []);
-
+    
     /**
      * Срабатывает при перемещении элемента по Canvas.
      * @param event
@@ -62,28 +64,7 @@ const Shape = (props) => {
         }
     }
 
-    const ref = useRef(null);
-    
-    function useComponentVisible(initialIsVisible) {
-        const [isComponentVisible, setIsComponentVisible] = useState(initialIsVisible);
-
-        const handleClickOutside = (event) => {
-            if (ref.current && !ref.current.contains(event.target)) {
-                setIsComponentVisible(false);
-            }
-        };
-
-        useEffect(() => {
-            document.addEventListener('click', handleClickOutside, true);
-            return () => {
-                document.removeEventListener('click', handleClickOutside, true);
-            };
-        }, []);
-
-        return { isComponentVisible, setIsComponentVisible };
-    }
-
-    const { isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
+    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
 
     const onClickHandler = () => {
         setIsComponentVisible(true);
