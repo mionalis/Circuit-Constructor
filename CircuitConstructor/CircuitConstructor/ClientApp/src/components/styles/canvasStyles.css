@@ -20,22 +20,30 @@
     width: 100vw;
 }
 
-.shape {
+.shape-container,
+.shape,
+.shape-focus,
+.shape-on-drag {
     display: inline-block;
-    color: black;
     position: absolute;
+}
+
+.shape-focus,
+.shape-on-drag {
+    border: 2px dashed var(--draggable-element-border-color);
+    margin: -2px -2px -2px -2px;
+}
+
+.shape {
+    color: black;
+}
+
+.shape-on-drag {
+    color: var(--canvas-dot-pattern-color);
 }
 
 .shape-pointer-events-disable {
     pointer-events: none;
-}
-
-.shape-on-drag {
-    display: inline-block;
-    color: var(--canvas-dot-pattern-color);
-    border:  2px dashed var(--draggable-element-border-color);
-    margin: -2px -2px -2px -1px;
-    position: absolute;
 }
 
 .ghost-drag-image {

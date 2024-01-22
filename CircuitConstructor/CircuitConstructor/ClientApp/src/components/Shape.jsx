@@ -35,9 +35,20 @@ const Shape = (props) => {
      * Устанавливает стартовый стиль элемента.
      */
     useEffect(() => {
-        setIsComponentVisible(true);
         setStyle("shape");
+        setIsComponentVisible(true);
     }, []);
+
+    useEffect(() => {
+        console.log('aaaa');
+        
+        if (isComponentVisible) {
+            setStyle("shape-focus");
+        }
+        else {
+            setStyle("shape");
+        }
+    }, [isComponentVisible]);
     
     /**
      * Срабатывает при перемещении элемента по Canvas.
@@ -74,7 +85,7 @@ const Shape = (props) => {
         <Draggable position={{x: currentPosition.x, y: currentPosition.y}}
                    onDrag={onDragHandler} 
                    onStop ={OnDragStopHandler}>
-            <div> {isComponentVisible && (<div style={{position:'absolute'}}>Dropdown Component</div>)}
+            <div className="shape-container"> {isComponentVisible && (<div style={{position:'absolute'}}></div>)}
                 <div className={style} ref={ref} onClick={onClickHandler}>
                     {props.post.body}
                 </div>

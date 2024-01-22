@@ -13,9 +13,11 @@ export default function useComponentVisible(initialIsVisible) {
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
         document.addEventListener('dragstart', handleClickOutside, true);
+        document.addEventListener('mousedown', handleClickOutside, true);
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
             document.removeEventListener('dragstart', handleClickOutside, true);
+            document.addEventListener('mousedown', handleClickOutside, true);
         };
     }, []);
 
