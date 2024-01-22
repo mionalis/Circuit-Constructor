@@ -35,7 +35,7 @@ const Sidebar = (props) => {
             <div className="shapes-container">
                 <ul>
                     <li><span onClick={setToggle}
-                              className="shape-type-select-button">Fundamental Items</span>
+                              className="shape-type-select-button button-common">Fundamental Items</span>
                         {toggle && (
                             <ul>
                                 <span onClick={event => props.createNewShape(<Resistor />)}>
@@ -71,7 +71,7 @@ const Sidebar = (props) => {
                 </ul>
                 <ul>
                     <li>
-                        <span className="shape-type-select-button">
+                        <span className="shape-type-select-button button-common">
                             Other
                         </span>
                     </li>

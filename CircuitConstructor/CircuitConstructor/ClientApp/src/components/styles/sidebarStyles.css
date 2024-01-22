@@ -43,18 +43,21 @@ ul {
     padding: 0;
 }
 
-.shape-type-select-button {
-    background-color: var(--background-color);
-    border-radius:  var(--rounding-value);
+.button-common {
     border: none;
-    display: block;
+    border-radius: var(--rounding-value);
     color: var(--font-color);
     cursor: pointer;
     margin: 5px 15px 10px;
     outline: none;
+    user-select: none;
+}
+
+.shape-type-select-button {
+    background-color: var(--background-color);
+    display: block;
     padding: 8px;
     max-width: 100%;
-    user-select: none;
 }
 
 .shape-type-select-button:hover {
@@ -64,14 +67,8 @@ ul {
 
 .shape-button {
     background-color: transparent;
-    border: none;
-    border-radius:  var(--rounding-value);
-    color: var(--font-color);
-    cursor: pointer;
-    margin: 5px 15px 10px 30px;
-    outline: none;
     padding: 0;
-    user-select: none;
+    margin-left: 30px;
 }
 
 .shape-button:hover {

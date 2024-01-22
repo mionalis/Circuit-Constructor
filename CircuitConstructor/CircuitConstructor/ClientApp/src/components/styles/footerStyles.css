@@ -21,20 +21,11 @@
     cursor: pointer;
     height: 5px;
     width: 300px;
-    -webkit-appearance: none;
 }
 
-.scale-slider::-webkit-slider-thumb {
-    appearance: none;
-    background-color: var(--accent-color);
-    border: none;
-    border-radius: 50%;
-    height: 12px;
-    width: 12px;
-    -webkit-appearance: none;
-}
-
+.scale-slider::-webkit-slider-thumb,
 .scale-slider::-moz-range-thumb {
+    appearance: none;
     background-color: var(--accent-color);
     border: none;
     border-radius: 50%;
