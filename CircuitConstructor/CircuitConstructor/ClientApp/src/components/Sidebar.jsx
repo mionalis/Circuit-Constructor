@@ -1,5 +1,6 @@
-﻿import React, {useState} from 'react';
+﻿import React from 'react';
 import AddShapeButton from "./AddShapeButton";
+import useToggle from './customHooks/useToggle';
 import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor.svg";
 import {ReactComponent as Inductor} from "./svgElements/circuitElements/Inductor.svg";
 import {ReactComponent as Capacitor} from "./svgElements/circuitElements/Capacitor.svg";
@@ -13,22 +14,6 @@ const shapeTypes = {
     Resistor: 'resistor',
     Inductor: 'inductor',
     Capacitor: 'capacitor'
-};
-
-/**
- * Реализует раскрывающийся список.
- * @returns {[toggleValue, toggler]}
- */
-const useToggle = () => {
-    /**
-     * Хранит и устанавливает содержимое раскрывающегося списка.
-     */
-    const [toggleValue, setToggleValue] = useState();
-    /**
-     * Раскрывает или скрывает содержимое раскрывающегося списка.
-     */
-    const toggler = () => {setToggleValue(!toggleValue)};
-    return [toggleValue, toggler];
 };
 
 /**

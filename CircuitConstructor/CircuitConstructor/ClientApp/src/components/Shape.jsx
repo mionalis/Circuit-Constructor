@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import Draggable, { DraggableData } from "react-draggable";
-import useComponentVisible from './services/useComponentVisible';
+import useComponentVisible from './customHooks/useComponentVisible';
 import "./styles/canvasStyles.css";
 
 /**
