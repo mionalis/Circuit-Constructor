@@ -65,6 +65,13 @@ function App() {
     }
 
     /**
+     * Срабатывает, когда перетаскиваемый элемент покидает Canvas.
+     */
+    const onDragLeaveHandler = () => {
+        setIsCanBeDropped(false);
+    }
+    
+    /**
      * Срабатывает, когда пользователь заканчивает перетаскивать элемент.
      * @param event
      * @param shapeType - Тип выбранной фигуры.
@@ -127,6 +134,7 @@ function App() {
                         <TopMenu />
                         <Canvas shapes={shapes}
                                 onDragEnterHandler={onDragEnterHandler}
+                                onDragLeaveHandler={onDragLeaveHandler}
                                 isDragged={isDragged}
                                 shapeDropPosition={shapeDropPosition}
                                 setOnGrid={setOnGrid} />
