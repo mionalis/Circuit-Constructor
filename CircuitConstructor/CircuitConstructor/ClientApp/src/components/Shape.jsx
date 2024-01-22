@@ -40,8 +40,6 @@ const Shape = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log('aaaa');
-        
         if (isComponentVisible) {
             setStyle("shape-focus");
         }
@@ -72,11 +70,15 @@ const Shape = (props) => {
     const OnDragStopHandler  = (event: MouseEvent, data: DraggableData) => {
         setIsComponentVisible(true);
         setStyle("shape");
+        
         if (data.x >= 0 && data.y >= 0) {
             setCurrentPosition({x: props.setOnGrid(data.x, 20), y: props.setOnGrid(data.y, 20)});
         }
+        
+        props.increasePatternSize(data.y, 'height', 'clientHeight', 60);
+        props.increasePatternSize(data.x, 'width', 'clientWidth', 120);
     }
-
+    
     const onClickHandler = () => {
         setIsComponentVisible(true);
     }

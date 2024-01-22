@@ -1,4 +1,8 @@
-﻿.sidebar-container {
+﻿:root {
+    --rounding-value: 10px;
+}
+
+.sidebar-container {
     background-color: white;
     display: flex;
     flex-grow: 0;
@@ -18,7 +22,7 @@ h3 {
 .search-shapes-input {
     background-color: white;
     border: 1px solid var(--accent-color);
-    border-radius: 5px;
+    border-radius: var(--rounding-value);
     color: var(--font-color);
     cursor: pointer;
     margin: 15px 15px 25px;
@@ -41,7 +45,7 @@ ul {
 
 .shape-type-select-button {
     background-color: var(--background-color);
-    border-radius: 5px;
+    border-radius:  var(--rounding-value);
     border: none;
     display: block;
     color: var(--font-color);
@@ -61,7 +65,7 @@ ul {
 .shape-button {
     background-color: transparent;
     border: none;
-    border-radius: 5px;
+    border-radius:  var(--rounding-value);
     color: var(--font-color);
     cursor: pointer;
     margin: 5px 15px 10px 30px;

@@ -23,18 +23,29 @@ const Canvas = (props) => {
             event.preventDefault();
         });
     }, [])
+
+    const increasePatternSize = (coordinate, property, sizeProperty, triggerZoneLength) => {
+        const canvas = document.getElementById('canvas');
+        const dotPattern = document.getElementById('pattern');
+
+        if (coordinate > canvas[sizeProperty] - triggerZoneLength) {
+            const patternSize = dotPattern[sizeProperty];
+            const newPatternSize = patternSize + patternSize / 3;
+            dotPattern.style[property] = `${newPatternSize}px`;
+        }
+    };
     
     return (
-        <div className="canvas"
-             id="canvas" 
-             ref={canvasRef} 
-             onDragEnter={props.onDragEnterHandler} 
-             onDragLeave={props.onDragLeaveHandler}>
+        <div className="canvas" id="canvas">
+            <div className="dot-pattern-canvas" id="pattern" ref={canvasRef} onDragEnter={props.onDragEnterHandler}
+                 onDragLeave={props.onDragLeaveHandler}>
                 {props.shapes.map(shape => <Shape post={shape} 
                                                   key={shape.id}
                                                   isDragged={props.isDragged}
                                                   shapeDropPosition={props.shapeDropPosition}
-                                                  setOnGrid={props.setOnGrid} />)}
+                                                  setOnGrid={props.setOnGrid}
+                                                  increasePatternSize={increasePatternSize}/>)}
+            </div>
         </div>
     );
 }
