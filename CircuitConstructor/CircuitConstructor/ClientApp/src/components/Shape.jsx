@@ -1,5 +1,5 @@
 import Draggable, { DraggableData } from "react-draggable";
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import "./styles/canvasStyles.css";
 
 /**
@@ -20,15 +20,19 @@ const Shape = (props) => {
     const [currentPosition, setCurrentPosition] = useState({x: 0, y: 0});
 
     /**
-     * Устанавливает стартовый стиль элемента. Задает элементу начальные координаты, если он
-     * был добавлен с помощью перетаскивания.
+     * Задает элементу начальные координаты, если он был добавлен с помощью перетаскивания.
      */
-    useEffect(() => {
-        setStyle("shape");
-        
+    useMemo(()=>{
         if (props.isDragged) {
             setCurrentPosition({x: props.shapeDropPosition.x, y: props.shapeDropPosition.y});
         }
+    }, [])
+    
+    /**
+     * Устанавливает стартовый стиль элемента.
+     */
+    useEffect(() => {
+        setStyle("shape");
     }, []);
 
     /**
