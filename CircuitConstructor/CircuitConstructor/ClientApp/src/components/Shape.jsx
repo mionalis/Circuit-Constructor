@@ -20,6 +20,8 @@ const Shape = (props) => {
      */
     const [currentPosition, setCurrentPosition] = useState({x: 0, y: 0});
 
+    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
+
     /**
      * Задает элементу начальные координаты, если он был добавлен с помощью перетаскивания.
      */
@@ -64,8 +66,6 @@ const Shape = (props) => {
         }
     }
 
-    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
-
     const onClickHandler = () => {
         setIsComponentVisible(true);
     }
@@ -75,9 +75,9 @@ const Shape = (props) => {
                    onDrag={onDragHandler} 
                    onStop ={OnDragStopHandler}>
             <div> {isComponentVisible && (<div style={{position:'absolute'}}>Dropdown Component</div>)}
-            <div className={style} ref={ref} onClick={onClickHandler}>
-                {props.post.body}
-            </div>
+                <div className={style} ref={ref} onClick={onClickHandler}>
+                    {props.post.body}
+                </div>
             </div>
         </Draggable>
     );
