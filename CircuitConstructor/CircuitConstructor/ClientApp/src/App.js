@@ -54,11 +54,6 @@ function App() {
      * @param shapeType - Тип элемента.
      */
     const onDragStartHandler = (event, shapeType) => {
-        var shapes = document.querySelectorAll('.shape');
-        shapes.forEach(function(element) {
-            element.classList.add('shape-pointer-events-disable');
-        });
-        
         setGhostDragImage(event, shapeType);
     }
 
@@ -67,6 +62,7 @@ function App() {
      */
     const onDragEnterHandler = (event) => {
         event.preventDefault();
+        SetShapesPointerEventsDisable();
         setIsCanBeDropped(true);
     }
     
@@ -76,6 +72,7 @@ function App() {
     const onDragLeaveHandler = (event) => {
         event.preventDefault();
         setIsCanBeDropped(false);
+        SetShapesPointerEventsAvailable();
     }
     
     /**
@@ -88,11 +85,7 @@ function App() {
             return;
         }
 
-        var shapes = document.querySelectorAll('.shape');
-        shapes.forEach(function(element) {
-            element.classList.remove('shape-pointer-events-disable');
-        });
-        
+        SetShapesPointerEventsAvailable();
         createNewShape(shapeType);
         setIsCanBeDropped(false);
         setIsDragged(true);
@@ -132,6 +125,28 @@ function App() {
      */
     const setOnGrid = (coordinateValue, gridStep)  => {
         return Math.round(coordinateValue / gridStep) * gridStep;
+    }
+
+    /**
+     * Устанавливает в стиль элементов цепи свойство pointer-events: none, запрещая события мыши.
+     * @constructor
+     */
+    const SetShapesPointerEventsDisable = () => {
+        const shapes = document.querySelectorAll('.shape');
+        shapes.forEach(function(element) {
+            element.classList.add('shape-pointer-events-disable');
+        });
+    }
+
+    /**
+     * Удаляет из стиля элементов цепи свойство pointer-events: none, разрешая события мыши.
+     * @constructor
+     */
+    const SetShapesPointerEventsAvailable = () => {
+        const shapes = document.querySelectorAll('.shape');
+        shapes.forEach(function(element) {
+            element.classList.remove('shape-pointer-events-disable');
+        });
     }
     
     return (
