@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import Draggable, { DraggableData } from "react-draggable";
 import useComponentVisible from './customHooks/useComponentVisible';
+import {ReactComponent as RotateShapeIcon} from "./svgElements/interfaceElements/RotateShapeIcon.svg";
 import "./styles/canvasStyles.css";
 
 /**
@@ -35,7 +36,6 @@ const Shape = (props) => {
      * Устанавливает стартовый стиль элемента.
      */
     useEffect(() => {
-        setStyle("shape");
         setIsComponentVisible(true);
     }, []);
 
@@ -82,12 +82,18 @@ const Shape = (props) => {
     const onClickHandler = () => {
         setIsComponentVisible(true);
     }
+
+    const onClickRotateButtonHandler = () => {
+        setIsComponentVisible(true);
+        setStyle("shape-focus");
+    }
     
     return (
         <Draggable position={{x: currentPosition.x, y: currentPosition.y}}
                    onDrag={onDragHandler} 
                    onStop ={OnDragStopHandler}>
-            <div className="shape-container"> {isComponentVisible && (<div style={{position:'absolute'}}></div>)}
+            <div className="shape-container"> 
+                {isComponentVisible && (<RotateShapeIcon ref={ref} className="rotateButton" onClick={onClickRotateButtonHandler}/>)}
                 <div className={style} ref={ref} onClick={onClickHandler}>
                     {props.post.body}
                 </div>

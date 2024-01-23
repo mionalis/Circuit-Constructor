@@ -46,6 +46,15 @@
 
 .ghost-drag-image {
     position: absolute;
-    top: -60px;
     right: -60px;
+    top: -60px;
+}
+
+.rotateButton {
+    color: var(--draggable-element-border-color);
+    height: 15px;
+    position: absolute;
+    right: 0;
+    top: 43px;
+    width: 15px;
 }
