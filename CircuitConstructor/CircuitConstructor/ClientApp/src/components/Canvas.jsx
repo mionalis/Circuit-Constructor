@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Shape from "./Shape";
 import "./styles/canvasStyles.css";
 
@@ -34,17 +34,38 @@ const Canvas = (props) => {
             dotPattern.style[property] = `${patternSize}px`;
         }
     };
+
+    const [thisCanRotate, setThisCanRotate] = useState(false);
+    const [isDragDisabled, setIsDragDisabled] = useState(false);
+    
+    const onMouseMoveHandler = (e) => {
+        if(thisCanRotate) {
+           
+        }
+    }
+
+    const onMouseUpHandler = (e) => {
+        setThisCanRotate(false);
+    }
     
     return (
         <div className="canvas" id="canvas">
-            <div className="dot-pattern-canvas" id="pattern" ref={canvasRef} onDragEnter={props.onDragEnterHandler}
-                 onDragLeave={props.onDragLeaveHandler}>
+            <div className="dot-pattern-canvas" 
+                 id="pattern" ref={canvasRef}
+                 onDragEnter={props.onDragEnterHandler}
+                 onDragLeave={props.onDragLeaveHandler}
+                 onMouseMove={onMouseMoveHandler}
+                 onMouseUp={onMouseUpHandler}>
                 {props.shapes.map(shape => <Shape post={shape} 
                                                   key={shape.id}
                                                   isDragged={props.isDragged}
                                                   shapeDropPosition={props.shapeDropPosition}
                                                   setOnGrid={props.setOnGrid}
-                                                  increasePatternSize={increasePatternSize}/>)}
+                                                  increasePatternSize={increasePatternSize}
+                                                  setThisCanRotate={setThisCanRotate}
+                                                  thisCanRotate={thisCanRotate}
+                                                  isDragDisabled={isDragDisabled}
+                                                  setIsDragDisabled={setIsDragDisabled}/>)}
             </div>
         </div>
     );

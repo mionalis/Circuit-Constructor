@@ -9,6 +9,7 @@
     height: 100vh;
     overflow: hidden;
     width: 100vw;
+    user-select: none;
 }
 
 .canvas-container {

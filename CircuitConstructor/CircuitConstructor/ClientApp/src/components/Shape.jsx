@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import Draggable, { DraggableData } from "react-draggable";
 import useComponentVisible from './customHooks/useComponentVisible';
 import {ReactComponent as RotateShapeIcon} from "./svgElements/interfaceElements/RotateShapeIcon.svg";
@@ -23,6 +23,8 @@ const Shape = (props) => {
 
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
 
+    const [shapeCenter, setShapeCenter] = useState({});
+
     /**
      * Задает элементу начальные координаты, если он был добавлен с помощью перетаскивания.
      */
@@ -37,6 +39,13 @@ const Shape = (props) => {
      */
     useEffect(() => {
         setIsComponentVisible(true);
+        
+        const rect = ref.current.getBoundingClientRect();
+        setShapeCenter({
+            x: rect.left - window.scrollX + (rect.width / 2),
+            y: rect.top - window.scrollY + (rect.height / 2),
+        });
+        
     }, []);
 
     useEffect(() => {
@@ -88,12 +97,36 @@ const Shape = (props) => {
         setStyle("shape-focus");
     }
     
+    const rotateButtonRef = useRef();
+    
+    const onMouseDownHandler = (e) => {
+        props.setThisCanRotate(true);
+        setIsComponentVisible(true);
+        setStyle("shape-focus");
+    }
+    
+    const onMouseEnterHandler = (e) => {
+        props.setIsDragDisabled(true);
+    }
+
+    const onMouseLeaveHandler = () => {
+        props.setIsDragDisabled(false);
+    }
+    
     return (
         <Draggable position={{x: currentPosition.x, y: currentPosition.y}}
                    onDrag={onDragHandler} 
-                   onStop ={OnDragStopHandler}>
+                   onStop ={OnDragStopHandler}
+                   disabled={props.isDragDisabled}>
             <div className="shape-container"> 
-                {isComponentVisible && (<RotateShapeIcon ref={ref} className="rotateButton" onClick={onClickRotateButtonHandler}/>)}
+                {isComponentVisible && (
+                    <RotateShapeIcon 
+                        ref={(el)=> {ref.current=el; rotateButtonRef.current = el;}} 
+                        className="rotateButton" 
+                        onClick={onClickRotateButtonHandler}
+                        onMouseDown={onMouseDownHandler}
+                    onMouseEnter={onMouseEnterHandler}
+                    onMouseLeave={onMouseLeaveHandler}/>)}
                 <div className={style} ref={ref} onClick={onClickHandler}>
                     {props.post.body}
                 </div>

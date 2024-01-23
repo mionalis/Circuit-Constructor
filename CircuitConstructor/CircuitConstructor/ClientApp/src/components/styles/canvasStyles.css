@@ -18,7 +18,11 @@
     width: 100%;
 }
 
-.shape-container,
+.shape-container {
+    display: inline-block;
+    position: relative;
+}
+
 .shape,
 .shape-focus,
 .shape-on-drag {
