@@ -52,12 +52,15 @@ const Canvas = (props) => {
     const handleRotate = ({ mouseViewportX, mouseViewportY }) => {
         const deltaX = mouseViewportX - shapeCenter.x;
         const deltaY = mouseViewportY - shapeCenter.y;
-        const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+        const initialAngle = 180;
+        const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) - initialAngle;
         
         setRotation(props.setOnGrid(angle, 20));
         
         const button = document.getElementById("shape");
+        const rotateButton = document.getElementById("rotate-button-container");
         button.style.rotate = `${rotation}deg`;
+        rotateButton.style.rotate = `${rotation}deg`;
     };
     
     const onMouseUpHandler = (e) => {

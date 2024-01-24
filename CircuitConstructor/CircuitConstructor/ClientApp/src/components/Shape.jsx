@@ -41,13 +41,15 @@ const Shape = (props) => {
         const rect = ref.current.getBoundingClientRect();
         props.setShapeCenter({
             x: rect.left - window.scrollX + (rect.width / 2),
-            y: rect.top - window.scrollY + (rect.height / 2),
+            y: rect.top - window.scrollY + (rect.height),
         });
     }, []);
 
     useEffect(() => {
         if (isComponentVisible) {
             setStyle("shape-focus");
+            const rotateButton = document.getElementById("rotate-button-container");
+            rotateButton.style.rotate = `${props.rotation}deg`;
         }
         else {
             setStyle("shape");
@@ -117,13 +119,16 @@ const Shape = (props) => {
                    disabled={props.isDragDisabled}>
             <div className="shape-container"> 
                 {isComponentVisible && (
-                    <RotateShapeIcon 
-                        ref={(el)=> {ref.current=el; rotateButtonRef.current = el;}} 
-                        className="rotateButton" 
-                        onClick={onClickRotateButtonHandler}
-                        onMouseDown={onMouseDownHandler}
-                        onMouseEnter={onMouseEnterHandler}
-                        onMouseLeave={onMouseLeaveHandler}/>)}
+                    <div className="rotate-button-container" id="rotate-button-container">
+                        <RotateShapeIcon 
+                            ref={(el)=> {ref.current=el; rotateButtonRef.current = el;}} 
+                            className="rotateButton"
+                            id="rotateButton"
+                            onClick={onClickRotateButtonHandler}
+                            onMouseDown={onMouseDownHandler}
+                            onMouseEnter={onMouseEnterHandler}
+                            onMouseLeave={onMouseLeaveHandler}/>
+                    </div>)}
                 <div className={style} ref={ref} onClick={onClickHandler} id="shape">
                     {props.post.body}
                 </div>

@@ -20,7 +20,7 @@
 
 .shape-container {
     display: inline-block;
-    position: relative;
+    position: absolute;
 }
 
 .shape,
@@ -54,11 +54,17 @@
     top: -60px;
 }
 
+.rotate-button-container {
+    height: 70px;
+    width: 130px;
+    position: absolute;
+    right: -115px;
+    bottom: -55px;
+    display: flex;
+    align-items: flex-end;
+}
+
 .rotateButton {
     color: var(--draggable-element-border-color);
-    height: 15px;
-    position: absolute;
-    right: 0;
-    top: 43px;
     width: 15px;
 }
