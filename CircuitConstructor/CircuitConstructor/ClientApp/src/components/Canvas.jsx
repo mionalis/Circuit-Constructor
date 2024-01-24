@@ -37,13 +37,29 @@ const Canvas = (props) => {
 
     const [thisCanRotate, setThisCanRotate] = useState(false);
     const [isDragDisabled, setIsDragDisabled] = useState(false);
+    const [rotation, setRotation] = useState(0);
+    const [shapeCenter, setShapeCenter] = useState({});
     
-    const onMouseMoveHandler = (e) => {
+    const onMouseMoveHandler = (event) => {
         if(thisCanRotate) {
-           
+            const mouseViewportX = event.clientX - window.scrollX;
+            const mouseViewportY = event.clientY - window.scrollY;
+            
+            handleRotate({ mouseViewportX, mouseViewportY });
         }
     }
 
+    const handleRotate = ({ mouseViewportX, mouseViewportY }) => {
+        const deltaX = mouseViewportX - shapeCenter.x;
+        const deltaY = mouseViewportY - shapeCenter.y;
+        const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+        
+        setRotation(props.setOnGrid(angle, 20));
+        
+        const button = document.getElementById("shape");
+        button.style.rotate = `${rotation}deg`;
+    };
+    
     const onMouseUpHandler = (e) => {
         setThisCanRotate(false);
     }
@@ -51,7 +67,8 @@ const Canvas = (props) => {
     return (
         <div className="canvas" id="canvas">
             <div className="dot-pattern-canvas" 
-                 id="pattern" ref={canvasRef}
+                 id="pattern" 
+                 ref={canvasRef}
                  onDragEnter={props.onDragEnterHandler}
                  onDragLeave={props.onDragLeaveHandler}
                  onMouseMove={onMouseMoveHandler}
@@ -65,7 +82,9 @@ const Canvas = (props) => {
                                                   setThisCanRotate={setThisCanRotate}
                                                   thisCanRotate={thisCanRotate}
                                                   isDragDisabled={isDragDisabled}
-                                                  setIsDragDisabled={setIsDragDisabled}/>)}
+                                                  setIsDragDisabled={setIsDragDisabled}
+                                                  setShapeCenter={setShapeCenter}
+                                                  rotation={rotation}/>)}
             </div>
         </div>
     );

@@ -23,8 +23,6 @@ const Shape = (props) => {
 
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
 
-    const [shapeCenter, setShapeCenter] = useState({});
-
     /**
      * Задает элементу начальные координаты, если он был добавлен с помощью перетаскивания.
      */
@@ -41,11 +39,10 @@ const Shape = (props) => {
         setIsComponentVisible(true);
         
         const rect = ref.current.getBoundingClientRect();
-        setShapeCenter({
+        props.setShapeCenter({
             x: rect.left - window.scrollX + (rect.width / 2),
             y: rect.top - window.scrollY + (rect.height / 2),
         });
-        
     }, []);
 
     useEffect(() => {
@@ -105,7 +102,7 @@ const Shape = (props) => {
         setStyle("shape-focus");
     }
     
-    const onMouseEnterHandler = (e) => {
+    const onMouseEnterHandler = () => {
         props.setIsDragDisabled(true);
     }
 
@@ -125,9 +122,9 @@ const Shape = (props) => {
                         className="rotateButton" 
                         onClick={onClickRotateButtonHandler}
                         onMouseDown={onMouseDownHandler}
-                    onMouseEnter={onMouseEnterHandler}
-                    onMouseLeave={onMouseLeaveHandler}/>)}
-                <div className={style} ref={ref} onClick={onClickHandler}>
+                        onMouseEnter={onMouseEnterHandler}
+                        onMouseLeave={onMouseLeaveHandler}/>)}
+                <div className={style} ref={ref} onClick={onClickHandler} id="shape">
                     {props.post.body}
                 </div>
             </div>
