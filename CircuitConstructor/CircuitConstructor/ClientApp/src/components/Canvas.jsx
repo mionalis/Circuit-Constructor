@@ -14,6 +14,7 @@ const Canvas = (props) => {
      * @type {React.MutableRefObject<undefined>}
      */
     const canvasRef = useRef();
+    const dotPatternRef = useRef();
     const shapeRef = useRef(null);
     const rotateButtonContainerRef = useRef(null);
     const shapeRefs = props.shapes.map(() => createRef());
@@ -23,7 +24,7 @@ const Canvas = (props) => {
      * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
      */
     useEffect(() => {
-        canvasRef.current.addEventListener("dragover", (event) => {
+        dotPatternRef.current.addEventListener("dragover", (event) => {
             event.preventDefault();
         });
     }, [])
@@ -33,13 +34,11 @@ const Canvas = (props) => {
     }
     
     const increasePatternSize = (coordinate, property, sizeProperty, triggerZoneLength) => {
-        const canvas = document.getElementById('canvas');
-        const dotPattern = document.getElementById('pattern');
-        let patternSize = dotPattern[sizeProperty];
+        let patternSize = dotPatternRef.current[sizeProperty];
         
         if (coordinate > patternSize - triggerZoneLength) {
-            patternSize += canvas[sizeProperty] / 3;
-            dotPattern.style[property] = `${patternSize}px`;
+            patternSize += canvasRef.current[sizeProperty] / 3;
+            dotPatternRef.current.style[property] = `${patternSize}px`;
         }
     };
 
@@ -80,10 +79,10 @@ const Canvas = (props) => {
     }
     
     return (
-        <div className="canvas" id="canvas">
+        <div className="canvas" id="canvas"  ref={canvasRef}>
             <div className="dot-pattern-canvas" 
                  id="pattern" 
-                 ref={canvasRef}
+                 ref={dotPatternRef}
                  onDragEnter={props.onDragEnterHandler}
                  onDragLeave={props.onDragLeaveHandler}
                  onMouseMove={onMouseMoveHandler}

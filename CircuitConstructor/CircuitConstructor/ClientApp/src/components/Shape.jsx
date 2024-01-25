@@ -37,18 +37,12 @@ const Shape = React.forwardRef((props, ref) => {
      */
     useEffect(() => {
         setIsComponentVisible(true);
-        
-      /*  const rect = ref.current.getBoundingClientRect();
-        props.setShapeCenter({
-            x: rect.left - window.scrollX + (rect.width / 2),
-            y: rect.top - window.scrollY + (rect.height),
-        });*/
     }, []);
 
     useEffect(() => {
         if (isComponentVisible) {
             setStyle("shape-focus");
-            /*const rotateButton = document.getElementById("rotate-button-container");
+           /* const rotateButton = document.getElementById("rotate-button-container");
             rotateButton.style.rotate = `${props.rotation}deg`;*/
         }
         else {
