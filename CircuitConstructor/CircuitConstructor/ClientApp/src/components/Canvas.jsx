@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {createRef, useEffect, useRef, useState} from "react";
 import Shape from "./Shape";
 import "./styles/canvasStyles.css";
 
@@ -14,6 +14,10 @@ const Canvas = (props) => {
      * @type {React.MutableRefObject<undefined>}
      */
     const canvasRef = useRef();
+    const shapeRef = useRef(null);
+    const rotateButtonContainerRef = useRef(null);
+    const shapeRefs = props.shapes.map(() => createRef());
+    const [selectedShape, setSelectedShape] = useState(null);
     
     /**
      * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
@@ -23,6 +27,10 @@ const Canvas = (props) => {
             event.preventDefault();
         });
     }, [])
+
+    const onMouseDownHandler = (index) => {
+        setSelectedShape(shapeRefs[index].current);
+    }
     
     const increasePatternSize = (coordinate, property, sizeProperty, triggerZoneLength) => {
         const canvas = document.getElementById('canvas');
@@ -45,21 +53,25 @@ const Canvas = (props) => {
             const mouseViewportX = event.clientX - window.scrollX;
             const mouseViewportY = event.clientY - window.scrollY;
             
-            handleRotate({ mouseViewportX, mouseViewportY });
+            handleRotate({ mouseViewportX, mouseViewportY }, event);
         }
     }
 
-    const handleRotate = ({ mouseViewportX, mouseViewportY }) => {
-        const deltaX = mouseViewportX - shapeCenter.x;
-        const deltaY = mouseViewportY - shapeCenter.y;
+    const handleRotate = ({ mouseViewportX, mouseViewportY }, event) => {
+        const rect = selectedShape.getBoundingClientRect();
+        
+        const deltaX = mouseViewportX - (rect.left + (rect.width / 2));
+        const deltaY = mouseViewportY - (rect.top + rect.height / 2);
+        console.log(deltaY);
+        
         const initialAngle = 180;
         const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) - initialAngle;
         
-        setRotation(props.setOnGrid(angle, 20));
+        setRotation(props.setOnGrid(angle, 15));
         
-        const button = document.getElementById("shape");
-        const rotateButton = document.getElementById("rotate-button-container");
-        button.style.rotate = `${rotation}deg`;
+        const rotateButton = rotateButtonContainerRef.current;
+
+        selectedShape.style.rotate = `${rotation}deg`;
         rotateButton.style.rotate = `${rotation}deg`;
     };
     
@@ -76,8 +88,9 @@ const Canvas = (props) => {
                  onDragLeave={props.onDragLeaveHandler}
                  onMouseMove={onMouseMoveHandler}
                  onMouseUp={onMouseUpHandler}>
-                {props.shapes.map(shape => <Shape post={shape} 
-                                                  key={shape.id}
+                {props.shapes.map((shape, index) => <Shape post={shape}
+                                                  key={shape.id} 
+                                                           ref={shapeRefs[index]}
                                                   isDragged={props.isDragged}
                                                   shapeDropPosition={props.shapeDropPosition}
                                                   setOnGrid={props.setOnGrid}
@@ -87,7 +100,9 @@ const Canvas = (props) => {
                                                   isDragDisabled={isDragDisabled}
                                                   setIsDragDisabled={setIsDragDisabled}
                                                   setShapeCenter={setShapeCenter}
-                                                  rotation={rotation}/>)}
+                                                  rotation={rotation}
+                                                           onMouseDownHandler={() => onMouseDownHandler(index)}
+                                                  allRefs={{ shapeRef, rotateButtonContainerRef }}/>)}
             </div>
         </div>
     );

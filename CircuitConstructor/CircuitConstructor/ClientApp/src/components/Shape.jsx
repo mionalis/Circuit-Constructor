@@ -10,7 +10,7 @@ import "./styles/canvasStyles.css";
  * @returns {JSX.Element}
  * @constructor
  */
-const Shape = (props) => {
+const Shape = React.forwardRef((props, ref) => {
     /**
      * Хранит и устанавливает стиль элемента электрической цепи.
      */
@@ -21,7 +21,7 @@ const Shape = (props) => {
      */
     const [currentPosition, setCurrentPosition] = useState({x: 0, y: 0});
 
-    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
+    const { componentRef, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
 
     /**
      * Задает элементу начальные координаты, если он был добавлен с помощью перетаскивания.
@@ -38,18 +38,18 @@ const Shape = (props) => {
     useEffect(() => {
         setIsComponentVisible(true);
         
-        const rect = ref.current.getBoundingClientRect();
+      /*  const rect = ref.current.getBoundingClientRect();
         props.setShapeCenter({
             x: rect.left - window.scrollX + (rect.width / 2),
             y: rect.top - window.scrollY + (rect.height),
-        });
+        });*/
     }, []);
 
     useEffect(() => {
         if (isComponentVisible) {
             setStyle("shape-focus");
-            const rotateButton = document.getElementById("rotate-button-container");
-            rotateButton.style.rotate = `${props.rotation}deg`;
+            /*const rotateButton = document.getElementById("rotate-button-container");
+            rotateButton.style.rotate = `${props.rotation}deg`;*/
         }
         else {
             setStyle("shape");
@@ -119,9 +119,12 @@ const Shape = (props) => {
                    disabled={props.isDragDisabled}>
             <div className="shape-container"> 
                 {isComponentVisible && (
-                    <div className="rotate-button-container" id="rotate-button-container">
+                    <div className="rotate-button-container" 
+                         id="rotate-button-container"
+                         ref={props.allRefs.rotateButtonContainerRef}
+                         onMouseDown={props.onMouseDownHandler}>
                         <RotateShapeIcon 
-                            ref={(el)=> {ref.current=el; rotateButtonRef.current = el;}} 
+                            ref={(el)=> {componentRef.current=el; rotateButtonRef.current = el;}} 
                             className="rotateButton"
                             id="rotateButton"
                             onClick={onClickRotateButtonHandler}
@@ -129,12 +132,14 @@ const Shape = (props) => {
                             onMouseEnter={onMouseEnterHandler}
                             onMouseLeave={onMouseLeaveHandler}/>
                     </div>)}
-                <div className={style} ref={ref} onClick={onClickHandler} id="shape">
-                    {props.post.body}
-                </div>
+                <span ref={componentRef}>
+                    <div className={style} ref={ref} onClick={onClickHandler} id="shape">
+                        {props.post.body}
+                    </div>
+                </span>
             </div>
         </Draggable>
     );
-}
+})
 
 export default Shape;
