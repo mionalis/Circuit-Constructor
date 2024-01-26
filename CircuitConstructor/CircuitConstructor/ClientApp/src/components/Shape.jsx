@@ -58,6 +58,7 @@ const Shape = React.forwardRef((props, ref) => {
     const onDragHandler = (event: MouseEvent, data: DraggableData) => {
         setIsComponentVisible(false);
         setStyle("shape-on-drag");
+        
         if (data.x >= 0 && data.y >= 0) {
             setCurrentPosition({x: data.x, y: data.y});
         }
@@ -90,8 +91,6 @@ const Shape = React.forwardRef((props, ref) => {
         setStyle("shape-focus");
     }
     
-    const rotateButtonRef = useRef();
-    
     const onMouseDownHandler = (e) => {
         props.setThisCanRotate(true);
         setIsComponentVisible(true);
@@ -113,14 +112,12 @@ const Shape = React.forwardRef((props, ref) => {
                    disabled={props.isDragDisabled}>
             <div className="shape-container"> 
                 {isComponentVisible && (
-                    <div className="rotate-button-container" 
-                         id="rotate-button-container"
-                         ref={props.allRefs.rotateButtonContainerRef}
+                    <div className="rotate-button-container"
+                         ref={props.rotateButtonContainerRef}
                          onMouseDown={props.onMouseDownHandler}>
                         <RotateShapeIcon 
-                            ref={(el)=> {componentRef.current=el; rotateButtonRef.current = el;}} 
+                            ref={componentRef} 
                             className="rotateButton"
-                            id="rotateButton"
                             onClick={onClickRotateButtonHandler}
                             onMouseDown={onMouseDownHandler}
                             onMouseEnter={onMouseEnterHandler}
