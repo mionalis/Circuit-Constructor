@@ -86,18 +86,6 @@ const Shape = React.forwardRef((props, ref) => {
         setIsComponentVisible(true);
     }
     
-    const onMouseDownHandler = (e) => {
-        props.setThisCanRotate(true);
-    }
-    
-    const onMouseEnterHandler = () => {
-        props.setIsDragDisabled(true);
-    }
-
-    const onMouseLeaveHandler = () => {
-        props.setIsDragDisabled(false);
-    }
-    
     return (
         <Draggable position={{x: currentPosition.x, y: currentPosition.y}}
                    onDrag={onDragHandler} 
@@ -111,9 +99,9 @@ const Shape = React.forwardRef((props, ref) => {
                         <RotateShapeIcon 
                             ref={componentRef} 
                             className="rotateButton"
-                            onMouseDown={onMouseDownHandler}
-                            onMouseEnter={onMouseEnterHandler}
-                            onMouseLeave={onMouseLeaveHandler}/>
+                            onMouseDown={props.onMouseDownRotateHandler}
+                            onMouseEnter={props.onMouseEnterHandler}
+                            onMouseLeave={props.onMouseLeaveHandler}/>
                     </div>)}
                 <span ref={componentRef}>
                     <div className={style} ref={ref} onClick={onClickHandler} id="shape">

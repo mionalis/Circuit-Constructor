@@ -72,6 +72,18 @@ const Canvas = (props) => {
     const onMouseUpHandler = (e) => {
         setThisCanRotate(false);
     }
+
+    const onMouseDownRotateHandler = (e) => {
+        setThisCanRotate(true);
+    }
+
+    const onMouseEnterHandler = () => {
+        setIsDragDisabled(true);
+    }
+
+    const onMouseLeaveHandler = () => {
+        setIsDragDisabled(false);
+    }
     
     return (
         <div className="canvas" id="canvas"  ref={canvasRef}>
@@ -92,6 +104,9 @@ const Canvas = (props) => {
                                                            thisCanRotate={thisCanRotate} 
                                                            isDragDisabled={isDragDisabled} 
                                                            setIsDragDisabled={setIsDragDisabled}
+                                                           onMouseDownRotateHandler={onMouseDownRotateHandler}
+                                                           onMouseEnterHandler={onMouseEnterHandler}
+                                                           onMouseLeaveHandler={onMouseLeaveHandler}
                                                            onMouseDownHandler={() => onMouseDownHandler(index)}
                                                            rotateButtonContainerRef={rotateButtonContainerRef}/>)}
             </div>
