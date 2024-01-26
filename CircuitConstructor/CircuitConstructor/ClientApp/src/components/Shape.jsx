@@ -30,7 +30,7 @@ const Shape = React.forwardRef((props, ref) => {
         if (props.isDragged) {
             setCurrentPosition({x: props.shapeDropPosition.x, y: props.shapeDropPosition.y});
         }
-    }, [])
+    }, []);
     
     /**
      * Устанавливает стартовый стиль элемента.
@@ -85,16 +85,9 @@ const Shape = React.forwardRef((props, ref) => {
     const onClickHandler = () => {
         setIsComponentVisible(true);
     }
-
-    const onClickRotateButtonHandler = () => {
-        setIsComponentVisible(true);
-        setStyle("shape-focus");
-    }
     
     const onMouseDownHandler = (e) => {
         props.setThisCanRotate(true);
-        setIsComponentVisible(true);
-        setStyle("shape-focus");
     }
     
     const onMouseEnterHandler = () => {
@@ -118,7 +111,6 @@ const Shape = React.forwardRef((props, ref) => {
                         <RotateShapeIcon 
                             ref={componentRef} 
                             className="rotateButton"
-                            onClick={onClickRotateButtonHandler}
                             onMouseDown={onMouseDownHandler}
                             onMouseEnter={onMouseEnterHandler}
                             onMouseLeave={onMouseLeaveHandler}/>
