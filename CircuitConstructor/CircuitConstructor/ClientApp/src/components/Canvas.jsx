@@ -16,12 +16,15 @@ const Canvas = (props) => {
     const canvasRef = useRef();
     const dotPatternRef = useRef(null);
     const rotateButtonContainerRef = useRef(null);
+    
     const shapeRefs = props.shapes.map(() => createRef());
     
     const [selectedShape, setSelectedShape] = useState(null);
     const [thisCanRotate, setThisCanRotate] = useState(false);
     const [isDragDisabled, setIsDragDisabled] = useState(false);
     const [rotationAngle, setRotationAngle] = useState(0);
+    const [rotateButtonAngles, setRotateButtonAngles] = useState({});
+    const [index, setIndex] = useState(0);
     
     /**
      * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
@@ -31,9 +34,16 @@ const Canvas = (props) => {
             event.preventDefault();
         });
     }, [])
-
+    
     const onMouseDownHandler = (index) => {
         setSelectedShape(shapeRefs[index].current);
+        setIndex(index);
+
+        const initialRotationAngle = rotateButtonAngles[index] || 0;
+        setRotateButtonAngles((prevAngles) => ({
+            ...prevAngles,
+            [index]: initialRotationAngle,
+        }));
     }
     
     const increasePatternSize = (coordinate, property, sizeProperty, triggerZoneLength) => {
@@ -54,6 +64,11 @@ const Canvas = (props) => {
         const rotateButton = rotateButtonContainerRef.current;
         selectedShape.style.rotate = `${rotationAngle}deg`;
         rotateButton.style.rotate = `${rotationAngle}deg`;
+
+        setRotateButtonAngles((prevAngles) => ({
+            ...prevAngles,
+            [index]: rotationAngle,
+        }));
     }
 
     const handleRotate = (event) => {
@@ -108,6 +123,7 @@ const Canvas = (props) => {
                                                            onMouseEnterHandler={onMouseEnterHandler}
                                                            onMouseLeaveHandler={onMouseLeaveHandler}
                                                            onMouseDownHandler={() => onMouseDownHandler(index)}
+                                                           rotateButtonAngle={rotateButtonAngles[index] || 0}
                                                            rotateButtonContainerRef={rotateButtonContainerRef}/>)}
             </div>
         </div>
