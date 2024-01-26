@@ -13,18 +13,48 @@ const Canvas = (props) => {
      * Ссылка на компонент Canvas.
      * @type {React.MutableRefObject<undefined>}
      */
-    const canvasRef = useRef();
     const dotPatternRef = useRef(null);
+
+    /**
+     * Ссылка на контейнер, содержащий кнопку вращения.
+     * @type {React.MutableRefObject<null>}
+     */
     const rotateButtonContainerRef = useRef(null);
-    
+
+    /**
+     * Массив, хранящий ссылки на элементы массива shapes.
+     */
     const shapeRefs = props.shapes.map(() => createRef());
-    
+
+    /**
+     * Хранит и устанавливает выбранный пользователем элемент цепи.
+     */
     const [selectedShape, setSelectedShape] = useState(null);
+
+    /**
+     * Хранит и устанавливает возможность вращать элемент.
+     */
     const [thisCanRotate, setThisCanRotate] = useState(false);
+
+    /**
+     * Хранит и устанавливает булевое значение, которое определяет, заблокировано ли передвижение элемента.
+     */
     const [isDragDisabled, setIsDragDisabled] = useState(false);
+
+    /**
+     * Хранит и устанавливает угол вращения элемента.
+     */
     const [rotationAngle, setRotationAngle] = useState(0);
+
+    /**
+     * Хранит и устанавливает угол вращения элемента.
+     */
     const [rotateButtonAngles, setRotateButtonAngles] = useState({});
-    const [index, setIndex] = useState(0);
+
+    /**
+     * Хранит и устанавливает индекс выбранного элемента в массиве.
+     */
+    const [selectedShapeIndex, setSelectedShapeIndex] = useState(0);
     
     /**
      * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
@@ -34,43 +64,64 @@ const Canvas = (props) => {
             event.preventDefault();
         });
     }, [])
-    
-    const onMouseDownHandler = (index) => {
+
+    /**
+     * Срабатывает, когда пользователь нажимает кнопкой мыши по элементу или кнопке вращения.
+     * @param index - Индекс выбранного элемента в массиве.
+     */
+    const handleRotateButtonContainerMouseDown = (index) => {
         setSelectedShape(shapeRefs[index].current);
-        setIndex(index);
+        setSelectedShapeIndex(index);
 
         const initialRotationAngle = rotateButtonAngles[index] || 0;
-        setRotateButtonAngles((prevAngles) => ({
+        setRotateButtonAngles(prevAngles => ({
             ...prevAngles,
             [index]: initialRotationAngle,
         }));
     }
-    
-    const increasePatternSize = (coordinate, property, sizeProperty, triggerZoneLength) => {
-        let patternSize = dotPatternRef.current[sizeProperty];
+
+    /**
+     * Увеличивает размер монтажной поверхности в выбранную сторону и генерирует продолжение для точечной разметки,
+     * когда элемент оказывается у края рабочей зоны. 
+     * @param coordinate - Координата элемента.
+     * @param sideNameProperty - Название аттрибута стороны прямоугольника, передается в кавычках - 'width' или 'height'.
+     * @param clientSideNameProperty - Название аттрибута клиентской стороны прямоугольника,
+     * передается в кавычках - 'clientWidth' или 'clientHeight'.
+     * @param triggerZoneLength - Размер зоны монтажной поверхности в пикселях, при попадании в которую рабочая 
+     * зона увеличится в выбранную сторону.
+     */
+    const increasePatternSize = (coordinate, sideNameProperty, clientSideNameProperty, triggerZoneLength) => {
+        let patternSize = dotPatternRef.current[clientSideNameProperty];
         
         if (coordinate > patternSize - triggerZoneLength) {
-            patternSize += canvasRef.current[sizeProperty] / 3;
-            dotPatternRef.current.style[property] = `${patternSize}px`;
+            patternSize += props.canvasRef.current[clientSideNameProperty] / 3;
+            dotPatternRef.current.style[sideNameProperty] = `${patternSize}px`;
         }
     };
-    
-    const onMouseMoveHandler = (event) => {
+
+    /**
+     * Срабатывает при движении мыши по монтажной поверхности.
+     * @param event
+     */
+    const handleCanvasMouseMove = (event) => {
         if(!thisCanRotate) {
            return;
         }
         
         handleRotate(event);
-        const rotateButton = rotateButtonContainerRef.current;
         selectedShape.style.rotate = `${rotationAngle}deg`;
-        rotateButton.style.rotate = `${rotationAngle}deg`;
+        rotateButtonContainerRef.current.style.rotate = `${rotationAngle}deg`;
 
-        setRotateButtonAngles((prevAngles) => ({
-            ...prevAngles,
-            [index]: rotationAngle,
+        setRotateButtonAngles(previousAngles => ({
+            ...previousAngles,
+            [selectedShapeIndex]: rotationAngle,
         }));
     }
 
+    /**
+     * Осуществляет вращение элемента относительно координат мыши.
+     * @param event
+     */
     const handleRotate = (event) => {
         const shapeBoundingRect = selectedShape.getBoundingClientRect();
         const shapeCenterX = shapeBoundingRect.left + shapeBoundingRect.width / 2;
@@ -83,31 +134,43 @@ const Canvas = (props) => {
         
         setRotationAngle(angleOnGrid);
     };
-    
-    const onMouseUpHandler = (e) => {
+
+    /**
+     * Срабатывает при отпускании кнопки мыши на Canvas.
+     */
+    const handleCanvasMouseUp = () => {
         setThisCanRotate(false);
     }
 
-    const onMouseDownRotateHandler = (e) => {
+    /**
+     * Срабатывает при нажатии мыши по кнопке вращения элемента.
+     */
+    const handleRotateButtonMouseDown = () => {
         setThisCanRotate(true);
     }
 
-    const onMouseEnterHandler = () => {
+    /**
+     * Срабатывает при наведении мыши на кнопку вращения элемента.
+     */
+    const handleRotateButtonMouseEnter = () => {
         setIsDragDisabled(true);
     }
 
-    const onMouseLeaveHandler = () => {
+    /**
+     * Срабатывает, когда мышь покидает кнопку вращения элемента.
+     */
+    const handleRotateButtonMouseLeave = () => {
         setIsDragDisabled(false);
     }
     
     return (
-        <div className="canvas" id="canvas"  ref={canvasRef}>
+        <div className="canvas"  ref={props.canvasRef}>
             <div className="dot-pattern-canvas"
                  ref={dotPatternRef}
                  onDragEnter={props.onDragEnterHandler}
                  onDragLeave={props.onDragLeaveHandler}
-                 onMouseMove={onMouseMoveHandler}
-                 onMouseUp={onMouseUpHandler}>
+                 onMouseMove={handleCanvasMouseMove}
+                 onMouseUp={handleCanvasMouseUp}>
                 {props.shapes.map((shape, index) => <Shape post={shape} 
                                                            key={shape.id} 
                                                            ref={shapeRefs[index]} 
@@ -119,10 +182,11 @@ const Canvas = (props) => {
                                                            thisCanRotate={thisCanRotate} 
                                                            isDragDisabled={isDragDisabled} 
                                                            setIsDragDisabled={setIsDragDisabled}
-                                                           onMouseDownRotateHandler={onMouseDownRotateHandler}
-                                                           onMouseEnterHandler={onMouseEnterHandler}
-                                                           onMouseLeaveHandler={onMouseLeaveHandler}
-                                                           onMouseDownHandler={() => onMouseDownHandler(index)}
+                                                           handleRotateButtonMouseDown={handleRotateButtonMouseDown}
+                                                           handleRotateButtonMouseEnter={handleRotateButtonMouseEnter}
+                                                           onMouseLeaveHandler={handleRotateButtonMouseLeave}
+                                                           handleRotateButtonContainerMouseDown=
+                                                               {() => handleRotateButtonContainerMouseDown(index)}
                                                            rotateButtonAngle={rotateButtonAngles[index] || 0}
                                                            rotateButtonContainerRef={rotateButtonContainerRef}/>)}
             </div>

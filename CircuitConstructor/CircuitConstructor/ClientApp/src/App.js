@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import TopMenu from "./components/TopMenu";
 import PagesPanel from "./components/PagesPanel";
 import Footer from "./components/Footer";
@@ -14,6 +14,8 @@ import "./components/styles/colors.css";
  * @constructor
  */
 function App() {
+    const canvasRef = useRef(null);
+    
     /**
      * Хранит и устанавливает массив элементов электрической цепи.
      */
@@ -90,7 +92,7 @@ function App() {
         setIsCanBeDropped(false);
         setIsDragged(true);
 
-        const canvas = document.getElementById("canvas");
+        const canvas = canvasRef.current;
         
         const x = setOnGrid(event.clientX - canvas.offsetLeft + canvas.scrollLeft, 20);
         const y = setOnGrid(event.clientY - canvas.offsetTop + canvas.scrollTop, 20);
@@ -164,7 +166,8 @@ function App() {
                                 onDragLeaveHandler={onDragLeaveHandler}
                                 isDragged={isDragged}
                                 shapeDropPosition={shapeDropPosition}
-                                setOnGrid={setOnGrid} />
+                                setOnGrid={setOnGrid}
+                                canvasRef={canvasRef} />
                     </div>
                     <PagesPanel />
                 </div>

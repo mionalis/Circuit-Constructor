@@ -18,10 +18,9 @@ const RotateButton = (props) => {
     return (
         <div className="rotate-button-container"
              id="rotate-button-container"
-             ref={props.rotateButtonContainerRef}
+             ref={(e) => {props.rotateButtonContainerRef.current = e; props.componentRef.current = e}}
              onMouseDown={props.onMouseDownHandler}>
             <RotateShapeIcon
-                ref={props.componentRef}
                 className="rotateButton"
                 onMouseDown={props.onMouseDownRotateHandler}
                 onMouseEnter={props.onMouseEnterHandler}

@@ -66,5 +66,6 @@
 
 .rotateButton {
     color: var(--draggable-element-border-color);
+    cursor: crosshair;
     width: 15px;
 }
