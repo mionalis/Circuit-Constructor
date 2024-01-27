@@ -42,8 +42,9 @@ const Sidebar = (props) => {
                                     <AddShapeButton id="shape-button" 
                                                     draggable
                                                     onClick={props.setIsDragged(false)}
-                                                    onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.Resistor)}
-                                                    onDragEnd={(e)=>props.onDragEndHandler(e, <Resistor />)} >
+                                                    onDragStart={(e)=>
+                                                        props.handleDragStartFromSidebar(e, shapeTypes.Resistor)}
+                                                    onDragEnd={(e)=>props.handleDragEndFromSidebar(e, <Resistor />)} >
                                         <Resistor className="shape-button-icon" id="resistor" />Resistor
                                     </AddShapeButton>
                                 </span>
@@ -51,8 +52,9 @@ const Sidebar = (props) => {
                                     <AddShapeButton id="shape-button"
                                                     draggable
                                                     onClick={props.setIsDragged(false)}
-                                                    onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.Inductor)}
-                                                    onDragEnd={(e)=>props.onDragEndHandler(e, <Inductor />)}>
+                                                    onDragStart={(e)=>
+                                                        props.handleDragStartFromSidebar(e, shapeTypes.Inductor)}
+                                                    onDragEnd={(e)=>props.handleDragEndFromSidebar(e, <Inductor />)}>
                                         <Inductor className="shape-button-icon" id="inductor" />Inductor
                                     </AddShapeButton>
                                 </span>
@@ -60,8 +62,9 @@ const Sidebar = (props) => {
                                     <AddShapeButton id="shape-button"
                                                     draggable
                                                     onClick={props.setIsDragged(false)}
-                                                    onDragStart={(e)=>props.onDragStartHandler(e, shapeTypes.Capacitor)}
-                                                    onDragEnd={(e)=>props.onDragEndHandler(e, <Capacitor />)}>
+                                                    onDragStart={(e)=>
+                                                        props.handleDragStartFromSidebar(e, shapeTypes.Capacitor)}
+                                                    onDragEnd={(e)=>props.handleDragEndFromSidebar(e, <Capacitor />)}>
                                         <Capacitor className="shape-button-icon" id="capacitor" />Capacitor
                                     </AddShapeButton>
                                 </span>

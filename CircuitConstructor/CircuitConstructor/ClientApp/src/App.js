@@ -51,18 +51,18 @@ function App() {
     }
 
     /**
-     * Срабатывает, когда пользователь начинает перетаскивать элемент.
+     * Срабатывает, когда пользователь начинает перетаскивать элемент из Sidebar.
      * @param event
      * @param shapeType - Тип элемента.
      */
-    const onDragStartHandler = (event, shapeType) => {
+    const handleDragStartFromSidebar = (event, shapeType) => {
         setGhostDragImage(event, shapeType);
     }
 
     /**
      * Срабатывает, когда перетаскиваемый элемент входит на Canvas. 
      */
-    const onDragEnterHandler = (event) => {
+    const handleCanvasDragEnter = (event) => {
         event.preventDefault();
         setIsCanBeDropped(true);
         setShapesPointerEvents(true);
@@ -71,18 +71,18 @@ function App() {
     /**
      * Срабатывает, когда перетаскиваемый элемент покидает Canvas.
      */
-    const onDragLeaveHandler = (event) => {
+    const handleCanvasDragLeave = (event) => {
         event.preventDefault();
         setIsCanBeDropped(false);
         setShapesPointerEvents(false);
     }
     
     /**
-     * Срабатывает, когда пользователь заканчивает перетаскивать элемент.
+     * Срабатывает, когда пользователь заканчивает перетаскивать элемент из Sidebar на Canvas.
      * @param event
      * @param shapeType - Тип выбранной фигуры.
      */
-    const onDragEndHandler = (event, shapeType) => {
+    const handleDragEndFromSidebar = (event, shapeType) => {
         if (!isCanBeDropped) {
             return;
         }
@@ -152,8 +152,8 @@ function App() {
             <div className="content-container">
                 <Sidebar setIsDragged={setIsDragged}
                          createNewShape={createNewShape}
-                         onDragStartHandler={onDragStartHandler}
-                         onDragEndHandler={onDragEndHandler} />
+                         handleDragStartFromSidebar={handleDragStartFromSidebar}
+                         handleDragEndFromSidebar={handleDragEndFromSidebar} />
                 <div className="right-panel">
                     <div className="canvas-container">
                         <TopMenu />
@@ -161,8 +161,8 @@ function App() {
                                 shapes={shapes}
                                 isDragged={isDragged}
                                 shapeDropPosition={shapeDropPosition}
-                                onDragEnterHandler={onDragEnterHandler}
-                                onDragLeaveHandler={onDragLeaveHandler}
+                                handleCanvasDragEnter={handleCanvasDragEnter}
+                                handleCanvasDragLeave={handleCanvasDragLeave}
                                 setOnGrid={setOnGrid} />
                     </div>
                     <PagesPanel />

@@ -146,8 +146,8 @@ const Canvas = (props) => {
         <div className="canvas"  ref={props.canvasRef}>
             <div className="dot-pattern-canvas"
                  ref={dotPatternRef}
-                 onDragEnter={props.onDragEnterHandler}
-                 onDragLeave={props.onDragLeaveHandler}
+                 onDragEnter={props.handleCanvasDragEnter}
+                 onDragLeave={props.handleCanvasDragLeave}
                  onMouseMove={handleCanvasMouseMove}
                  onMouseUp={handleCanvasMouseUp}>
                 {props.shapes.map((shape, index) => <Shape ref={shapeRefs[index]}
