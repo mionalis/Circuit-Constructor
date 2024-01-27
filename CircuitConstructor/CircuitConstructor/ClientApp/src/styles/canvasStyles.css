@@ -23,21 +23,16 @@
     position: absolute;
 }
 
-.shape,
-.shape-focus,
-.shape-on-drag {
+.shape {
+    color: black;
     display: inline-block;
     position: absolute;
 }
 
-.shape-focus,
-.shape-on-drag {
+.shape-on-drag,
+.shape-focus {
     border: 2px dashed var(--draggable-element-border-color);
     margin: -2px -2px -2px -2px;
-}
-
-.shape {
-    color: black;
 }
 
 .shape-on-drag {

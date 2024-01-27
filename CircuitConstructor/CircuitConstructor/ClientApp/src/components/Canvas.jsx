@@ -102,6 +102,7 @@ const Canvas = (props) => {
         setRotationAngles(newRotationAngles);
         
         selectedShape.style.rotate = `${rotationAngles[selectedShapeIndex]}deg`;
+        selectedShape.classList.add("shape-on-drag");
         rotateButtonContainerRef.current.style.rotate = `${rotationAngles[selectedShapeIndex]}deg`;
     }
 
@@ -127,6 +128,7 @@ const Canvas = (props) => {
      */
     const handleCanvasMouseUp = () => {
         setThisCanRotate(false);
+        selectedShape.classList.remove("shape-on-drag");
     }
     
     return (

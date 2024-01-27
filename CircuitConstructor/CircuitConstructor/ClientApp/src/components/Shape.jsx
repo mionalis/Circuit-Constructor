@@ -11,11 +11,6 @@ import RotateButton from './RotateButton';
  */
 const Shape = React.forwardRef((props, ref) => {
     /**
-     * Хранит и устанавливает стиль элемента электрической цепи.
-     */
-    const [style, setStyle] = useState("");
-
-    /**
      * Хранит и устанавливает текущие координаты элемента электрической цепи.
      */
     const [currentPosition, setCurrentPosition] = useState({x: 0, y: 0});
@@ -43,14 +38,14 @@ const Shape = React.forwardRef((props, ref) => {
     }, []);
 
     /**
-     * Устанавливает стиль для элемента цепи.
+     * Устанавливает стиль для элемента цепи, если он выбран пользователем.
      */
     useEffect(() => {
         if (isComponentVisible) {
-            setStyle("shape-focus");
+            ref.current.classList.add("shape-focus");
         }
         else {
-            setStyle("shape");
+            ref.current.classList.remove("shape-focus");
         }
     }, [isComponentVisible]);
     
@@ -61,7 +56,7 @@ const Shape = React.forwardRef((props, ref) => {
      */
     const handleShapeDrag = (event: MouseEvent, data: DraggableData) => {
         setIsComponentVisible(false);
-        setStyle("shape-on-drag");
+        ref.current.classList.add("shape-on-drag");
         
         if (data.x >= 0 && data.y >= 0) {
             setCurrentPosition({x: data.x, y: data.y});
@@ -76,7 +71,7 @@ const Shape = React.forwardRef((props, ref) => {
      */
     const handleShapeDragStop  = (event: MouseEvent, data: DraggableData) => {
         setIsComponentVisible(true);
-        setStyle("shape");
+        ref.current.classList.remove("shape-on-drag");
         
         if (data.x >= 0 && data.y >= 0) {
             setCurrentPosition({x: props.setOnGrid(data.x, 20), y: props.setOnGrid(data.y, 20)});
@@ -111,7 +106,7 @@ const Shape = React.forwardRef((props, ref) => {
                                   handleRotateButtonMouseLeave={props.handleRotateButtonMouseLeave}
                                   rotateButtonAngle={props.rotateButtonAngle} />)}
                 <span ref={componentRef}>
-                    <div className={style}
+                    <div className="shape"
                          id="shape"
                          ref={ref} 
                          onClick={handleShapeClick}>
