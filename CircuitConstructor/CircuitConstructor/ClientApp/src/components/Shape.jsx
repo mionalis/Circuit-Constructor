@@ -103,6 +103,8 @@ const Shape = React.forwardRef((props, ref) => {
                 {isComponentVisible && (
                     <RotateButton componentRef={componentRef}
                                   isComponentVisible={isComponentVisible}
+                                  setIsDragDisabled={props.setIsDragDisabled}
+                                  setThisCanRotate={props.setThisCanRotate}
                                   rotateButtonContainerRef={props.rotateButtonContainerRef} 
                                   handleRotateButtonContainerMouseDown={props.handleRotateButtonContainerMouseDown} 
                                   handleRotateButtonMouseDown={props.handleRotateButtonMouseDown} 

@@ -141,27 +141,6 @@ const Canvas = (props) => {
     const handleCanvasMouseUp = () => {
         setThisCanRotate(false);
     }
-
-    /**
-     * Срабатывает при нажатии мыши по кнопке вращения элемента.
-     */
-    const handleRotateButtonMouseDown = () => {
-        setThisCanRotate(true);
-    }
-
-    /**
-     * Срабатывает при наведении мыши на кнопку вращения элемента.
-     */
-    const handleRotateButtonMouseEnter = () => {
-        setIsDragDisabled(true);
-    }
-
-    /**
-     * Срабатывает, когда мышь покидает кнопку вращения элемента.
-     */
-    const handleRotateButtonMouseLeave = () => {
-        setIsDragDisabled(false);
-    }
     
     return (
         <div className="canvas"  ref={props.canvasRef}>
@@ -175,15 +154,12 @@ const Canvas = (props) => {
                                                            rotateButtonContainerRef={rotateButtonContainerRef}
                                                            post={shape} 
                                                            key={shape.id}
-                                                           setThisCanRotate={setThisCanRotate}
                                                            thisCanRotate={thisCanRotate}
                                                            isDragDisabled={isDragDisabled}
+                                                           setThisCanRotate={setThisCanRotate}
                                                            setIsDragDisabled={setIsDragDisabled}
                                                            rotateButtonAngle={rotateButtonAngles[index]}
                                                            increasePatternSize={increasePatternSize}
-                                                           handleRotateButtonMouseDown={handleRotateButtonMouseDown}
-                                                           handleRotateButtonMouseEnter={handleRotateButtonMouseEnter}
-                                                           handleRotateButtonMouseLeave={handleRotateButtonMouseLeave}
                                                            handleRotateButtonContainerMouseDown=
                                                                {() => handleRotateButtonContainerMouseDown(index)}
                                                            isDragged={props.isDragged} 
