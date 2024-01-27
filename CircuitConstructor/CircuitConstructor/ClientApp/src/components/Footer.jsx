@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import "./styles/footerStyles.css";
+import "../styles/footerStyles.css";
 
 /**
  * Нижняя панель приложения. Отображает номер текущей страницы и позволяет настраивать 

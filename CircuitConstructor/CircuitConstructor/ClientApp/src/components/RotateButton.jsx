@@ -1,6 +1,5 @@
-import {ReactComponent as RotateShapeIcon} from "./svgElements/interfaceElements/RotateShapeIcon.svg";
+import {ReactComponent as RotateShapeIcon} from "../assets/interfaceElements/RotateShapeIcon.svg";
 import React, {useEffect} from "react";
-
 
 /**
  * Кнопка вращения элемента.
@@ -9,7 +8,6 @@ import React, {useEffect} from "react";
  * @constructor
  */
 const RotateButton = (props) => {
-
     /**
      * Устанавливает запомненный угол поворота для кнопки вращения элемента.
      */

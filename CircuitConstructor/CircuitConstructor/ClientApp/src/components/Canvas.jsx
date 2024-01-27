@@ -1,6 +1,6 @@
 import React, {createRef, useEffect, useRef, useState} from "react";
 import Shape from "./Shape";
-import "./styles/canvasStyles.css";
+import "../styles/canvasStyles.css";
 
 /**
  * Монтажная поверхность. Отрисовывает элементы электрической цепи.

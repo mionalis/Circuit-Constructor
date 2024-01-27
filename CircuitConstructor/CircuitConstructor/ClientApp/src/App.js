@@ -5,8 +5,8 @@ import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import Canvas from "./components/Canvas";
 import './custom.css';
-import "./components/styles/mainContentStyles.css";
-import "./components/styles/colors.css";
+import "./styles/mainContentStyles.css";
+import "./styles/colors.css";
 
 /**
  * Главный компонент, агрегирует в себе все компоненты приложения. 

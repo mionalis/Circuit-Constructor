@@ -1,8 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import Draggable, { DraggableData } from "react-draggable";
-import useComponentVisible from './customHooks/useComponentVisible';
+import useComponentVisible from '../hooks/useComponentVisible';
 import RotateButton from './RotateButton';
-import "./styles/canvasStyles.css";
 
 /**
  * Элемент электрической цепи, отображаемый на монтажной поверхности.

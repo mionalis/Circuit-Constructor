@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import AddShapeButton from "./AddShapeButton";
-import useToggle from './customHooks/useToggle';
-import {ReactComponent as Resistor} from "./svgElements/circuitElements/Resistor.svg";
-import {ReactComponent as Inductor} from "./svgElements/circuitElements/Inductor.svg";
-import {ReactComponent as Capacitor} from "./svgElements/circuitElements/Capacitor.svg";
-import "./styles/sidebarStyles.css";
+import useToggle from '../hooks/useToggle';
+import {ReactComponent as Resistor} from "../assets/circuitElements/Resistor.svg";
+import {ReactComponent as Inductor} from "../assets/circuitElements/Inductor.svg";
+import {ReactComponent as Capacitor} from "../assets/circuitElements/Capacitor.svg";
+import "../styles/sidebarStyles.css";
 
 /**
  * Перечисление, хранящее названия элементов.
