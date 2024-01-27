@@ -65,7 +65,7 @@ function App() {
     const onDragEnterHandler = (event) => {
         event.preventDefault();
         setIsCanBeDropped(true);
-        SetShapesPointerEventsDisable();
+        setShapesPointerEvents(true);
     }
     
     /**
@@ -74,7 +74,7 @@ function App() {
     const onDragLeaveHandler = (event) => {
         event.preventDefault();
         setIsCanBeDropped(false);
-        SetShapesPointerEventsAvailable();
+        setShapesPointerEvents(false);
     }
     
     /**
@@ -87,7 +87,7 @@ function App() {
             return;
         }
 
-        SetShapesPointerEventsAvailable();
+        setShapesPointerEvents(false);
         createNewShape(shapeType);
         setIsCanBeDropped(false);
         setIsDragged(true);
@@ -128,28 +128,24 @@ function App() {
     const setOnGrid = (coordinateValue, gridStep)  => {
         return Math.round(coordinateValue / gridStep) * gridStep;
     }
-
+    
     /**
-     * Устанавливает в стиль элементов цепи свойство pointer-events: none, запрещая события мыши.
-     * @constructor
+     * Манипулирует со свойством pointer-events элемента цепи.
+     * @param isDisable - Булевое значение. Если метод принимает значение True, то устанавливает в стиль элементов
+     * цепи свойство pointer-events: none, запрещая события мыши.
+     * Если False - удаляет из стиля элементов цепи свойство pointer-events: none, разрешая события мыши.
      */
-    const SetShapesPointerEventsDisable = () => {
+    const setShapesPointerEvents = (isDisable) => {
         const shapes = document.querySelectorAll('.shape');
-        shapes.forEach(function(element) {
-            element.classList.add('shape-pointer-events-disable');
+        shapes.forEach((element) => {
+            if (isDisable) {
+                element.classList.add('shape-pointer-events-disable');
+            } 
+            else {
+                element.classList.remove('shape-pointer-events-disable');
+            }
         });
-    }
-
-    /**
-     * Удаляет из стиля элементов цепи свойство pointer-events: none, разрешая события мыши.
-     * @constructor
-     */
-    const SetShapesPointerEventsAvailable = () => {
-        const shapes = document.querySelectorAll('.shape');
-        shapes.forEach(function(element) {
-            element.classList.remove('shape-pointer-events-disable');
-        });
-    }
+    };
     
     return (
         <div className="main-container">
