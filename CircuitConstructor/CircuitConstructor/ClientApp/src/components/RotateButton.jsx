@@ -56,7 +56,8 @@ const RotateButton = (props) => {
     
     return (
         <div className="rotate-button-container"
-             ref={(e) => {props.rotateButtonContainerRef.current = e; props.componentRef.current = e}}
+             ref={(e) => 
+                {props.rotateButtonContainerRef.current = e; props.componentRef.current = e}}
              onMouseDown={props.handleRotateButtonContainerMouseDown}>
             <RotateShapeIcon className="rotateButton" 
                              onMouseDown={handleRotateButtonMouseDown} 

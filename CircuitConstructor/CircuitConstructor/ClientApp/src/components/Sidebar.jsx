@@ -39,7 +39,8 @@ const Sidebar = (props) => {
                         {toggle && (
                             <ul>
                                 <span onClick={event => props.createNewShape(<Resistor />)}>
-                                    <AddShapeButton id="shape-button" 
+                                    <AddShapeButton className="shape-button button-common"
+                                                    id="shape-button" 
                                                     draggable
                                                     onClick={props.setIsDragged(false)}
                                                     onDragStart={(e)=>
@@ -49,7 +50,8 @@ const Sidebar = (props) => {
                                     </AddShapeButton>
                                 </span>
                                 <span onClick={event => props.createNewShape(<Inductor />)}>
-                                    <AddShapeButton id="shape-button"
+                                    <AddShapeButton className="shape-button button-common"
+                                                    id="shape-button"
                                                     draggable
                                                     onClick={props.setIsDragged(false)}
                                                     onDragStart={(e)=>
@@ -59,7 +61,8 @@ const Sidebar = (props) => {
                                     </AddShapeButton>
                                 </span>
                                 <span onClick={event => props.createNewShape(<Capacitor />)}>
-                                    <AddShapeButton id="shape-button"
+                                    <AddShapeButton className="shape-button button-common" 
+                                                    id="shape-button"
                                                     draggable
                                                     onClick={props.setIsDragged(false)}
                                                     onDragStart={(e)=>

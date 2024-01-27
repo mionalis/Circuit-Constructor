@@ -160,8 +160,8 @@ const Canvas = (props) => {
                                                            setIsDragDisabled={setIsDragDisabled}
                                                            rotateButtonAngle={rotateButtonAngles[index]}
                                                            increasePatternSize={increasePatternSize}
-                                                           handleRotateButtonContainerMouseDown=
-                                                               {() => handleRotateButtonContainerMouseDown(index)}
+                                                           handleRotateButtonContainerMouseDown={() => 
+                                                               handleRotateButtonContainerMouseDown(index)}
                                                            isDragged={props.isDragged} 
                                                            shapeDropPosition={props.shapeDropPosition} 
                                                            setOnGrid={props.setOnGrid} />)}

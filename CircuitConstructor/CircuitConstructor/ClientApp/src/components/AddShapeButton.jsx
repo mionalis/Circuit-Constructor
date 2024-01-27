@@ -9,7 +9,7 @@ import "./styles/canvasStyles.css";
  */
 const AddShapeButton = (props) => {
     return (
-        <li {...props} className="shape-button button-common">
+        <li {...props}>
             {props.children}
         </li>
     );
