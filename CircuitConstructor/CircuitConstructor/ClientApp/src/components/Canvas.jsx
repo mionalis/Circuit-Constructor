@@ -128,6 +128,10 @@ const Canvas = (props) => {
      */
     const handleCanvasMouseUp = () => {
         setThisCanRotate(false);
+        if (selectedShape == null) {
+            return;
+        }
+        
         selectedShape.classList.remove("shape-on-drag");
     }
     
