@@ -171,24 +171,24 @@ const Canvas = (props) => {
                  onDragLeave={props.onDragLeaveHandler}
                  onMouseMove={handleCanvasMouseMove}
                  onMouseUp={handleCanvasMouseUp}>
-                {props.shapes.map((shape, index) => <Shape post={shape} 
-                                                           key={shape.id} 
-                                                           ref={shapeRefs[index]} 
-                                                           isDragged={props.isDragged} 
-                                                           shapeDropPosition={props.shapeDropPosition} 
-                                                           setOnGrid={props.setOnGrid} 
-                                                           increasePatternSize={increasePatternSize} 
-                                                           setThisCanRotate={setThisCanRotate} 
-                                                           thisCanRotate={thisCanRotate} 
-                                                           isDragDisabled={isDragDisabled} 
+                {props.shapes.map((shape, index) => <Shape ref={shapeRefs[index]}
+                                                           rotateButtonContainerRef={rotateButtonContainerRef}
+                                                           post={shape} 
+                                                           key={shape.id}
+                                                           setThisCanRotate={setThisCanRotate}
+                                                           thisCanRotate={thisCanRotate}
+                                                           isDragDisabled={isDragDisabled}
                                                            setIsDragDisabled={setIsDragDisabled}
+                                                           rotateButtonAngle={rotateButtonAngles[index]}
+                                                           increasePatternSize={increasePatternSize}
                                                            handleRotateButtonMouseDown={handleRotateButtonMouseDown}
                                                            handleRotateButtonMouseEnter={handleRotateButtonMouseEnter}
                                                            handleRotateButtonMouseLeave={handleRotateButtonMouseLeave}
                                                            handleRotateButtonContainerMouseDown=
                                                                {() => handleRotateButtonContainerMouseDown(index)}
-                                                           rotateButtonAngle={rotateButtonAngles[index] || 0}
-                                                           rotateButtonContainerRef={rotateButtonContainerRef} />)}
+                                                           isDragged={props.isDragged} 
+                                                           shapeDropPosition={props.shapeDropPosition} 
+                                                           setOnGrid={props.setOnGrid} />)}
             </div>
         </div>
     );

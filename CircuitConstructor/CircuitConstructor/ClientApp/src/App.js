@@ -154,20 +154,20 @@ function App() {
     return (
         <div className="main-container">
             <div className="content-container">
-                <Sidebar onDragEndHandler={onDragEndHandler}
-                         onDragStartHandler={onDragStartHandler}
+                <Sidebar setIsDragged={setIsDragged}
                          createNewShape={createNewShape}
-                         setIsDragged={setIsDragged} />
+                         onDragStartHandler={onDragStartHandler}
+                         onDragEndHandler={onDragEndHandler} />
                 <div className="right-panel">
                     <div className="canvas-container">
                         <TopMenu />
-                        <Canvas shapes={shapes}
-                                onDragEnterHandler={onDragEnterHandler}
-                                onDragLeaveHandler={onDragLeaveHandler}
+                        <Canvas canvasRef={canvasRef}
+                                shapes={shapes}
                                 isDragged={isDragged}
                                 shapeDropPosition={shapeDropPosition}
-                                setOnGrid={setOnGrid}
-                                canvasRef={canvasRef} />
+                                onDragEnterHandler={onDragEnterHandler}
+                                onDragLeaveHandler={onDragLeaveHandler}
+                                setOnGrid={setOnGrid} />
                     </div>
                     <PagesPanel />
                 </div>
