@@ -1,30 +1,46 @@
 import {ReactComponent as RotateShapeIcon} from "./svgElements/interfaceElements/RotateShapeIcon.svg";
 import React, {useEffect} from "react";
 
-const RotateButton = (props) => {
-    const updateRotateStyle = (angle) => {
-        if (props.rotateButtonContainerRef.current === null) {
-            return;
-        }
-        props.rotateButtonContainerRef.current.style.rotate = `${angle}deg`;
-    };
 
+/**
+ * Кнопка вращения элемента.
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const RotateButton = (props) => {
+
+    /**
+     * Устанавливает запомненный угол поворота для кнопки вращения элемента.
+     */
     useEffect(() => {
         if (props.isComponentVisible) {
-            updateRotateStyle(props.rotateButtonAngle);
+            updateRotateAngleOfButton(props.rotateButtonAngle);
         }
     }, [props.isComponentVisible]);
+
+    /**
+     * Обновляет угол поворота для кнопки вращения элемента.
+     * @param angle - Угол поворота.
+     */
+    const updateRotateAngleOfButton = (angle) => {
+        const rotateButtonContainer = props.rotateButtonContainerRef.current;
+        
+        if (rotateButtonContainer === null) {
+            return;
+        }
+        
+        rotateButtonContainer.style.rotate = `${angle}deg`;
+    };
     
     return (
         <div className="rotate-button-container"
-             id="rotate-button-container"
              ref={(e) => {props.rotateButtonContainerRef.current = e; props.componentRef.current = e}}
-             onMouseDown={props.onMouseDownHandler}>
-            <RotateShapeIcon
-                className="rotateButton"
-                onMouseDown={props.onMouseDownRotateHandler}
-                onMouseEnter={props.onMouseEnterHandler}
-                onMouseLeave={props.onMouseLeaveHandler}/>
+             onMouseDown={props.handleRotateButtonContainerMouseDown}>
+            <RotateShapeIcon className="rotateButton" 
+                             onMouseDown={props.handleRotateButtonMouseDown} 
+                             onMouseEnter={props.handleRotateButtonMouseEnter} 
+                             onMouseLeave={props.handleRotateButtonMouseLeave} />
         </div>
     );
 };

@@ -184,11 +184,11 @@ const Canvas = (props) => {
                                                            setIsDragDisabled={setIsDragDisabled}
                                                            handleRotateButtonMouseDown={handleRotateButtonMouseDown}
                                                            handleRotateButtonMouseEnter={handleRotateButtonMouseEnter}
-                                                           onMouseLeaveHandler={handleRotateButtonMouseLeave}
+                                                           handleRotateButtonMouseLeave={handleRotateButtonMouseLeave}
                                                            handleRotateButtonContainerMouseDown=
                                                                {() => handleRotateButtonContainerMouseDown(index)}
                                                            rotateButtonAngle={rotateButtonAngles[index] || 0}
-                                                           rotateButtonContainerRef={rotateButtonContainerRef}/>)}
+                                                           rotateButtonContainerRef={rotateButtonContainerRef} />)}
             </div>
         </div>
     );
