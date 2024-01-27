@@ -32,6 +32,16 @@ const Canvas = (props) => {
     const [selectedShape, setSelectedShape] = useState(null);
 
     /**
+     * Хранит и устанавливает индекс выбранного элемента в массиве.
+     */
+    const [selectedShapeIndex, setSelectedShapeIndex] = useState(0);
+
+    /**
+     * Хранит и устанавливает массив, хранящий углы вращения элементов цепи.
+     */
+    const [rotationAngles, setRotationAngles] = useState({});
+
+    /**
      * Хранит и устанавливает возможность вращать элемент.
      */
     const [thisCanRotate, setThisCanRotate] = useState(false);
@@ -40,21 +50,6 @@ const Canvas = (props) => {
      * Хранит и устанавливает булевое значение, которое определяет, заблокировано ли передвижение элемента.
      */
     const [isDragDisabled, setIsDragDisabled] = useState(false);
-
-    /**
-     * Хранит и устанавливает угол вращения элемента.
-     */
-    const [rotationAngle, setRotationAngle] = useState(0);
-
-    /**
-     * Хранит и устанавливает угол вращения элемента.
-     */
-    const [rotateButtonAngles, setRotateButtonAngles] = useState({});
-
-    /**
-     * Хранит и устанавливает индекс выбранного элемента в массиве.
-     */
-    const [selectedShapeIndex, setSelectedShapeIndex] = useState(0);
     
     /**
      * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
@@ -72,12 +67,6 @@ const Canvas = (props) => {
     const handleRotateButtonContainerMouseDown = (index) => {
         setSelectedShape(shapeRefs[index].current);
         setSelectedShapeIndex(index);
-
-        const initialRotationAngle = rotateButtonAngles[index] || 0;
-        setRotateButtonAngles(prevAngles => ({
-            ...prevAngles,
-            [index]: initialRotationAngle,
-        }));
     }
 
     /**
@@ -107,32 +96,30 @@ const Canvas = (props) => {
         if(!thisCanRotate) {
            return;
         }
-        
-        handleRotate(event);
-        selectedShape.style.rotate = `${rotationAngle}deg`;
-        rotateButtonContainerRef.current.style.rotate = `${rotationAngle}deg`;
 
-        setRotateButtonAngles(previousAngles => ({
-            ...previousAngles,
-            [selectedShapeIndex]: rotationAngle,
-        }));
+        const newRotationAngles = { ...rotationAngles };
+        newRotationAngles[selectedShapeIndex] = handleRotate(event);
+        setRotationAngles(newRotationAngles);
+        
+        selectedShape.style.rotate = `${rotationAngles[selectedShapeIndex]}deg`;
+        rotateButtonContainerRef.current.style.rotate = `${rotationAngles[selectedShapeIndex]}deg`;
     }
 
     /**
      * Осуществляет вращение элемента относительно координат мыши.
      * @param event
+     * @returns {*} - Угол вращения элемента.
      */
     const handleRotate = (event) => {
         const shapeBoundingRect = selectedShape.getBoundingClientRect();
         const shapeCenterX = shapeBoundingRect.left + shapeBoundingRect.width / 2;
         const shapeCenterY = shapeBoundingRect.top + shapeBoundingRect.height / 2;
-        
+
         const deltaX = event.clientX - window.scrollX - shapeCenterX;
         const deltaY = event.clientY - window.scrollY - shapeCenterY;
+
         const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) - 150;
-        const angleOnGrid = props.setOnGrid(angle, 15);
-        
-        setRotationAngle(angleOnGrid);
+        return props.setOnGrid(angle, 15);
     };
 
     /**
@@ -158,7 +145,7 @@ const Canvas = (props) => {
                                                            isDragDisabled={isDragDisabled}
                                                            setThisCanRotate={setThisCanRotate}
                                                            setIsDragDisabled={setIsDragDisabled}
-                                                           rotateButtonAngle={rotateButtonAngles[index]}
+                                                           rotateButtonAngle={rotationAngles[index]}
                                                            increasePatternSize={increasePatternSize}
                                                            handleRotateButtonContainerMouseDown={() => 
                                                                handleRotateButtonContainerMouseDown(index)}
