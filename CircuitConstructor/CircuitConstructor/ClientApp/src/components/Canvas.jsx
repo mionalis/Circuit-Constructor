@@ -93,7 +93,7 @@ const Canvas = (props) => {
      * @param event
      */
     const handleCanvasMouseMove = (event) => {
-        if(!thisCanRotate) {
+        if(!thisCanRotate || rotateButtonContainerRef.current == null || selectedShape == null) {
            return;
         }
 
