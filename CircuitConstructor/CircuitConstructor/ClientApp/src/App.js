@@ -14,6 +14,10 @@ import "./styles/colors.css";
  * @constructor
  */
 function App() {
+    /**
+     * Ссылка на монтажную поверхность.
+     * @type {React.MutableRefObject<null>}
+     */
     const canvasRef = useRef(null);
     
     /**
