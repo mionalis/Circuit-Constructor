@@ -4,8 +4,6 @@ import "../styles/canvasStyles.css";
 
 /**
  * Монтажная поверхность. Отрисовывает элементы электрической цепи.
- * @returns {JSX.Element}
- * @constructor
  * @param {React.Ref} props.canvasRef - Ссылка на монтажную поверхность.
  * @param {Array} props.shapes - Массив элементов электрической цепи.
  * @param {boolean} props.isDraggedFromSidebar - Определяет, был ли элемент добавлен на Canvas при помощи 
@@ -17,6 +15,8 @@ import "../styles/canvasStyles.css";
  * @param {function} props.handleCanvasDragLeave - Срабатывает, когда перетаскиваемый элемент покидает Canvas. 
  * Убирает возможность добавление элемента перетаскиванием.
  * @param {function} props.setOnGrid - Устанавливает элемент по сетке.
+ * @returns {JSX.Element}
+ * @constructor
  */
 const Canvas = (props) => {
     /**

@@ -3,7 +3,14 @@ import React, {useEffect} from "react";
 
 /**
  * Кнопка вращения элемента.
- * @param props
+ * @param {number} props.rotateButtonAngle - Угол поворота элемента.
+ * @param {boolean} props.isComponentVisible - Опрделеяет видимость элемента.
+ * @param {React.Ref} props.rotateButtonContainerRef - Ссылка на контейнер, содержащий кнопку вращения.
+ * @param {function} props.handleRotateButtonContainerMouseDown - Срабатывает, когда пользователь нажимает кнопкой
+ * мыши по элементу или кнопке вращения. Используется для получения вращаемого элемента.
+ * @param {function} props.setIsDragDisabled - Устанавливает значение, которое определяет, выключена ли возможность
+ * перетаскивать элемент по рабочей поверхности.
+ * @param {function} props.setThisCanRotate - Устанавливает возможность поворачивать элемент.
  * @returns {JSX.Element}
  * @constructor
  */

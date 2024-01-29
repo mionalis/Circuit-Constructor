@@ -17,9 +17,7 @@ const shapeTypes = {
 };
 
 /**
- * Описывает левую панель с элементами.
- * @returns {JSX.Element}
- * @constructor
+ * Боковая панель с элементами.
  * @param {function} props.setIsDraggedFromSidebar - Устанавливает булевое значение, которое определяет, 
  * был ли элемент добавлен на рабочую область перетаскиванием из боковой панели.
  * @param {function} props.createNewShape - Создает новый элемент цепи.
@@ -27,6 +25,8 @@ const shapeTypes = {
  * элемент из Sidebar. Используется для установки нужного элемента при перетаскивании.
  * @param {function} props.handleDragEndFromSidebar - Срабатывает, когда пользователь заканчивает перетаскивать 
  * элемент из боковой панели на Canvas. Используется для установки выбранного элемента на монтажную поверхность.
+ * @returns {JSX.Element}
+ * @constructor
  */
 const Sidebar = (props) => {
     /**

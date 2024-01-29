@@ -5,26 +5,26 @@ import RotateButton from './RotateButton';
 
 /**
  * Элемент электрической цепи, отображаемый на монтажной поверхности.
- * @param props
- * @returns {JSX.Element}
+ * @param {React.Ref} ref - Ссылка на текущий элемент цепи.
  * @param {React.Ref} props.rotateButtonContainerRef - Ссылка на контейнер, содержащий кнопку вращения.
  * @param {Object} props.shape - Элемент электрической цепи.
  * @param {number} props.key - Ключ элемента электрической цепи.
+ * @param {number} props.rotateButtonAngle - Угол поворота элемента.
+ * @param {{ x: number, y: number }} props.shapeDropPosition - Координаты элемента, которые будут установлены
+ * после перетаскивания.
+ * @param {boolean} props.isDraggedFromSidebar - Определяет, был ли элемент добавлен на рабочую область 
+ * перетаскиванием из боковой панели.
  * @param {boolean} props.thisCanRotate - Определяет, может ли элемент поворачиваться.
  * @param {boolean} props.isDragDisabled - Определяет, выключена ли возможность перетаскивать элемент
  * по рабочей поверхности.
  * @param {function} props.setThisCanRotate - Устанавливает возможность поворачивать элемент.
  * @param {function} props.setIsDragDisabled - Устанавливает значение, которое определяет, выключена ли возможность
  * перетаскивать элемент по рабочей поверхности.
- * @param {number} props.rotateButtonAngle - Угол поворота.
  * @param {function} props.increasePatternSize - Увеличивает размер рабочей поверхности.
  * @param {function} props.handleRotateButtonContainerMouseDown - Срабатывает, когда пользователь нажимает кнопкой 
  * мыши по элементу или кнопке вращения. Используется для получения вращаемого элемента.
- * @param {boolean} props.isDraggedFromSidebar - Определяет, был ли элемент добавлен на рабочую область 
- * перетаскиванием из боковой панели..
- * @param {{ x: number, y: number }} props.shapeDropPosition - Координаты элемента, которые будут установлены
- * после перетаскивания.
  * @param {function} props.setOnGrid - Устанавливает элемент по сетке.
+ * @returns {JSX.Element}
  * @constructor
  */
 const Shape = React.forwardRef((props, ref) => {
@@ -128,10 +128,7 @@ const Shape = React.forwardRef((props, ref) => {
                                   setIsDragDisabled={props.setIsDragDisabled}
                                   setThisCanRotate={props.setThisCanRotate}
                                   rotateButtonContainerRef={props.rotateButtonContainerRef} 
-                                  handleRotateButtonContainerMouseDown={props.handleRotateButtonContainerMouseDown} 
-                                  handleRotateButtonMouseDown={props.handleRotateButtonMouseDown} 
-                                  handleRotateButtonMouseEnter={props.handleRotateButtonMouseEnter} 
-                                  handleRotateButtonMouseLeave={props.handleRotateButtonMouseLeave}
+                                  handleRotateButtonContainerMouseDown={props.handleRotateButtonContainerMouseDown}
                                   rotateButtonAngle={props.rotateButtonAngle} />)}
                 <span ref={componentRef}>
                     <div className="shape"
