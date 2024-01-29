@@ -72,10 +72,18 @@ const Shape = React.forwardRef((props, ref) => {
     const handleShapeDragStop  = (event: MouseEvent, data: DraggableData) => {
         setIsComponentVisible(true);
         ref.current.classList.remove("shape-on-drag");
-        
-        if (data.x >= 0 && data.y >= 0) {
-            setCurrentPosition({x: props.setOnGrid(data.x, 20), y: props.setOnGrid(data.y, 20)});
+
+        if (data.x < 0 && data.y < 0) {
+            return;
         }
+        
+        let gridStep = 20;
+        if (Math.abs(props.rotateButtonAngle) === 90 || 
+            Math.abs(props.rotateButtonAngle) === 270) {
+            gridStep = 10;
+        }
+        
+        setCurrentPosition({x: props.setOnGrid(data.x, gridStep), y: props.setOnGrid(data.y, gridStep)});
 
         const triggerZoneHeight = 90;
         const triggerZoneWidth = 240;
