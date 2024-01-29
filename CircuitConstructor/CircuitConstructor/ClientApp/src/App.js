@@ -34,7 +34,7 @@ function App() {
      * Хранит и устанавливает булевое значение, которое определяет, был ли элемент добавлен на Canvas 
      * при помощи перетаскивания.
      */
-    const [isDragged, setIsDragged] = useState(false);
+    const [isDraggedFromSidebar, setIsDraggedFromSidebar] = useState(false);
 
     /**
      * Хранит и устанавливает координаты элемента после перетаскивания.
@@ -94,7 +94,7 @@ function App() {
         setShapesPointerEvents(false);
         createNewShape(shapeType);
         setIsCanBeDropped(false);
-        setIsDragged(true);
+        setIsDraggedFromSidebar(true);
 
         const canvas = canvasRef.current;
         
@@ -155,7 +155,7 @@ function App() {
     return (
         <div className="main-container">
             <div className="content-container">
-                <Sidebar setIsDragged={setIsDragged}
+                <Sidebar setIsDraggedFromSidebar={setIsDraggedFromSidebar}
                          createNewShape={createNewShape}
                          handleDragStartFromSidebar={handleDragStartFromSidebar}
                          handleDragEndFromSidebar={handleDragEndFromSidebar} />
@@ -164,7 +164,7 @@ function App() {
                         <TopMenu />
                         <Canvas canvasRef={canvasRef}
                                 shapes={shapes}
-                                isDragged={isDragged}
+                                isDraggedFromSidebar={isDraggedFromSidebar}
                                 shapeDropPosition={shapeDropPosition}
                                 handleCanvasDragEnter={handleCanvasDragEnter}
                                 handleCanvasDragLeave={handleCanvasDragLeave}

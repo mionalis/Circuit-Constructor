@@ -158,7 +158,7 @@ const Canvas = (props) => {
                                                            increasePatternSize={increasePatternSize}
                                                            handleRotateButtonContainerMouseDown={() => 
                                                                handleRotateButtonContainerMouseDown(index)}
-                                                           isDragged={props.isDragged} 
+                                                           isDraggedFromSidebar={props.isDraggedFromSidebar} 
                                                            shapeDropPosition={props.shapeDropPosition} 
                                                            setOnGrid={props.setOnGrid} />)}
             </div>

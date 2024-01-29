@@ -20,7 +20,13 @@ const shapeTypes = {
  * Описывает левую панель с элементами.
  * @returns {JSX.Element}
  * @constructor
- * @param props
+ * @param {function} props.setIsDraggedFromSidebar - Устанавливает булевое значение, которое определяет, 
+ * был ли элемент добавлен на рабочую область перетаскиванием из боковой панели.
+ * @param {function} props.createNewShape - Создает новый элемент цепи.
+ * @param {function} props.handleDragStartFromSidebar - Срабатывает, когда пользователь начинает перетаскивать
+ * элемент из Sidebar. Используется для установки нужного элемента при перетаскивании.
+ * @param {function} props.handleDragEndFromSidebar - Срабатывает, когда пользователь заканчивает перетаскивать 
+ * элемент из боковой панели на Canvas. Используется для установки выбранного элемента на монтажную поверхность.
  */
 const Sidebar = (props) => {
     /**
@@ -42,7 +48,7 @@ const Sidebar = (props) => {
                                     <AddShapeButton className="shape-button button-common"
                                                     id="shape-button" 
                                                     draggable
-                                                    onClick={props.setIsDragged(false)}
+                                                    onClick={props.setIsDraggedFromSidebar(false)}
                                                     onDragStart={(e)=>
                                                         props.handleDragStartFromSidebar(e, shapeTypes.Resistor)}
                                                     onDragEnd={(e)=>props.handleDragEndFromSidebar(e, <Resistor />)} >
@@ -53,7 +59,7 @@ const Sidebar = (props) => {
                                     <AddShapeButton className="shape-button button-common"
                                                     id="shape-button"
                                                     draggable
-                                                    onClick={props.setIsDragged(false)}
+                                                    onClick={props.setIsDraggedFromSidebar(false)}
                                                     onDragStart={(e)=>
                                                         props.handleDragStartFromSidebar(e, shapeTypes.Inductor)}
                                                     onDragEnd={(e)=>props.handleDragEndFromSidebar(e, <Inductor />)}>
@@ -64,7 +70,7 @@ const Sidebar = (props) => {
                                     <AddShapeButton className="shape-button button-common" 
                                                     id="shape-button"
                                                     draggable
-                                                    onClick={props.setIsDragged(false)}
+                                                    onClick={props.setIsDraggedFromSidebar(false)}
                                                     onDragStart={(e)=>
                                                         props.handleDragStartFromSidebar(e, shapeTypes.Capacitor)}
                                                     onDragEnd={(e)=>props.handleDragEndFromSidebar(e, <Capacitor />)}>

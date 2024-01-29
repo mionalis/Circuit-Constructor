@@ -25,7 +25,7 @@ const Shape = React.forwardRef((props, ref) => {
      * Задает элементу начальные координаты, если он был добавлен с помощью перетаскивания.
      */
     useMemo(()=>{
-        if (props.isDragged) {
+        if (props.isDraggedFromSidebar) {
             setCurrentPosition({x: props.shapeDropPosition.x, y: props.shapeDropPosition.y});
         }
     }, []);
