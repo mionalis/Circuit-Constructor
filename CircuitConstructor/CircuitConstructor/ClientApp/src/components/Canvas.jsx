@@ -6,7 +6,17 @@ import "../styles/canvasStyles.css";
  * Монтажная поверхность. Отрисовывает элементы электрической цепи.
  * @returns {JSX.Element}
  * @constructor
- * @param props
+ * @param {React.Ref} props.canvasRef - Ссылка на монтажную поверхность.
+ * @param {Array} props.shapes - Массив элементов электрической цепи.
+ * @param {boolean} props.isDraggedFromSidebar - Определяет, был ли элемент добавлен на Canvas при помощи 
+ * перетаскивания из Sidebar.
+ * @param {{ x: number, y: number }} props.shapeDropPosition - Координаты элемента, которые будут установлены 
+ * после перетаскивания.
+ * @param {function} props.handleCanvasDragEnter - Срабатывает, когда перетаскиваемый элемент входит на Canvas. 
+ * Устанавливает возможность добавление элемента перетаскиванием. 
+ * @param {function} props.handleCanvasDragLeave - Срабатывает, когда перетаскиваемый элемент покидает Canvas. 
+ * Убирает возможность добавление элемента перетаскиванием.
+ * @param {function} props.setOnGrid - Устанавливает элемент по сетке.
  */
 const Canvas = (props) => {
     /**
@@ -61,7 +71,8 @@ const Canvas = (props) => {
     }, [])
 
     /**
-     * Срабатывает, когда пользователь нажимает кнопкой мыши по элементу или кнопке вращения.
+     * Срабатывает, когда пользователь нажимает кнопкой мыши по элементу или кнопке вращения. Используется для
+     * получения вращаемого элемента.
      * @param index - Индекс выбранного элемента в массиве.
      */
     const handleRotateButtonContainerMouseDown = (index) => {
@@ -146,9 +157,9 @@ const Canvas = (props) => {
                  onDragLeave={props.handleCanvasDragLeave}
                  onMouseMove={handleCanvasMouseMove}
                  onMouseUp={handleCanvasMouseUp}>
-                {props.shapes.map((shape, index) => <Shape ref={shapeRefs[index]}
+                {props.shapes.map((shape, index) => <Shape ref={shapeRefs[index]} 
                                                            rotateButtonContainerRef={rotateButtonContainerRef}
-                                                           post={shape} 
+                                                           shape={shape} 
                                                            key={shape.id}
                                                            thisCanRotate={thisCanRotate}
                                                            isDragDisabled={isDragDisabled}

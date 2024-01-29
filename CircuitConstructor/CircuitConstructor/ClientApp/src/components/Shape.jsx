@@ -7,6 +7,24 @@ import RotateButton from './RotateButton';
  * Элемент электрической цепи, отображаемый на монтажной поверхности.
  * @param props
  * @returns {JSX.Element}
+ * @param {React.Ref} props.rotateButtonContainerRef - Ссылка на контейнер, содержащий кнопку вращения.
+ * @param {Object} props.shape - Элемент электрической цепи.
+ * @param {number} props.key - Ключ элемента электрической цепи.
+ * @param {boolean} props.thisCanRotate - Определяет, может ли элемент поворачиваться.
+ * @param {boolean} props.isDragDisabled - Определяет, выключена ли возможность перетаскивать элемент
+ * по рабочей поверхности.
+ * @param {function} props.setThisCanRotate - Устанавливает возможность поворачивать элемент.
+ * @param {function} props.setIsDragDisabled - Устанавливает значение, которое определяет, выключена ли возможность
+ * перетаскивать элемент по рабочей поверхности.
+ * @param {number} props.rotateButtonAngle - Угол поворота.
+ * @param {function} props.increasePatternSize - Увеличивает размер рабочей поверхности.
+ * @param {function} props.handleRotateButtonContainerMouseDown - Срабатывает, когда пользователь нажимает кнопкой 
+ * мыши по элементу или кнопке вращения. Используется для получения вращаемого элемента.
+ * @param {boolean} props.isDraggedFromSidebar - Определяет, был ли элемент добавлен на рабочую область 
+ * перетаскиванием из боковой панели..
+ * @param {{ x: number, y: number }} props.shapeDropPosition - Координаты элемента, которые будут установлены
+ * после перетаскивания.
+ * @param {function} props.setOnGrid - Устанавливает элемент по сетке.
  * @constructor
  */
 const Shape = React.forwardRef((props, ref) => {
@@ -120,7 +138,7 @@ const Shape = React.forwardRef((props, ref) => {
                          id="shape"
                          ref={ref} 
                          onClick={handleShapeClick}>
-                        {props.post.body}
+                        {props.shape.body}
                     </div>
                 </span>
             </div>
