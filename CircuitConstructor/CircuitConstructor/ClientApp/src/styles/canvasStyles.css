@@ -32,7 +32,8 @@
 .shape-on-drag,
 .shape-focus {
     border: 2px dashed var(--draggable-element-border-color);
-    margin: -2px -2px -2px -2px;
+    margin-top: -2px;
+    margin-left: -2px;
 }
 
 .shape-on-drag {

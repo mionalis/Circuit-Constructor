@@ -76,9 +76,11 @@ const Shape = React.forwardRef((props, ref) => {
         if (data.x >= 0 && data.y >= 0) {
             setCurrentPosition({x: props.setOnGrid(data.x, 20), y: props.setOnGrid(data.y, 20)});
         }
-        
-        props.increasePatternSize(data.y, 'height', 'clientHeight', 90);
-        props.increasePatternSize(data.x, 'width', 'clientWidth', 240);
+
+        const triggerZoneHeight = 90;
+        const triggerZoneWidth = 240;
+        props.increasePatternSize(data.y, 'height', 'clientHeight', triggerZoneHeight);
+        props.increasePatternSize(data.x, 'width', 'clientWidth', triggerZoneWidth);
     }
 
     /**

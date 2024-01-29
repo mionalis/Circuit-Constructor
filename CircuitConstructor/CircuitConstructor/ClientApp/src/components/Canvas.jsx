@@ -109,7 +109,7 @@ const Canvas = (props) => {
     /**
      * Осуществляет вращение элемента относительно координат мыши.
      * @param event
-     * @returns {*} - Угол вращения элемента.
+     * @returns {*} - Угол вращения элемента в градусах.
      */
     const handleRotate = (event) => {
         const shapeBoundingRect = selectedShape.getBoundingClientRect();
@@ -119,8 +119,11 @@ const Canvas = (props) => {
         const deltaX = event.clientX - window.scrollX - shapeCenterX;
         const deltaY = event.clientY - window.scrollY - shapeCenterY;
 
-        const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) - 150;
-        return props.setOnGrid(angle, 15);
+        const initialAngle = 150;
+        const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) - initialAngle;
+        
+        const rotationStep = 90;
+        return props.setOnGrid(angle, rotationStep);
     };
 
     /**
