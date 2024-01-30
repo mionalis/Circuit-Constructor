@@ -33,12 +33,12 @@ const RotateButton = (props) => {
         const rotateButtonContainer = props.rotateButtonContainerRef.current;
         
         if (props.isVerticalRotation(props.rotateButtonAngle)) {
-            rotateButtonContainer.style.right = `${-125}px`;
-            rotateButtonContainer.style.bottom = `${-65}px`;
+            rotateButtonContainer.style.right = `${10}px`;
+            rotateButtonContainer.style.bottom = `${10}px`;
         }
         else {
-            rotateButtonContainer.style.right = `${-115}px`;
-            rotateButtonContainer.style.bottom = `${-55}px`;
+            rotateButtonContainer.style.right = `${0}px`;
+            rotateButtonContainer.style.bottom = `${0}px`;
         }
     }, [props.thisCanRotate])
     
@@ -82,7 +82,7 @@ const RotateButton = (props) => {
              ref={(e) => 
                 {props.rotateButtonContainerRef.current = e; props.componentRef.current = e}}
              onMouseDown={props.handleRotateButtonContainerMouseDown}>
-            <RotateShapeIcon className="rotateButton" 
+            <RotateShapeIcon className="rotate-button" 
                              onMouseDown={handleRotateButtonMouseDown} 
                              onMouseEnter={handleRotateButtonMouseEnter} 
                              onMouseLeave={handleRotateButtonMouseLeave} />

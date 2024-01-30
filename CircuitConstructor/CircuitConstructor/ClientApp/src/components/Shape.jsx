@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import Draggable, { DraggableData } from "react-draggable";
 import useComponentVisible from '../hooks/useComponentVisible';
 import RotateButton from './RotateButton';
+import {ReactComponent as DrawLineButton}  from '../assets/interfaceElements/Triangle.svg'
 
 /**
  * Элемент электрической цепи, отображаемый на монтажной поверхности.
@@ -40,6 +41,10 @@ const Shape = React.forwardRef((props, ref) => {
      */
     const { componentRef, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
     
+    const shapeContainerRef = useRef();
+
+    const drawLineButtonRef = useRef();
+    
     /**
      * Задает элементу начальные координаты, если он был добавлен с помощью перетаскивания.
      */
@@ -61,12 +66,12 @@ const Shape = React.forwardRef((props, ref) => {
      */
     useEffect(() => {
         if (isVerticalRotation(props.rotateButtonAngle)) {
-            ref.current.style.left = `${10}px`;
-            ref.current.style.top = `${10}px`;
+            shapeContainerRef.current.style.left = `${10}px`;
+            shapeContainerRef.current.style.top = `${10}px`;
         }
         else {
-            ref.current.style.left = 0;
-            ref.current.style.top = 0;
+            shapeContainerRef.current.style.left = 0;
+            shapeContainerRef.current.style.top = 0;
         }
     }, [props.thisCanRotate])
     
@@ -79,6 +84,7 @@ const Shape = React.forwardRef((props, ref) => {
         }
         else {
             ref.current.classList.remove("shape-focus");
+            drawLineButtonRef.current.style.visibility = 'hidden';
         }
     }, [isComponentVisible]);
     
@@ -128,6 +134,22 @@ const Shape = React.forwardRef((props, ref) => {
         setIsComponentVisible(true);
     }
     
+    const handleShapeMouseOver = () => {
+        drawLineButtonRef.current.style.visibility = 'visible';
+    }
+
+    const handleShapeMouseLeave = () => {
+        drawLineButtonRef.current.style.visibility = 'hidden';
+    }
+
+    const handleDrawLineMouseOver = () => {
+        props.setIsDragDisabled(true);
+    }
+
+    const handleDrawLineMouseLeave = () => {
+        props.setIsDragDisabled(true);
+    }
+    
     /**
      * Определяет, повернут ли элемент на 90 градусов.
      * @param angle - Угол поворота в градусах.
@@ -142,7 +164,7 @@ const Shape = React.forwardRef((props, ref) => {
                    onDrag={handleShapeDrag} 
                    onStop ={handleShapeDragStop}
                    disabled={props.isDragDisabled}>
-            <div className="shape-container"> 
+            <div className="shape-container" ref={shapeContainerRef}> 
                 {isComponentVisible && (
                     <RotateButton componentRef={componentRef}
                                   isComponentVisible={isComponentVisible}
@@ -153,11 +175,20 @@ const Shape = React.forwardRef((props, ref) => {
                                   rotateButtonContainerRef={props.rotateButtonContainerRef} 
                                   handleRotateButtonContainerMouseDown={props.handleRotateButtonContainerMouseDown}
                                   rotateButtonAngle={props.rotateButtonAngle} />)}
-                <span ref={componentRef}>
+                <span onMouseOver={handleShapeMouseOver}
+                      onMouseLeave={handleShapeMouseLeave}
+                      onClick={handleShapeClick}>
+                    <div className="triangle-buttons-container" ref={drawLineButtonRef}>
+                        <DrawLineButton className="triangle-button left-button" 
+                                        onMouseOver={handleDrawLineMouseOver} 
+                                        onMouseLeave={handleDrawLineMouseLeave} />
+                        <DrawLineButton className="triangle-button right-button"
+                                        onMouseOver={handleDrawLineMouseOver}
+                                        onMouseLeave={handleDrawLineMouseLeave}/>
+                    </div>
                     <div className="shape"
                          id="shape"
-                         ref={ref} 
-                         onClick={handleShapeClick}>
+                         ref={ref}>
                         {props.shape.body}
                     </div>
                 </span>
