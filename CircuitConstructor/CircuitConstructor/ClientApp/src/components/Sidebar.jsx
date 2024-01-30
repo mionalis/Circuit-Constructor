@@ -1,9 +1,9 @@
 ﻿import React from 'react';
-import AddShapeButton from "./AddShapeButton";
 import useToggle from '../hooks/useToggle';
 import {ReactComponent as Resistor} from "../assets/circuitElements/Resistor.svg";
 import {ReactComponent as Inductor} from "../assets/circuitElements/Inductor.svg";
 import {ReactComponent as Capacitor} from "../assets/circuitElements/Capacitor.svg";
+import AddSelectedShapeButton from "./AddSelectedShapeButton";
 import "../styles/sidebarStyles.css";
 
 /**
@@ -11,9 +11,9 @@ import "../styles/sidebarStyles.css";
  * @type {{RESISTOR: string, CONDUCTOR: string, CAPACITOR: string}}
  */
 const shapeTypes = {
-    Resistor: 'resistor',
-    Inductor: 'inductor',
-    Capacitor: 'capacitor'
+    Resistor: 'Resistor',
+    Inductor: 'Inductor',
+    Capacitor: 'Capacitor'
 };
 
 /**
@@ -44,39 +44,24 @@ const Sidebar = (props) => {
                               className="shape-type-select-button button-common">Fundamental Items</span>
                         {toggle && (
                             <ul>
-                                <span onClick={event => props.createNewShape(<Resistor />)}>
-                                    <AddShapeButton className="shape-button button-common"
-                                                    id="shape-button" 
-                                                    draggable
-                                                    onClick={props.setIsDraggedFromSidebar(false)}
-                                                    onDragStart={(e)=>
-                                                        props.handleDragStartFromSidebar(e, shapeTypes.Resistor)}
-                                                    onDragEnd={(e)=>props.handleDragEndFromSidebar(e, <Resistor />)} >
-                                        <Resistor className="shape-button-icon" id="resistor" />Resistor
-                                    </AddShapeButton>
-                                </span>
-                                <span onClick={event => props.createNewShape(<Inductor />)}>
-                                    <AddShapeButton className="shape-button button-common"
-                                                    id="shape-button"
-                                                    draggable
-                                                    onClick={props.setIsDraggedFromSidebar(false)}
-                                                    onDragStart={(e)=>
-                                                        props.handleDragStartFromSidebar(e, shapeTypes.Inductor)}
-                                                    onDragEnd={(e)=>props.handleDragEndFromSidebar(e, <Inductor />)}>
-                                        <Inductor className="shape-button-icon" id="inductor" />Inductor
-                                    </AddShapeButton>
-                                </span>
-                                <span onClick={event => props.createNewShape(<Capacitor />)}>
-                                    <AddShapeButton className="shape-button button-common" 
-                                                    id="shape-button"
-                                                    draggable
-                                                    onClick={props.setIsDraggedFromSidebar(false)}
-                                                    onDragStart={(e)=>
-                                                        props.handleDragStartFromSidebar(e, shapeTypes.Capacitor)}
-                                                    onDragEnd={(e)=>props.handleDragEndFromSidebar(e, <Capacitor />)}>
-                                        <Capacitor className="shape-button-icon" id="capacitor" />Capacitor
-                                    </AddShapeButton>
-                                </span>
+                                <AddSelectedShapeButton shapeType={shapeTypes.Resistor}
+                                                        IconComponent={Resistor}
+                                                        createNewShape={props.createNewShape}
+                                                        setIsDraggedFromSidebar={props.setIsDraggedFromSidebar}
+                                                        handleDragStart={props.handleDragStartFromSidebar}
+                                                        handleDragEnd={props.handleDragEndFromSidebar} />
+                                <AddSelectedShapeButton shapeType={shapeTypes.Inductor}
+                                                        IconComponent={Inductor}
+                                                        createNewShape={props.createNewShape}
+                                                        setIsDraggedFromSidebar={props.setIsDraggedFromSidebar}
+                                                        handleDragStart={props.handleDragStartFromSidebar}
+                                                        handleDragEnd={props.handleDragEndFromSidebar} />
+                                <AddSelectedShapeButton shapeType={shapeTypes.Capacitor}
+                                                        IconComponent={Capacitor}
+                                                        createNewShape={props.createNewShape}
+                                                        setIsDraggedFromSidebar={props.setIsDraggedFromSidebar}
+                                                        handleDragStart={props.handleDragStartFromSidebar}
+                                                        handleDragEnd={props.handleDragEndFromSidebar} />
                             </ul>)}
                     </li>
                 </ul>
@@ -90,6 +75,6 @@ const Sidebar = (props) => {
             </div>
         </div>
     );
-}
+};
 
 export default Sidebar;
