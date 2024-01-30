@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import Draggable, { DraggableData } from "react-draggable";
 import useComponentVisible from '../hooks/useComponentVisible';
 import RotateButton from './RotateButton';
@@ -55,6 +55,20 @@ const Shape = React.forwardRef((props, ref) => {
     useEffect(() => {
         setIsComponentVisible(true);
     }, []);
+
+    /**
+     * Устаналивает элемент по сетке при повороте.
+     */
+    useEffect(() => {
+        if (isVerticalRotation(props.rotateButtonAngle)) {
+            ref.current.style.left = `${10}px`;
+            ref.current.style.top = `${10}px`;
+        }
+        else {
+            ref.current.style.left = 0;
+            ref.current.style.top = 0;
+        }
+    }, [props.thisCanRotate])
     
     /**
      * Устанавливает стиль для элемента цепи, если он выбран пользователем.
@@ -98,8 +112,8 @@ const Shape = React.forwardRef((props, ref) => {
         
         setCurrentPosition({
             x: props.setOnGrid(data.x, props.canvasGridStep),
-            y: props.setOnGrid(data.y, props.canvasGridStep)});
-        SetVerticalShapeOnGrid(data.x, data.y, props.canvasGridStep, -10, -10);
+            y: props.setOnGrid(data.y, props.canvasGridStep)
+        });
 
         const triggerZoneHeight = 90;
         const triggerZoneWidth = 240;
@@ -112,28 +126,8 @@ const Shape = React.forwardRef((props, ref) => {
      */
     const handleShapeClick = () => {
         setIsComponentVisible(true);
-        SetVerticalShapeOnGrid(currentPosition.x, currentPosition.y, props.canvasGridStep, -10, -10);
     }
-
-    /**
-     * Устаналивает элемент по сетке, если она повернута на 90 градусов.
-     * @param xValue - Значение координаты Х.
-     * @param yValue - Значение координаты У.
-     * @param gridStep - Шаг сетки.
-     * @param offsetX - Смещение элемента относительно сетки по координате Х.
-     * @param offsetY - Смещение элемента относительно сетки по координате У.
-     * @constructor
-     */
-    const SetVerticalShapeOnGrid = (xValue, yValue, gridStep, offsetX, offsetY) => {
-        if (!isVerticalRotation(props.rotateButtonAngle)) {
-            return;
-        }
-
-        const updatedX = props.setOnGrid(xValue, gridStep) + offsetX;
-        const updatedY = props.setOnGrid(yValue, gridStep) + offsetY;
-        setCurrentPosition({x: updatedX, y: updatedY});
-    }
-
+    
     /**
      * Определяет, повернут ли элемент на 90 градусов.
      * @param angle - Угол поворота в градусах.
@@ -152,6 +146,8 @@ const Shape = React.forwardRef((props, ref) => {
                 {isComponentVisible && (
                     <RotateButton componentRef={componentRef}
                                   isComponentVisible={isComponentVisible}
+                                  isVerticalRotation={isVerticalRotation}
+                                  thisCanRotate={props.thisCanRotate}
                                   setIsDragDisabled={props.setIsDragDisabled}
                                   setThisCanRotate={props.setThisCanRotate}
                                   rotateButtonContainerRef={props.rotateButtonContainerRef} 
