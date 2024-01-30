@@ -24,7 +24,6 @@ import RotateButton from './RotateButton';
  * @param {function} props.handleRotateButtonContainerMouseDown - Срабатывает, когда пользователь нажимает кнопкой 
  * мыши по элементу или кнопке вращения. Используется для получения вращаемого элемента.
  * @param {function} props.setOnGrid - Устанавливает элемент по сетке.
- * @param {function} props.isVerticalRotation - Определяет, повернут ли элемент на 90 градусов.
  * @returns {JSX.Element}
  * @constructor
  */
@@ -124,7 +123,7 @@ const Shape = React.forwardRef((props, ref) => {
      * @constructor
      */
     const SetVerticalShapeOnGrid = (xValue, yValue, gridStep, offsetX, offsetY) => {
-        if (!props.isVerticalRotation(props.rotateButtonAngle)) {
+        if (!isVerticalRotation(props.rotateButtonAngle)) {
             return;
         }
 
@@ -132,6 +131,15 @@ const Shape = React.forwardRef((props, ref) => {
         const updatedY = props.setOnGrid(yValue, gridStep) + offsetY;
         setCurrentPosition({x: updatedX, y: updatedY});
     }
+
+    /**
+     * Определяет, повернут ли элемент на 90 градусов.
+     * @param angle - Угол поворота в градусах.
+     * @returns {boolean} - Если True - элемент вертикален, если False - размещен горизонтально.
+     */
+    const isVerticalRotation = (angle) => {
+        return Math.abs(angle) === 90 || Math.abs(angle) === 270;
+    };
     
     return (
         <Draggable position={{x: currentPosition.x, y: currentPosition.y}}

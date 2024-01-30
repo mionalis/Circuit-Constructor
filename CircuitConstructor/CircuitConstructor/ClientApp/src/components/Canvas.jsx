@@ -143,22 +143,12 @@ const Canvas = (props) => {
     const handleCanvasMouseUp = () => {
         setThisCanRotate(false);
         
-        if (selectedShape === null ||
-            isVerticalRotation(rotationAngles[selectedShapeIndex])) {
+        if (selectedShape === null) {
             return;
         }
 
         selectedShape.classList.remove("shape-on-drag");
     }
-
-    /**
-     * Определяет, повернут ли элемент на 90 градусов.
-     * @param angle - Угол поворота в градусах.
-     * @returns {boolean} - Если True - элемент вертикален, если False - размещен горизонтально.
-     */
-    const isVerticalRotation = (angle) => {
-        return Math.abs(angle) === 90 || Math.abs(angle) === 270;
-    };
     
     return (
         <div className="canvas"  ref={props.canvasRef}>
@@ -182,8 +172,7 @@ const Canvas = (props) => {
                                                                handleRotateButtonContainerMouseDown(index)}
                                                            isDraggedFromSidebar={props.isDraggedFromSidebar} 
                                                            shapeDropPosition={props.shapeDropPosition} 
-                                                           setOnGrid={props.setOnGrid}
-                                                           isVerticalRotation={isVerticalRotation}/>)}
+                                                           setOnGrid={props.setOnGrid} />)}
             </div>
         </div>
     );
