@@ -19,6 +19,12 @@ function App() {
      * @type {React.MutableRefObject<null>}
      */
     const canvasRef = useRef(null);
+
+    /**
+     * Шаг разметки монтажной поверхности.
+     * @type {number}
+     */
+    const canvasGridStep = 20;
     
     /**
      * Хранит и устанавливает массив элементов электрической цепи.
@@ -40,7 +46,7 @@ function App() {
      * Хранит и устанавливает координаты элемента после перетаскивания.
      */
     const [shapeDropPosition, setShapeDropPosition] = useState({});
-
+    
     /**
      * Создает элемент электрической цепи и добавляет его в массив.
      * @param shapeType - Тип добавляемой фигуры.
@@ -100,9 +106,8 @@ function App() {
 
         const canvas = canvasRef.current;
         
-        const gridStep = 20;
-        const x = setOnGrid(event.clientX - canvas.offsetLeft + canvas.scrollLeft, gridStep);
-        const y = setOnGrid(event.clientY - canvas.offsetTop + canvas.scrollTop, gridStep);
+        const x = setOnGrid(event.clientX - canvas.offsetLeft + canvas.scrollLeft, canvasGridStep);
+        const y = setOnGrid(event.clientY - canvas.offsetTop + canvas.scrollTop, canvasGridStep);
         setShapeDropPosition({x: x, y: y});
     }
 
@@ -166,6 +171,7 @@ function App() {
                         <TopMenu />
                         <Canvas canvasRef={canvasRef}
                                 shapes={shapes}
+                                canvasGridStep={canvasGridStep}
                                 isDraggedFromSidebar={isDraggedFromSidebar}
                                 shapeDropPosition={shapeDropPosition}
                                 handleCanvasDragEnter={handleCanvasDragEnter}

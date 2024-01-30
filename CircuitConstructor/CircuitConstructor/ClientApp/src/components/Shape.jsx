@@ -7,6 +7,7 @@ import RotateButton from './RotateButton';
  * Элемент электрической цепи, отображаемый на монтажной поверхности.
  * @param {React.Ref} ref - Ссылка на текущий элемент цепи.
  * @param {React.Ref} props.rotateButtonContainerRef - Ссылка на контейнер, содержащий кнопку вращения.
+ * @param {React.Ref} props.canvasGridStep - Шаг разметки монтажной поверхности.
  * @param {Object} props.shape - Элемент электрической цепи.
  * @param {number} props.key - Ключ элемента электрической цепи.
  * @param {number} props.rotateButtonAngle - Угол поворота элемента.
@@ -95,9 +96,10 @@ const Shape = React.forwardRef((props, ref) => {
             return;
         }
         
-        const gridStep = 20;
-        setCurrentPosition({x: props.setOnGrid(data.x, gridStep), y: props.setOnGrid(data.y, gridStep)});
-        SetVerticalShapeOnGrid(data.x, data.y, gridStep, -10, -10);
+        setCurrentPosition({
+            x: props.setOnGrid(data.x, props.canvasGridStep),
+            y: props.setOnGrid(data.y, props.canvasGridStep)});
+        SetVerticalShapeOnGrid(data.x, data.y, props.canvasGridStep, -10, -10);
 
         const triggerZoneHeight = 90;
         const triggerZoneWidth = 240;
@@ -110,7 +112,7 @@ const Shape = React.forwardRef((props, ref) => {
      */
     const handleShapeClick = () => {
         setIsComponentVisible(true);
-        SetVerticalShapeOnGrid(currentPosition.x, currentPosition.y, 20, -10, -10);
+        SetVerticalShapeOnGrid(currentPosition.x, currentPosition.y, props.canvasGridStep, -10, -10);
     }
 
     /**

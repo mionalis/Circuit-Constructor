@@ -5,6 +5,7 @@ import "../styles/canvasStyles.css";
 /**
  * Монтажная поверхность. Отрисовывает элементы электрической цепи.
  * @param {React.Ref} props.canvasRef - Ссылка на монтажную поверхность.
+ * @param {React.Ref} props.canvasGridStep - Шаг разметки монтажной поверхности.
  * @param {Array} props.shapes - Массив элементов электрической цепи.
  * @param {boolean} props.isDraggedFromSidebar - Определяет, был ли элемент добавлен на Canvas при помощи 
  * перетаскивания из Sidebar.
@@ -170,6 +171,7 @@ const Canvas = (props) => {
                                                            increasePatternSize={increasePatternSize}
                                                            handleRotateButtonContainerMouseDown={() => 
                                                                handleRotateButtonContainerMouseDown(index)}
+                                                           canvasGridStep={props.canvasGridStep}
                                                            isDraggedFromSidebar={props.isDraggedFromSidebar} 
                                                            shapeDropPosition={props.shapeDropPosition} 
                                                            setOnGrid={props.setOnGrid} />)}
