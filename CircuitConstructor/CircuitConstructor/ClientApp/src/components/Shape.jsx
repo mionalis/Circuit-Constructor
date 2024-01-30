@@ -54,7 +54,7 @@ const Shape = React.forwardRef((props, ref) => {
     useEffect(() => {
         setIsComponentVisible(true);
     }, []);
-
+    
     /**
      * Устанавливает стиль для элемента цепи, если он выбран пользователем.
      */
@@ -95,13 +95,9 @@ const Shape = React.forwardRef((props, ref) => {
             return;
         }
         
-        let gridStep = 20;
-        if (Math.abs(props.rotateButtonAngle) === 90 || 
-            Math.abs(props.rotateButtonAngle) === 270) {
-            gridStep = 10;
-        }
-        
+        const gridStep = 20;
         setCurrentPosition({x: props.setOnGrid(data.x, gridStep), y: props.setOnGrid(data.y, gridStep)});
+        SetVerticalShapeOnGrid(data.x, data.y, gridStep, -10, -10);
 
         const triggerZoneHeight = 90;
         const triggerZoneWidth = 240;
@@ -114,6 +110,27 @@ const Shape = React.forwardRef((props, ref) => {
      */
     const handleShapeClick = () => {
         setIsComponentVisible(true);
+        SetVerticalShapeOnGrid(currentPosition.x, currentPosition.y, 20, -10, -10);
+    }
+
+    /**
+     * Устаналивает элемент по сетке, если она повернута на 90 градусов.
+     * @param xValue - Значение координаты Х.
+     * @param yValue - Значение координаты У.
+     * @param gridStep - Шаг сетки.
+     * @param offsetX - Смещение элемента относительно сетки по координате Х.
+     * @param offsetY - Смещение элемента относительно сетки по координате У.
+     * @constructor
+     */
+    const SetVerticalShapeOnGrid = (xValue, yValue, gridStep, offsetX, offsetY) => {
+        if (!(Math.abs(props.rotateButtonAngle) === 90 || 
+            Math.abs(props.rotateButtonAngle) === 270)) {
+            return;
+        }
+
+        const updatedX = props.setOnGrid(xValue, gridStep) + offsetX;
+        const updatedY = props.setOnGrid(yValue, gridStep) + offsetY;
+        setCurrentPosition({x: updatedX, y: updatedY});
     }
     
     return (
