@@ -2,7 +2,6 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import Draggable, { DraggableData } from "react-draggable";
 import useComponentVisible from '../hooks/useComponentVisible';
 import RotateButton from './RotateButton';
-import {ReactComponent as DrawLineButton}  from '../assets/interfaceElements/Triangle.svg'
 
 /**
  * Элемент электрической цепи, отображаемый на монтажной поверхности.
@@ -185,13 +184,13 @@ const Shape = React.forwardRef((props, ref) => {
                                   handleRotateButtonContainerMouseDown={props.handleRotateButtonContainerMouseDown}
                                   rotateButtonAngle={props.rotateButtonAngle} />)}
                 <span onClick={handleShapeClick}>
-                    <div className="triangle-buttons-container" onMouseOver={handleShapeMouseOver}
+                    <div className="circle-buttons-container" onMouseOver={handleShapeMouseOver}
                          onMouseLeave={handleShapeMouseLeave}>
-                        <DrawLineButton className="triangle-button left-button" ref={drawLineLeftButtonRef}
+                        <div className="circle-button" ref={drawLineLeftButtonRef}
                                         onMouseOver={handleDrawLineMouseOver} 
                                         onMouseLeave={handleDrawLineMouseLeave}
                         onMouseDown={props.handleMouseDown}/>
-                        <DrawLineButton className="triangle-button right-button"
+                        <div className="circle-button"
                                         onMouseOver={handleDrawLineMouseOver}
                                         onMouseLeave={handleDrawLineMouseLeave} ref={drawLineRightButtonRef} />
                     </div>

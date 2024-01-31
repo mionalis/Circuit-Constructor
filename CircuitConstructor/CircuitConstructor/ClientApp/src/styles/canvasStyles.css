@@ -68,37 +68,27 @@
     z-index: 2;
 }
 
-.triangle-buttons-container {
+.circle-buttons-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: calc(100% + 40px);
-    height: calc(100% + 40px);
-    left: -20px;
-    top: -20px;
+    width: calc(100% + 10px);
+    height: calc(100%);
+    left: -5px;
     position: absolute;
     z-index: 1;
 }
 
-.triangle-button {
-    opacity: 40%;
-    top: 10px;
+.circle-button {
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    opacity: 30%;
 }
 
-.triangle-button:hover {
-    opacity: 100%;
-}
-
-.left-button {
-    border-bottom: 10px solid transparent;
-    border-top: 10px solid transparent;
-    border-right: 15px solid var(--accent-color);
-}
-
-.right-button {
-    border-bottom: 10px solid transparent;
-    border-top: 10px solid transparent;
-    border-left: 15px solid var(--accent-color);
+.circle-button:hover {
+    opacity: 70%;
 }
 
 .line {
