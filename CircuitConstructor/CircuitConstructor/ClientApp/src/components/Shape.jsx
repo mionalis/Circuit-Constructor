@@ -43,7 +43,9 @@ const Shape = React.forwardRef((props, ref) => {
     
     const shapeContainerRef = useRef();
 
-    const drawLineButtonRef = useRef();
+    const drawLineLeftButtonRef = useRef();
+    
+    const drawLineRightButtonRef = useRef();
     
     /**
      * Задает элементу начальные координаты, если он был добавлен с помощью перетаскивания.
@@ -84,7 +86,8 @@ const Shape = React.forwardRef((props, ref) => {
         }
         else {
             ref.current.classList.remove("shape-focus");
-            drawLineButtonRef.current.style.visibility = 'hidden';
+            drawLineLeftButtonRef.current.style.visibility = 'hidden';
+            drawLineRightButtonRef.current.style.visibility = 'hidden';
         }
     }, [isComponentVisible]);
     
@@ -96,6 +99,8 @@ const Shape = React.forwardRef((props, ref) => {
     const handleShapeDrag = (event: MouseEvent, data: DraggableData) => {
         setIsComponentVisible(false);
         ref.current.classList.add("shape-on-drag");
+        drawLineLeftButtonRef.current.style.visibility = 'hidden';
+        drawLineRightButtonRef.current.style.visibility = 'hidden';
         
         if (data.x >= 0 && data.y >= 0) {
             setCurrentPosition({x: data.x, y: data.y});
@@ -111,6 +116,8 @@ const Shape = React.forwardRef((props, ref) => {
     const handleShapeDragStop  = (event: MouseEvent, data: DraggableData) => {
         setIsComponentVisible(true);
         ref.current.classList.remove("shape-on-drag");
+        drawLineLeftButtonRef.current.style.visibility = 'visible';
+        drawLineRightButtonRef.current.style.visibility = 'visible';
 
         if (data.x < 0 && data.y < 0) {
             return;
@@ -135,11 +142,13 @@ const Shape = React.forwardRef((props, ref) => {
     }
     
     const handleShapeMouseOver = () => {
-        drawLineButtonRef.current.style.visibility = 'visible';
+        drawLineLeftButtonRef.current.style.visibility = 'visible';
+        drawLineRightButtonRef.current.style.visibility = 'visible';
     }
 
     const handleShapeMouseLeave = () => {
-        drawLineButtonRef.current.style.visibility = 'hidden';
+        drawLineLeftButtonRef.current.style.visibility = 'hidden';
+        drawLineRightButtonRef.current.style.visibility = 'hidden';
     }
 
     const handleDrawLineMouseOver = () => {
@@ -147,7 +156,7 @@ const Shape = React.forwardRef((props, ref) => {
     }
 
     const handleDrawLineMouseLeave = () => {
-        props.setIsDragDisabled(true);
+        props.setIsDragDisabled(false);
     }
     
     /**
@@ -175,16 +184,15 @@ const Shape = React.forwardRef((props, ref) => {
                                   rotateButtonContainerRef={props.rotateButtonContainerRef} 
                                   handleRotateButtonContainerMouseDown={props.handleRotateButtonContainerMouseDown}
                                   rotateButtonAngle={props.rotateButtonAngle} />)}
-                <span onMouseOver={handleShapeMouseOver}
-                      onMouseLeave={handleShapeMouseLeave}
-                      onClick={handleShapeClick}>
-                    <div className="triangle-buttons-container" ref={drawLineButtonRef}>
-                        <DrawLineButton className="triangle-button left-button" 
+                <span onClick={handleShapeClick}>
+                    <div className="triangle-buttons-container" onMouseOver={handleShapeMouseOver}
+                         onMouseLeave={handleShapeMouseLeave}>
+                        <DrawLineButton className="triangle-button left-button" ref={drawLineLeftButtonRef}
                                         onMouseOver={handleDrawLineMouseOver} 
                                         onMouseLeave={handleDrawLineMouseLeave} />
                         <DrawLineButton className="triangle-button right-button"
                                         onMouseOver={handleDrawLineMouseOver}
-                                        onMouseLeave={handleDrawLineMouseLeave}/>
+                                        onMouseLeave={handleDrawLineMouseLeave} ref={drawLineRightButtonRef} />
                     </div>
                     <div className="shape"
                          id="shape"

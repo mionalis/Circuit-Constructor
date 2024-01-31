@@ -148,7 +148,7 @@ function App() {
      * Если False - удаляет из стиля элементов цепи свойство pointer-events: none, разрешая события мыши.
      */
     const setShapesPointerEvents = (isDisable) => {
-        const shapes = document.querySelectorAll('.shape');
+        const shapes = document.querySelectorAll('.shape-container');
         shapes.forEach((element) => {
             if (isDisable) {
                 element.classList.add('shape-pointer-events-disable');
