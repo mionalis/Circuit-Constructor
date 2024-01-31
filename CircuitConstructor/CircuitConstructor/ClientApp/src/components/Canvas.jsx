@@ -105,6 +105,8 @@ const Canvas = (props) => {
      * @param event
      */
     const handleCanvasMouseMove = (event) => {
+        handleMouseMove(event);
+        
         if(!thisCanRotate || rotateButtonContainerRef.current == null || selectedShape == null) {
            return;
         }
@@ -141,16 +143,85 @@ const Canvas = (props) => {
     /**
      * Срабатывает при отпускании кнопки мыши на Canvas.
      */
-    const handleCanvasMouseUp = () => {
+    const handleCanvasMouseUp = (event) => {
         setThisCanRotate(false);
+        handleMouseUp(event);
         
         if (selectedShape === null) {
             return;
         }
-
         selectedShape.classList.remove("shape-on-drag");
     }
+
+    const [startPoint, setStartPoint] = useState(null);
+    const [drawingLine, setDrawingLine] = useState(null);
+    const [connectedLines, setConnectedLines] = useState([]);
+
+    const handleMouseDown = (event) => {
+        console.log(selectedShapeIndex);
+        setStartPoint({
+            selectedShapeIndex,
+            x: event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft,
+            y: event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop
+        });
+        
+    };
+
+    const handleMouseMove = (event) => {
+        if (startPoint) {
+            console.log('move');
+            const lineEnd = {
+                x: event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft,
+                y: event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop,
+            };
+            setDrawingLine({ start: startPoint, end: lineEnd });
+        }
+    };
+
+    const handleMouseUp = (event) => {
+        if (startPoint) {
+            const endPoint = {
+                x: event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft,
+                y: event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop,
+            };
+            
+            const line = { start: startPoint, end: endPoint };
+            
+            setConnectedLines([...connectedLines, line]);
+            
+            setDrawingLine(null);
+            setStartPoint(null);
+        }
+    };
+
+    const drawLine = (line) => {
+        return (
+            <Line key={`${line.start.x}-${line.start.y}-${line.end.x}-${line.end.y}`} 
+                  start={line.start}
+                  end={line.end} />
+        );
+    };
     
+    const Line = ({ start, end }) => {
+        const distance = Math.sqrt((end.x - start.x) ** 2 + (end.y - start.y) ** 2);
+        const angle = Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI);
+
+        return (
+            <svg className="line" 
+                 width={distance} 
+                 height="2px" 
+                 style={{
+                     position: 'absolute',
+                     top: `${start.y}px`,
+                     left: `${start.x}px`,
+                     transform: `rotate(${angle}deg)`,
+                     transformOrigin: '0 0',
+                }}>
+                <line x1="0" y1="0" x2={distance} y2="0" stroke="black" strokeWidth="4" />
+            </svg>
+        );
+    };
+
     return (
         <div className="canvas"  ref={props.canvasRef}>
             <div className="dot-pattern-canvas"
@@ -174,7 +245,10 @@ const Canvas = (props) => {
                                                            canvasGridStep={props.canvasGridStep}
                                                            isDraggedFromSidebar={props.isDraggedFromSidebar} 
                                                            shapeDropPosition={props.shapeDropPosition} 
-                                                           setOnGrid={props.setOnGrid} />)}
+                                                           setOnGrid={props.setOnGrid}
+                                                           handleMouseDown={handleMouseDown}/>)}
+                {connectedLines.map((line, index) => drawLine(line))}
+                {drawingLine && drawLine(drawingLine)}
             </div>
         </div>
     );

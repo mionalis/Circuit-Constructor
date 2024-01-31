@@ -189,7 +189,8 @@ const Shape = React.forwardRef((props, ref) => {
                          onMouseLeave={handleShapeMouseLeave}>
                         <DrawLineButton className="triangle-button left-button" ref={drawLineLeftButtonRef}
                                         onMouseOver={handleDrawLineMouseOver} 
-                                        onMouseLeave={handleDrawLineMouseLeave} />
+                                        onMouseLeave={handleDrawLineMouseLeave}
+                        onMouseDown={props.handleMouseDown}/>
                         <DrawLineButton className="triangle-button right-button"
                                         onMouseOver={handleDrawLineMouseOver}
                                         onMouseLeave={handleDrawLineMouseLeave} ref={drawLineRightButtonRef} />

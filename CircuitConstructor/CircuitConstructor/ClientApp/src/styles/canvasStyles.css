@@ -100,3 +100,7 @@
     border-top: 10px solid transparent;
     border-left: 15px solid var(--accent-color);
 }
+
+.line {
+    position: absolute;
+}
