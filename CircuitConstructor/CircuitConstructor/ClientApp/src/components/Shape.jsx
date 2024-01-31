@@ -45,6 +45,8 @@ const Shape = React.forwardRef((props, ref) => {
     const drawLineLeftButtonRef = useRef();
     const drawLineRightButtonRef = useRef();
     
+    const drawLinesButtonsRef = useRef();
+    
     /**
      * Задает элементу начальные координаты, если он был добавлен с помощью перетаскивания.
      */
@@ -74,6 +76,13 @@ const Shape = React.forwardRef((props, ref) => {
             shapeContainerRef.current.style.top = 0;
         }
     }, [props.thisCanRotate])
+
+    useEffect(() => {
+        if (drawLinesButtonsRef == null) {
+            return;
+        }
+        drawLinesButtonsRef.current.style.rotate = `${props.rotateButtonAngle}deg`;
+    }, [props.rotateButtonAngle])
     
     /**
      * Устанавливает стиль для элемента цепи, если он выбран пользователем.
@@ -184,7 +193,7 @@ const Shape = React.forwardRef((props, ref) => {
                                   rotateButtonAngle={props.rotateButtonAngle} />)}
                 <span onClick={handleShapeClick}>
                     <div className="circle-buttons-container" onMouseOver={handleShapeMouseOver}
-                         onMouseLeave={handleShapeMouseLeave}>
+                         onMouseLeave={handleShapeMouseLeave} ref={drawLinesButtonsRef}>
                         <div className="circle-button" 
                              id="circle-left-button"
                              ref={drawLineLeftButtonRef}
