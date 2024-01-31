@@ -155,9 +155,15 @@ const Canvas = (props) => {
 
     const [startPoint, setStartPoint] = useState(null);
     const [drawingLine, setDrawingLine] = useState(null);
+    const [isLeft, setIsLeft] = useState(false);
     const [connectedLines, setConnectedLines] = useState([]);
-
+    const drawLineLeftButtonRef = useRef();
+    const drawLineRightButtonRef = useRef();
+    
     const handleMouseDown = (event) => {
+        if (event.target == drawLineLeftButtonRef.current) {
+            setIsLeft(true);
+        }
         setStartPoint({
             selectedShapeIndex,
             x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
@@ -172,9 +178,9 @@ const Canvas = (props) => {
             const mouseY = props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
             
             const isKinked = Math.abs(mouseX - startPoint.x) > 10 && Math.abs(mouseY - startPoint.y) > 10;
-            console.log(isKinked);
+            const isOppositeDirection = isLeft && startPoint.x - mouseX < 0;
             
-            setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isKinked });
+            setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isKinked, isOppositeDirection });
         }
     };
 
@@ -187,10 +193,10 @@ const Canvas = (props) => {
     };
 
     const drawLine = (line) => {
-        const { start, end, isKinked } = line;
-
-        if (isKinked) {
-            const midX = (start.x + end.x) / 2;
+        const { start, end, isKinked, isOppositeDirection } = line;
+        const midX = (start.x + end.x) / 2;
+        
+        if (isKinked && !isOppositeDirection) {
             return (
                 <React.Fragment key={`${start.x}-${start.y}-${midX}-${end.y}`}>
                     <Line start={start} end={{ x: midX, y: start.y }} />
@@ -198,7 +204,16 @@ const Canvas = (props) => {
                     <Line start={{ x: midX, y: end.y }} end={{ x: end.x, y: end.y }} />
                 </React.Fragment>
             );
-        } else {
+        } 
+        else if (isKinked) {
+            return (
+                <React.Fragment key={`${start.x}-${start.y}-${midX}-${end.y}`}>
+                    <Line start={{ x: start.x, y: start.y }} end={{ x: start.x, y: end.y }} />
+                    <Line start={{ x: start.x, y: end.y }} end={{ x: end.x, y: end.y }} />
+                </React.Fragment>
+            );
+        }
+        else {
             return (
                 <Line key={`${start.x}-${start.y}-${end.x}-${end.y}`} start={start} end={end} />
             );
@@ -235,6 +250,8 @@ const Canvas = (props) => {
                  onMouseUp={handleCanvasMouseUp}>
                 {props.shapes.map((shape, index) => <Shape ref={shapeRefs[index]} 
                                                            rotateButtonContainerRef={rotateButtonContainerRef}
+                                                           drawLineLeftButtonRef={drawLineLeftButtonRef}
+                                                           drawLineRightButtonRef={drawLineRightButtonRef}
                                                            shape={shape} 
                                                            key={shape.id}
                                                            thisCanRotate={thisCanRotate}
