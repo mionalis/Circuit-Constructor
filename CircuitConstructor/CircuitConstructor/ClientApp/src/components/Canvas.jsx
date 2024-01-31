@@ -195,6 +195,7 @@ const Canvas = (props) => {
                 <React.Fragment key={`${start.x}-${start.y}-${midX}-${end.y}`}>
                     <Line start={start} end={{ x: midX, y: start.y }} />
                     <Line start={{ x: midX, y: start.y }} end={{ x: midX, y: end.y }} />
+                    <Line start={{ x: midX, y: end.y }} end={{ x: end.x, y: end.y }} />
                 </React.Fragment>
             );
         } else {
