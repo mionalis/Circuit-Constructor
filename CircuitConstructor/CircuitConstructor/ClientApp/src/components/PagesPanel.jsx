@@ -1,5 +1,4 @@
 import React from 'react';
-import "./styles/mainContentStyles.css";
 
 /**
  * Панель управления страницами. Позволяет переключаться между страницами, а также создавать новые.

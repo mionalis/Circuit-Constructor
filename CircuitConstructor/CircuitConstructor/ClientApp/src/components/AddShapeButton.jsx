@@ -1,15 +1,14 @@
 import React from "react";
-import "./styles/canvasStyles.css";
 
 /**
  * Кнопка добавления элемента на Canvas.
- * @param props 
+ * @param {React.ReactNode} props.children - Элементы электрической цепи, передаваемые кнопкой.
  * @returns {JSX.Element}
  * @constructor
  */
 const AddShapeButton = (props) => {
     return (
-        <li {...props} className="shape-button">
+        <li {...props}>
             {props.children}
         </li>
     );

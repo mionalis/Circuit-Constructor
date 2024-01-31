@@ -9,6 +9,7 @@
     height: 100vh;
     overflow: hidden;
     width: 100vw;
+    user-select: none;
 }
 
 .canvas-container {
@@ -74,14 +75,14 @@
 .pages-select {
     background-color: transparent;
     border: none;
-    margin: 0 20px 0 20px;
+    margin: 0 20px;
     outline: none;
     overflow: hidden;
     padding: 0;
 }
 
 .pages-select option {
-    display: inline-block !important;
+    display: inline-block;
     color: var(--font-color);
     cursor: pointer;
     height: 100%;
@@ -90,14 +91,10 @@
     width: 70px;
 }
 
-.pages-select option:hover {
-    background: var(--accent-color) linear-gradient(0deg, var(--accent-color) 0%, var(--accent-color) 100%);
-    outline: none;
-    -webkit-text-fill-color: white;
-}
-
+.pages-select option:hover,
 .pages-select option:checked {
     background: var(--accent-color) linear-gradient(0deg, var(--accent-color) 0%, var(--accent-color) 100%);
+    outline: none;
     -webkit-text-fill-color: white;
 }
 

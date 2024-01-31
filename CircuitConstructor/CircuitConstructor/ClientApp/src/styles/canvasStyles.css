@@ -1,0 +1,70 @@
+﻿.canvas {
+    align-items: center;
+    background-color: white;
+    border: 1px solid var(--canvas-dot-pattern-color);
+    height: calc(100% - 40px);
+    justify-content: center;
+    scrollbar-width: thin;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    width: calc(100% - 20px);
+    position: relative;
+}
+
+.dot-pattern-canvas {
+    background-image: radial-gradient(circle at 1px 1px, var(--canvas-dot-pattern-color) 1px, transparent 0);
+    background-size: 20px 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.shape-container {
+    display: inline-block;
+    position: absolute;
+}
+
+.shape {
+    color: black;
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+}
+
+.shape-on-drag,
+.shape-focus {
+    border: 2px dashed var(--draggable-element-border-color);
+    margin-top: -2px;
+    margin-left: -2px;
+}
+
+.shape-on-drag {
+    opacity: 50%
+}
+
+.shape-pointer-events-disable {
+    pointer-events: none;
+}
+
+.ghost-drag-image {
+    position: absolute;
+    right: -60px;
+    top: -60px;
+}
+
+.rotate-button-container {
+    align-items: flex-end;
+    bottom: -55px;
+    display: flex;
+    height: 70px;
+    position: absolute;
+    right: -115px;
+    width: 130px;
+    z-index: 2;
+}
+
+.rotateButton {
+    color: var(--draggable-element-border-color);
+    cursor: crosshair;
+    width: 15px;
+    z-index: 1;
+}

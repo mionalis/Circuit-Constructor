@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import TopMenu from "./components/TopMenu";
 import PagesPanel from "./components/PagesPanel";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import Canvas from "./components/Canvas";
 import './custom.css';
-import "./components/styles/mainContentStyles.css";
-import "./components/styles/colors.css";
+import "./styles/mainContentStyles.css";
+import "./styles/colors.css";
 
 /**
  * Главный компонент, агрегирует в себе все компоненты приложения. 
@@ -14,6 +14,18 @@ import "./components/styles/colors.css";
  * @constructor
  */
 function App() {
+    /**
+     * Ссылка на монтажную поверхность.
+     * @type {React.MutableRefObject<null>}
+     */
+    const canvasRef = useRef(null);
+
+    /**
+     * Шаг разметки монтажной поверхности.
+     * @type {number}
+     */
+    const canvasGridStep = 20;
+    
     /**
      * Хранит и устанавливает массив элементов электрической цепи.
      */
@@ -28,13 +40,13 @@ function App() {
      * Хранит и устанавливает булевое значение, которое определяет, был ли элемент добавлен на Canvas 
      * при помощи перетаскивания.
      */
-    const [isDragged, setIsDragged] = useState(false);
+    const [isDraggedFromSidebar, setIsDraggedFromSidebar] = useState(false);
 
     /**
      * Хранит и устанавливает координаты элемента после перетаскивания.
      */
     const [shapeDropPosition, setShapeDropPosition] = useState({});
-
+    
     /**
      * Создает элемент электрической цепи и добавляет его в массив.
      * @param shapeType - Тип добавляемой фигуры.
@@ -49,51 +61,53 @@ function App() {
     }
 
     /**
-     * Срабатывает, когда пользователь начинает перетаскивать элемент.
+     * Срабатывает, когда пользователь начинает перетаскивать элемент из Sidebar.
      * @param event
      * @param shapeType - Тип элемента.
      */
-    const onDragStartHandler = (event, shapeType) => {
+    const handleDragStartFromSidebar = (event, shapeType) => {
         setGhostDragImage(event, shapeType);
     }
 
     /**
-     * Срабатывает, когда перетаскиваемый элемент входит на Canvas. 
+     * Срабатывает, когда перетаскиваемый элемент входит на Canvas. Устанавливает возможность 
+     * добавления элемента перетаскиванием.
      */
-    const onDragEnterHandler = (event) => {
+    const handleCanvasDragEnter = (event) => {
         event.preventDefault();
         setIsCanBeDropped(true);
-        SetShapesPointerEventsDisable();
+        setShapesPointerEvents(true);
     }
     
     /**
-     * Срабатывает, когда перетаскиваемый элемент покидает Canvas.
+     * Срабатывает, когда перетаскиваемый элемент покидает Canvas. Убирает возможность
+     * добавления элемента перетаскиванием.
      */
-    const onDragLeaveHandler = (event) => {
+    const handleCanvasDragLeave = (event) => {
         event.preventDefault();
         setIsCanBeDropped(false);
-        SetShapesPointerEventsAvailable();
+        setShapesPointerEvents(false);
     }
     
     /**
-     * Срабатывает, когда пользователь заканчивает перетаскивать элемент.
+     * Срабатывает, когда пользователь заканчивает перетаскивать элемент из Sidebar на Canvas.
      * @param event
      * @param shapeType - Тип выбранной фигуры.
      */
-    const onDragEndHandler = (event, shapeType) => {
+    const handleDragEndFromSidebar = (event, shapeType) => {
         if (!isCanBeDropped) {
             return;
         }
 
-        SetShapesPointerEventsAvailable();
+        setShapesPointerEvents(false);
         createNewShape(shapeType);
         setIsCanBeDropped(false);
-        setIsDragged(true);
+        setIsDraggedFromSidebar(true);
 
-        const canvas = document.getElementById("canvas");
+        const canvas = canvasRef.current;
         
-        const x = setOnGrid(event.clientX - canvas.offsetLeft, 20);
-        const y = setOnGrid(event.clientY - canvas.offsetTop, 20);
+        const x = setOnGrid(event.clientX - canvas.offsetLeft + canvas.scrollLeft, canvasGridStep);
+        const y = setOnGrid(event.clientY - canvas.offsetTop + canvas.scrollTop, canvasGridStep);
         setShapeDropPosition({x: x, y: y});
     }
 
@@ -126,44 +140,42 @@ function App() {
     const setOnGrid = (coordinateValue, gridStep)  => {
         return Math.round(coordinateValue / gridStep) * gridStep;
     }
-
+    
     /**
-     * Устанавливает в стиль элементов цепи свойство pointer-events: none, запрещая события мыши.
-     * @constructor
+     * Манипулирует со свойством pointer-events элемента цепи.
+     * @param isDisable - Булевое значение. Если метод принимает значение True, то устанавливает в стиль элементов
+     * цепи свойство pointer-events: none, запрещая события мыши.
+     * Если False - удаляет из стиля элементов цепи свойство pointer-events: none, разрешая события мыши.
      */
-    const SetShapesPointerEventsDisable = () => {
+    const setShapesPointerEvents = (isDisable) => {
         const shapes = document.querySelectorAll('.shape');
-        shapes.forEach(function(element) {
-            element.classList.add('shape-pointer-events-disable');
+        shapes.forEach((element) => {
+            if (isDisable) {
+                element.classList.add('shape-pointer-events-disable');
+            } 
+            else {
+                element.classList.remove('shape-pointer-events-disable');
+            }
         });
-    }
-
-    /**
-     * Удаляет из стиля элементов цепи свойство pointer-events: none, разрешая события мыши.
-     * @constructor
-     */
-    const SetShapesPointerEventsAvailable = () => {
-        const shapes = document.querySelectorAll('.shape');
-        shapes.forEach(function(element) {
-            element.classList.remove('shape-pointer-events-disable');
-        });
-    }
+    };
     
     return (
         <div className="main-container">
             <div className="content-container">
-                <Sidebar onDragEndHandler={onDragEndHandler}
-                         onDragStartHandler={onDragStartHandler}
+                <Sidebar setIsDraggedFromSidebar={setIsDraggedFromSidebar}
                          createNewShape={createNewShape}
-                         setIsDragged={setIsDragged} />
+                         handleDragStartFromSidebar={handleDragStartFromSidebar}
+                         handleDragEndFromSidebar={handleDragEndFromSidebar} />
                 <div className="right-panel">
                     <div className="canvas-container">
                         <TopMenu />
-                        <Canvas shapes={shapes}
-                                onDragEnterHandler={onDragEnterHandler}
-                                onDragLeaveHandler={onDragLeaveHandler}
-                                isDragged={isDragged}
+                        <Canvas canvasRef={canvasRef}
+                                shapes={shapes}
+                                canvasGridStep={canvasGridStep}
+                                isDraggedFromSidebar={isDraggedFromSidebar}
                                 shapeDropPosition={shapeDropPosition}
+                                handleCanvasDragEnter={handleCanvasDragEnter}
+                                handleCanvasDragLeave={handleCanvasDragLeave}
                                 setOnGrid={setOnGrid} />
                     </div>
                     <PagesPanel />
