@@ -41,6 +41,9 @@ const Shape = React.forwardRef((props, ref) => {
     const { componentRef, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
     
     const shapeContainerRef = useRef();
+
+    const drawLineLeftButtonRef = useRef();
+    const drawLineRightButtonRef = useRef();
     
     /**
      * Задает элементу начальные координаты, если он был добавлен с помощью перетаскивания.
@@ -81,8 +84,8 @@ const Shape = React.forwardRef((props, ref) => {
         }
         else {
             ref.current.classList.remove("shape-focus");
-            props.drawLineLeftButtonRef.current.style.visibility = 'hidden';
-            props.drawLineRightButtonRef.current.style.visibility = 'hidden';
+            drawLineLeftButtonRef.current.style.visibility = 'hidden';
+            drawLineRightButtonRef.current.style.visibility = 'hidden';
         }
     }, [isComponentVisible]);
     
@@ -94,8 +97,8 @@ const Shape = React.forwardRef((props, ref) => {
     const handleShapeDrag = (event: MouseEvent, data: DraggableData) => {
         setIsComponentVisible(false);
         ref.current.classList.add("shape-on-drag");
-        props.drawLineLeftButtonRef.current.style.visibility = 'hidden';
-        props.drawLineRightButtonRef.current.style.visibility = 'hidden';
+        drawLineLeftButtonRef.current.style.visibility = 'hidden';
+        drawLineRightButtonRef.current.style.visibility = 'hidden';
         
         if (data.x >= 0 && data.y >= 0) {
             setCurrentPosition({x: data.x, y: data.y});
@@ -111,8 +114,8 @@ const Shape = React.forwardRef((props, ref) => {
     const handleShapeDragStop  = (event: MouseEvent, data: DraggableData) => {
         setIsComponentVisible(true);
         ref.current.classList.remove("shape-on-drag");
-        props.drawLineLeftButtonRef.current.style.visibility = 'visible';
-        props.drawLineRightButtonRef.current.style.visibility = 'visible';
+        drawLineLeftButtonRef.current.style.visibility = 'visible';
+        drawLineRightButtonRef.current.style.visibility = 'visible';
 
         if (data.x < 0 && data.y < 0) {
             return;
@@ -137,13 +140,13 @@ const Shape = React.forwardRef((props, ref) => {
     }
     
     const handleShapeMouseOver = () => {
-        props.drawLineLeftButtonRef.current.style.visibility = 'visible';
-        props.drawLineRightButtonRef.current.style.visibility = 'visible';
+        drawLineLeftButtonRef.current.style.visibility = 'visible';
+        drawLineRightButtonRef.current.style.visibility = 'visible';
     }
 
     const handleShapeMouseLeave = () => {
-        props.drawLineLeftButtonRef.current.style.visibility = 'hidden';
-        props.drawLineRightButtonRef.current.style.visibility = 'hidden';
+        drawLineLeftButtonRef.current.style.visibility = 'hidden';
+        drawLineRightButtonRef.current.style.visibility = 'hidden';
     }
 
     const handleDrawLineMouseOver = () => {
@@ -182,13 +185,18 @@ const Shape = React.forwardRef((props, ref) => {
                 <span onClick={handleShapeClick}>
                     <div className="circle-buttons-container" onMouseOver={handleShapeMouseOver}
                          onMouseLeave={handleShapeMouseLeave}>
-                        <div className="circle-button" ref={props.drawLineLeftButtonRef}
-                                        onMouseOver={handleDrawLineMouseOver} 
-                                        onMouseLeave={handleDrawLineMouseLeave}
-                        onMouseDown={props.handleMouseDown}/>
+                        <div className="circle-button" 
+                             id="circle-left-button"
+                             ref={drawLineLeftButtonRef}
+                             onMouseOver={handleDrawLineMouseOver} 
+                             onMouseLeave={handleDrawLineMouseLeave}
+                             onMouseDown={props.handleMouseDown}/>
                         <div className="circle-button"
-                                        onMouseOver={handleDrawLineMouseOver}
-                                        onMouseLeave={handleDrawLineMouseLeave} ref={props.drawLineRightButtonRef} />
+                             id="circle-right-button"
+                             onMouseOver={handleDrawLineMouseOver}
+                             onMouseLeave={handleDrawLineMouseLeave} 
+                             ref={drawLineRightButtonRef} 
+                             onMouseDown={props.handleMouseDown}/>
                     </div>
                     <div className="shape"
                          id="shape"

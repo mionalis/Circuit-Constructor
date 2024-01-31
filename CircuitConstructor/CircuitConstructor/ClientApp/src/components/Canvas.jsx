@@ -157,11 +157,11 @@ const Canvas = (props) => {
     const [drawingLine, setDrawingLine] = useState(null);
     const [isLeft, setIsLeft] = useState(false);
     const [connectedLines, setConnectedLines] = useState([]);
-    const drawLineLeftButtonRef = useRef();
-    const drawLineRightButtonRef = useRef();
     
     const handleMouseDown = (event) => {
-        if (event.target == drawLineLeftButtonRef.current) {
+        const leftButton = document.getElementById('circle-left-button');
+        
+        if (event.target == leftButton) {
             setIsLeft(true);
         }
         setStartPoint({
@@ -178,7 +178,7 @@ const Canvas = (props) => {
             const mouseY = props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
             
             const isKinked = Math.abs(mouseX - startPoint.x) > 10 && Math.abs(mouseY - startPoint.y) > 10;
-            const isOppositeDirection = isLeft && startPoint.x - mouseX < 0;
+            const isOppositeDirection = (isLeft && startPoint.x - mouseX < 0) || (!isLeft && mouseX - startPoint.x < 0);
             
             setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isKinked, isOppositeDirection });
         }
@@ -250,8 +250,6 @@ const Canvas = (props) => {
                  onMouseUp={handleCanvasMouseUp}>
                 {props.shapes.map((shape, index) => <Shape ref={shapeRefs[index]} 
                                                            rotateButtonContainerRef={rotateButtonContainerRef}
-                                                           drawLineLeftButtonRef={drawLineLeftButtonRef}
-                                                           drawLineRightButtonRef={drawLineRightButtonRef}
                                                            shape={shape} 
                                                            key={shape.id}
                                                            thisCanRotate={thisCanRotate}
