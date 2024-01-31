@@ -161,8 +161,8 @@ const Canvas = (props) => {
         console.log(selectedShapeIndex);
         setStartPoint({
             selectedShapeIndex,
-            x: event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft,
-            y: event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop
+            x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
+            y: props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
         });
         
     };
@@ -171,8 +171,8 @@ const Canvas = (props) => {
         if (startPoint) {
             console.log('move');
             const lineEnd = {
-                x: event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft,
-                y: event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop,
+                x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
+                y: props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
             };
             setDrawingLine({ start: startPoint, end: lineEnd });
         }
@@ -181,8 +181,8 @@ const Canvas = (props) => {
     const handleMouseUp = (event) => {
         if (startPoint) {
             const endPoint = {
-                x: event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft,
-                y: event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop,
+                x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
+                y: props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
             };
             
             const line = { start: startPoint, end: endPoint };
@@ -211,6 +211,7 @@ const Canvas = (props) => {
                  width={distance} 
                  height="2px" 
                  style={{
+                     margin: '1px',
                      position: 'absolute',
                      top: `${start.y}px`,
                      left: `${start.x}px`,
