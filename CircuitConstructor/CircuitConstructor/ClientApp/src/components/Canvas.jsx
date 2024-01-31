@@ -158,7 +158,6 @@ const Canvas = (props) => {
     const [connectedLines, setConnectedLines] = useState([]);
 
     const handleMouseDown = (event) => {
-        console.log(selectedShapeIndex);
         setStartPoint({
             selectedShapeIndex,
             x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
@@ -169,37 +168,40 @@ const Canvas = (props) => {
 
     const handleMouseMove = (event) => {
         if (startPoint) {
-            console.log('move');
-            const lineEnd = {
-                x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
-                y: props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
-            };
-            setDrawingLine({ start: startPoint, end: lineEnd });
+            const mouseX = props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20);
+            const mouseY = props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
+            
+            const isKinked = Math.abs(mouseX - startPoint.x) > 10 && Math.abs(mouseY - startPoint.y) > 10;
+            console.log(isKinked);
+            
+            setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isKinked });
         }
     };
 
     const handleMouseUp = (event) => {
         if (startPoint) {
-            const endPoint = {
-                x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
-                y: props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
-            };
-            
-            const line = { start: startPoint, end: endPoint };
-            
-            setConnectedLines([...connectedLines, line]);
-            
+            setConnectedLines([...connectedLines, drawingLine]);
             setDrawingLine(null);
             setStartPoint(null);
         }
     };
 
     const drawLine = (line) => {
-        return (
-            <Line key={`${line.start.x}-${line.start.y}-${line.end.x}-${line.end.y}`} 
-                  start={line.start}
-                  end={line.end} />
-        );
+        const { start, end, isKinked } = line;
+
+        if (isKinked) {
+            const midX = (start.x + end.x) / 2;
+            return (
+                <React.Fragment key={`${start.x}-${start.y}-${midX}-${end.y}`}>
+                    <Line start={start} end={{ x: midX, y: start.y }} />
+                    <Line start={{ x: midX, y: start.y }} end={{ x: midX, y: end.y }} />
+                </React.Fragment>
+            );
+        } else {
+            return (
+                <Line key={`${start.x}-${start.y}-${end.x}-${end.y}`} start={start} end={end} />
+            );
+        }
     };
     
     const Line = ({ start, end }) => {
@@ -211,7 +213,6 @@ const Canvas = (props) => {
                  width={distance} 
                  height="2px" 
                  style={{
-                     margin: '1px',
                      position: 'absolute',
                      top: `${start.y}px`,
                      left: `${start.x}px`,
