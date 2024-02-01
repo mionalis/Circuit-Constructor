@@ -193,12 +193,8 @@ const Canvas = (props) => {
                 line.style.color = 'black';
             });
             
-            if (
-                mouseX >= lineBounds.left &&
-                mouseX <= lineBounds.right &&
-                mouseY >= lineBounds.top &&
-                mouseY <= lineBounds.bottom
-            ) {
+            if ((line.start.x <= mouseX && line.end.x >= mouseX) && (mouseY - line.start.y === 0) ||
+                (line.start.y >= mouseY && line.end.y <= mouseY) && (mouseX - line.end.x === 0)) {
                 setSelectedLine(i);
                 line.isSelected = true;
             }
@@ -260,20 +256,29 @@ const Canvas = (props) => {
         setSelectedLine(null);
     };
 
-    const drawLine = (line) => {
+    const handleButtonClick = ( position) => {
+        console.log(`Button clicked for line at ${position}`);
+    };
+    
+    const drawLine = (line, index) => {
         const { start, end, isKinked, isOppositeDirection, isSelected } = line;
         
         if (isKinked && !isOppositeDirection) {
             return (
-                <React.Fragment>
+                <React.Fragment key={index}>
                     <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} selected={isSelected} />
                     <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} selected={isSelected} />
+                    <Button
+                        x={end.x}
+                        y={end.y}
+                        onClick={() => handleButtonClick('start')}
+                    />
                 </React.Fragment>
             );
         } 
         else if (isKinked) {
             return (
-                <React.Fragment>
+                <React.Fragment key={index}>
                     <Line start={{ x: start.x, y: start.y }} end={{ x: start.x, y: end.y }} selected={isSelected} />
                     <Line start={{ x: start.x, y: end.y }} end={{ x: end.x, y: end.y }} selected={isSelected} />
                 </React.Fragment>
@@ -281,7 +286,7 @@ const Canvas = (props) => {
         }
         else {
             return (
-                <Line start={start} end={end} />
+                <Line start={start} end={end} key={index}/>
             );
         }
     };
@@ -312,6 +317,19 @@ const Canvas = (props) => {
         );
     };
 
+    const Button = ({ x, y, onClick }) => (
+        <div
+            className="circle-button"
+            style={{
+                position: 'absolute',
+                top: `${y - 5}px`,
+                left: `${x - 5}px`,
+                cursor: 'pointer',
+            }}
+            onClick={onClick}>
+        </div>
+    );
+    
     return (
         <div className="canvas"  ref={props.canvasRef}>
             <div className="dot-pattern-canvas"
@@ -338,8 +356,8 @@ const Canvas = (props) => {
                                                            shapeDropPosition={props.shapeDropPosition} 
                                                            setOnGrid={props.setOnGrid}
                                                            handleMouseDown={handleMouseDown}/>)}
-                {connectedLines.map((line, index) => drawLine(line))}
-                {drawingLine && drawLine(drawingLine)}
+                {connectedLines.map((line, index) => drawLine(line, index))}
+                {drawingLine && drawLine(drawingLine, connectedLines.length)}
             </div>
         </div>
     );
