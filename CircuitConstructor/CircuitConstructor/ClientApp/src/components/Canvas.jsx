@@ -100,6 +100,10 @@ const Canvas = (props) => {
         }
     };
 
+    const handleCanvasMouseDown = (event) => {
+        handleLineMouseDown(event);
+    }
+    
     /**
      * Срабатывает при движении мыши по монтажной поверхности.
      * @param event
@@ -165,6 +169,7 @@ const Canvas = (props) => {
         if (event.target == leftButton) {
             setIsLeft(true);
         }
+        
         setStartPoint({
             selectedShapeIndex,
             x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
@@ -172,69 +177,137 @@ const Canvas = (props) => {
         });
         
     };
+    
+    const [selectedLine, setSelectedLine] = useState(null);
+    
+    const handleLineMouseDown = (event) => {
+        const mouseX = props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20);
+        const mouseY = props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
+        
+        for (let i = 0; i < connectedLines.length; i++) {
+            const line = connectedLines[i];
+            const lineBounds = getLineBounds(line);
+            const lines = document.querySelectorAll('.line, .line-on-select');
+            
+            lines.forEach((line) => {
+                line.style.color = 'black';
+            });
+            
+            if (
+                mouseX >= lineBounds.left &&
+                mouseX <= lineBounds.right &&
+                mouseY >= lineBounds.top &&
+                mouseY <= lineBounds.bottom
+            ) {
+                setSelectedLine(i);
+                line.isSelected = true;
+            }
+            else {
+                line.isSelected = false;
+            }
+        }
+    }
 
+    const getLineBounds = (line) => {
+        const minX = Math.min(line.start.x, line.end.x);
+        const minY = Math.min(line.start.y, line.end.y);
+        const maxX = Math.max(line.start.x, line.end.x);
+        const maxY = Math.max(line.start.y, line.end.y);
+
+        return {
+            left: minX,
+            top: minY,
+            right: maxX,
+            bottom: maxY,
+        };
+    };
+    
     const handleMouseMove = (event) => {
-        if (startPoint) {
-            const mouseX = props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20);
-            const mouseY = props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
+        const mouseX = props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20);
+        const mouseY = props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
+        
+        if (startPoint && !selectedLine) {
             
             const isKinked = Math.abs(mouseX - startPoint.x) > 10 && Math.abs(mouseY - startPoint.y) > 10;
             const isOppositeDirection = (isLeft && startPoint.x - mouseX < 0) || (!isLeft && mouseX - startPoint.x < 0);
             
             setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isKinked, isOppositeDirection });
         }
-    };
 
-    const handleMouseUp = (event) => {
-        if (startPoint) {
-            setConnectedLines([...connectedLines, drawingLine]);
-            setDrawingLine(null);
-            setStartPoint(null);
+        if (selectedLine !== null) {
+            const updatedLines = [...connectedLines];
+            const line = updatedLines[selectedLine];
+            
+            if (line.isKinked) {
+                const midX = (line.start.x + line.end.x) / 2;
+                line.end.x = midX + (mouseX - midX);
+            } else {
+                line.end.x = mouseX;
+                line.end.y = mouseY;
+            }
+
+            setConnectedLines(updatedLines);
         }
     };
 
+    const handleMouseUp = (event) => {
+        if (startPoint && !selectedShape && !selectedLine) {
+            setConnectedLines([...connectedLines, drawingLine]);
+            setDrawingLine(null);
+        }
+        setStartPoint(null);
+        setSelectedShape(null);
+        setSelectedLine(null);
+    };
+
     const drawLine = (line) => {
-        const { start, end, isKinked, isOppositeDirection } = line;
+        const { start, end, isKinked, isOppositeDirection, isSelected } = line;
         
         if (isKinked && !isOppositeDirection) {
             return (
-                <React.Fragment key={`${start.x}-${start.y}-${end.x}-${end.y}`}>
-                    <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} />
-                    <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} />
+                <React.Fragment>
+                    <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} selected={isSelected} />
+                    <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} selected={isSelected} />
                 </React.Fragment>
             );
         } 
         else if (isKinked) {
             return (
-                <React.Fragment key={`${start.x}-${start.y}-${end.x}-${end.y}`}>
-                    <Line start={{ x: start.x, y: start.y }} end={{ x: start.x, y: end.y }} />
-                    <Line start={{ x: start.x, y: end.y }} end={{ x: end.x, y: end.y }} />
+                <React.Fragment>
+                    <Line start={{ x: start.x, y: start.y }} end={{ x: start.x, y: end.y }} selected={isSelected} />
+                    <Line start={{ x: start.x, y: end.y }} end={{ x: end.x, y: end.y }} selected={isSelected} />
                 </React.Fragment>
             );
         }
         else {
             return (
-                <Line key={`${start.x}-${start.y}-${end.x}-${end.y}`} start={start} end={end} />
+                <Line start={start} end={end} />
             );
         }
     };
     
-    const Line = ({ start, end }) => {
+    const Line = ({ start, end, selected  }) => {
         const distance = Math.sqrt((end.x - start.x) ** 2 + (end.y - start.y) ** 2);
         const angle = Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI);
-
+        
+        let className = 'line';
+        if (selected) {
+            className = 'line-on-select';
+        }
+        
         return (
-            <svg className="line" 
+            <svg className={className}
                  width={distance} 
                  height="2px" 
                  style={{
                      position: 'absolute',
                      top: `${start.y}px`,
                      left: `${start.x}px`,
+                     fill: 'currentColor',
                      transform: `rotate(${angle}deg)`,
                      transformOrigin: '0 0',
                 }}>
-                <line x1="0" y1="0" x2={distance} y2="0" stroke="black" strokeWidth="4" />
+                <line x1="0" y1="0" x2={distance} y2="0" stroke="currentColor" strokeWidth="4" />
             </svg>
         );
     };
@@ -245,6 +318,7 @@ const Canvas = (props) => {
                  ref={dotPatternRef}
                  onDragEnter={props.handleCanvasDragEnter}
                  onDragLeave={props.handleCanvasDragLeave}
+                 onMouseDown={handleCanvasMouseDown}
                  onMouseMove={handleCanvasMouseMove}
                  onMouseUp={handleCanvasMouseUp}>
                 {props.shapes.map((shape, index) => <Shape ref={shapeRefs[index]} 

@@ -93,4 +93,10 @@
 
 .line {
     position: absolute;
+    color: black;
+}
+
+.line-on-select {
+    position: absolute;
+    color: var(--accent-color);
 }
