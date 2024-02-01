@@ -192,9 +192,19 @@ const Canvas = (props) => {
                 line.style.color = 'black';
             });
             
-            if ((line.start.x <= mouseX && line.end.x >= mouseX) && (mouseY - line.start.y === 0) ||
-                (line.start.y >= mouseY && line.end.y <= mouseY) && (mouseX - line.end.x === 0) ||
-                (line.start.x >= mouseX && line.end.x <= mouseX) && (mouseY - line.start.y === 0)) {
+            console.log('startX' + line.start.x);
+            console.log('startY' + line.start.y);
+            console.log('endX' + line.end.x);
+            console.log('endY' + line.end.y);
+            console.log('mouseX' + mouseX);
+            console.log('mouseY' + mouseY);
+            console.log(" ");
+            
+            if ((line.start.x <= mouseX && line.end.x >= mouseX) && (mouseY === line.start.y) ||
+                (line.start.y >= mouseY && line.end.y <= mouseY) && (mouseX === line.end.x) ||
+                (line.start.x >= mouseX && line.end.x <= mouseX) && (mouseY === line.start.y) ||
+                (line.start.y >= mouseY && line.end.y <= mouseY) && (mouseX === line.start.x) ||
+                (line.start.y <= mouseY && line.end.y >= mouseY) && (mouseX === line.start.x)) {
                 setSelectedLine(i);
                 line.isSelected = true;
             }
@@ -219,15 +229,12 @@ const Canvas = (props) => {
         if (selectedLine !== null) {
             const updatedLines = [...connectedLines];
             const line = updatedLines[selectedLine];
-      
             
             if (line.isKinked) {
                 line.end.x = mouseX;
                 line.end.y = mouseY;
             } else {
-                if (mouseX >= line.start.x && mouseX <= line.end.x) {
-                    line.isKinked = true;
-                }
+                line.isKinked = true;
             }
 
             setConnectedLines(updatedLines);
@@ -253,7 +260,7 @@ const Canvas = (props) => {
         
         if (isKinked && !isOppositeDirection) {
             return (
-                <React.Fragment key={index}>
+                <React.Fragment key={index} >
                     <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} selected={isSelected} />
                     <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} selected={isSelected} />
                     <Button
@@ -274,7 +281,7 @@ const Canvas = (props) => {
         }
         else {
             return (
-                <Line start={start} end={end} key={index}/>
+                <Line start={start} end={end} key={index} selected={isSelected}/>
             );
         }
     };
