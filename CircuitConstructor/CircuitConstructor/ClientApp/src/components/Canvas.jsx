@@ -186,7 +186,6 @@ const Canvas = (props) => {
         
         for (let i = 0; i < connectedLines.length; i++) {
             const line = connectedLines[i];
-            const lineBounds = getLineBounds(line);
             const lines = document.querySelectorAll('.line, .line-on-select');
             
             lines.forEach((line) => {
@@ -194,7 +193,8 @@ const Canvas = (props) => {
             });
             
             if ((line.start.x <= mouseX && line.end.x >= mouseX) && (mouseY - line.start.y === 0) ||
-                (line.start.y >= mouseY && line.end.y <= mouseY) && (mouseX - line.end.x === 0)) {
+                (line.start.y >= mouseY && line.end.y <= mouseY) && (mouseX - line.end.x === 0) ||
+                (line.start.x >= mouseX && line.end.x <= mouseX) && (mouseY - line.start.y === 0)) {
                 setSelectedLine(i);
                 line.isSelected = true;
             }
@@ -203,20 +203,6 @@ const Canvas = (props) => {
             }
         }
     }
-
-    const getLineBounds = (line) => {
-        const minX = Math.min(line.start.x, line.end.x);
-        const minY = Math.min(line.start.y, line.end.y);
-        const maxX = Math.max(line.start.x, line.end.x);
-        const maxY = Math.max(line.start.y, line.end.y);
-
-        return {
-            left: minX,
-            top: minY,
-            right: maxX,
-            bottom: maxY,
-        };
-    };
     
     const handleMouseMove = (event) => {
         const mouseX = props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20);
@@ -233,13 +219,15 @@ const Canvas = (props) => {
         if (selectedLine !== null) {
             const updatedLines = [...connectedLines];
             const line = updatedLines[selectedLine];
+      
             
             if (line.isKinked) {
-                const midX = (line.start.x + line.end.x) / 2;
-                line.end.x = midX + (mouseX - midX);
-            } else {
                 line.end.x = mouseX;
                 line.end.y = mouseY;
+            } else {
+                if (mouseX >= line.start.x && mouseX <= line.end.x) {
+                    line.isKinked = true;
+                }
             }
 
             setConnectedLines(updatedLines);
