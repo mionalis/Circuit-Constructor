@@ -2,13 +2,13 @@ import React from "react";
 import Line from "./Line";
 import ChangeLineButton from "./ChangeLineButton";
 
-const DrawLine = (line, index, handleButtonClick) => {
+const DrawLine = (line, index, handleLineMouseDown) => {
     const { start, end, isOppositeDirection, isVertical } = line;
 
     const commonProps = {
         x: end.x,
         y: end.y,
-        handleButtonClick: () => handleButtonClick(index),
+        handleLineMouseDown: () => handleLineMouseDown(index),
     };
     
     if (isVertical || !isOppositeDirection) {

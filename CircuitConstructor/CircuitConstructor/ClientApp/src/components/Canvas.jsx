@@ -108,7 +108,7 @@ const Canvas = (props) => {
      * @param event
      */
     const handleCanvasMouseMove = (event) => {
-        handleMouseMove(event);
+        handleLineMouseMove(event);
         
         if(!thisCanRotate || rotateButtonContainerRef.current == null || selectedShape == null) {
            return;
@@ -148,7 +148,7 @@ const Canvas = (props) => {
      */
     const handleCanvasMouseUp = (event) => {
         setThisCanRotate(false);
-        handleMouseUp(event);
+        handleLineMouseUp(event);
         
         if (selectedShape === null) {
             return;
@@ -160,7 +160,7 @@ const Canvas = (props) => {
     const [drawingLine, setDrawingLine] = useState(null);
     const [connectedLines, setConnectedLines] = useState([]);
     
-    const handleMouseDown = (event) => {
+    const handleDrawLineButtonMouseDown = (event) => {
         setStartPoint({
             selectedShapeIndex,
             x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
@@ -171,13 +171,12 @@ const Canvas = (props) => {
     
     const [selectedLine, setSelectedLine] = useState(null);
     
-    const handleMouseMove = (event) => {
+    const handleLineMouseMove = (event) => {
         const mouseX = props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20);
         const mouseY = props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
         
         if (startPoint && !selectedLine) {
-            
-            const isOppositeDirection = startPoint.x - mouseX < 0 ||  mouseX - startPoint.x < 0;
+            const isOppositeDirection = checkOppositeDirection(startPoint.x, mouseX);
             const isVertical = isVerticalRotation(rotationAngles[selectedShapeIndex]);
             
             setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isOppositeDirection, isVertical });
@@ -186,26 +185,27 @@ const Canvas = (props) => {
         if (selectedLine !== null) {
             const updatedLines = [...connectedLines];
             const line = updatedLines[selectedLine];
-            line.isOppositeDirection = line.start.x - mouseX < 0 || mouseX - line.start.x < 0;
             
-                line.end.x = mouseX;
-                line.end.y = mouseY;
+            line.isOppositeDirection = checkOppositeDirection(line.start.x, mouseX);
+            line.end.x = mouseX;
+            line.end.y = mouseY;
 
             setConnectedLines(updatedLines);
         }
     };
 
-    const handleMouseUp = () => {
+    const handleLineMouseUp = () => {
         if (startPoint && !selectedShape && !selectedLine) {
             setConnectedLines([...connectedLines, drawingLine]);
             setDrawingLine(null);
         }
+        
         setStartPoint(null);
         setSelectedShape(null);
         setSelectedLine(null);
     };
 
-    const handleButtonClick = (index) => {
+    const handleLineMouseDown = (index) => {
         connectedLines.forEach((line, i) => {
             if (index === i) {
                 setSelectedLine(i);
@@ -222,6 +222,10 @@ const Canvas = (props) => {
     const isVerticalRotation = (angle) => {
         return Math.abs(angle) === 90 || Math.abs(angle) === 270;
     };
+
+    const checkOppositeDirection = (startX, mouseX)  => {
+        return startX - mouseX < 0 || mouseX - startX < 0;
+    }
     
     return (
         <div className="canvas"  ref={props.canvasRef}>
@@ -247,10 +251,10 @@ const Canvas = (props) => {
                                                            isDraggedFromSidebar={props.isDraggedFromSidebar} 
                                                            shapeDropPosition={props.shapeDropPosition} 
                                                            setOnGrid={props.setOnGrid}
-                                                           handleMouseDown={handleMouseDown}
+                                                           handleMouseDown={handleDrawLineButtonMouseDown}
                                                            isVerticalRotation={isVerticalRotation}/>)}
-                {connectedLines.map((line, index) => DrawLine(line, index, handleButtonClick))}
-                {drawingLine && DrawLine(drawingLine, connectedLines.length, handleButtonClick)}
+                {connectedLines.map((line, index) => DrawLine(line, index, handleLineMouseDown))}
+                {drawingLine && DrawLine(drawingLine, connectedLines.length, handleLineMouseDown)}
             </div>
         </div>
     );
