@@ -177,11 +177,10 @@ const Canvas = (props) => {
         
         if (startPoint && !selectedLine) {
             
-            const isKinked = Math.abs(mouseX - startPoint.x) > 10 && Math.abs(mouseY - startPoint.y) > 10;
             const isOppositeDirection = startPoint.x - mouseX < 0 ||  mouseX - startPoint.x < 0;
             const isVertical = isVerticalRotation(rotationAngles[selectedShapeIndex]);
             
-            setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isKinked, isOppositeDirection, isVertical });
+            setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isOppositeDirection, isVertical });
         }
 
         if (selectedLine !== null) {
@@ -189,13 +188,8 @@ const Canvas = (props) => {
             const line = updatedLines[selectedLine];
             line.isOppositeDirection = line.start.x - mouseX < 0 || mouseX - line.start.x < 0;
             
-            if (line.isKinked) {
                 line.end.x = mouseX;
                 line.end.y = mouseY;
-            }
-            else {
-                line.isKinked = true;
-            }
 
             setConnectedLines(updatedLines);
         }
