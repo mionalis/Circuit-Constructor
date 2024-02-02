@@ -94,6 +94,7 @@
 .line {
     position: absolute;
     color: black;
+    height: 4px;
 }
 
 .line-on-select {

@@ -157,17 +157,9 @@ const Canvas = (props) => {
 
     const [startPoint, setStartPoint] = useState(null);
     const [drawingLine, setDrawingLine] = useState(null);
-    const [isLeft, setIsLeft] = useState(false);
     const [connectedLines, setConnectedLines] = useState([]);
     
     const handleMouseDown = (event) => {
-        const leftButton = document.getElementById('circle-left-button');
-        setIsLeft(false);
-        
-        if (event.target == leftButton) {
-            setIsLeft(true);
-        }
-        
         setStartPoint({
             selectedShapeIndex,
             x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
@@ -185,7 +177,7 @@ const Canvas = (props) => {
         if (startPoint && !selectedLine) {
             
             const isKinked = Math.abs(mouseX - startPoint.x) > 10 && Math.abs(mouseY - startPoint.y) > 10;
-            const isOppositeDirection = (isLeft && startPoint.x - mouseX < 0) || (!isLeft && mouseX - startPoint.x < 0);
+            const isOppositeDirection = startPoint.x - mouseX < 0 ||  mouseX - startPoint.x < 0;
             
             setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isKinked, isOppositeDirection });
         }
@@ -193,11 +185,17 @@ const Canvas = (props) => {
         if (selectedLine !== null) {
             const updatedLines = [...connectedLines];
             const line = updatedLines[selectedLine];
+            line.isOppositeDirection = line.start.x - mouseX < 0 || mouseX - line.start.x < 0;
             
             if (line.isKinked) {
                 line.end.x = mouseX;
                 line.end.y = mouseY;
-            } else {
+            } 
+            else if (line.isKinked) {
+                line.end.x = mouseX;
+                line.end.y = mouseY;
+            }
+            else {
                 line.isKinked = true;
             }
 
@@ -218,30 +216,22 @@ const Canvas = (props) => {
     const handleButtonClick = (index) => {
         for (let i = 0; i < connectedLines.length; i++) {
             const line = connectedLines[i];
-            const lines = document.querySelectorAll('.line, .line-on-select');
-
-            lines.forEach((line) => {
-                line.style.color = 'black';
-            });
             
              if (index == i) {
                  setSelectedLine(i);
                  line.isSelected = true;
              }
-             else {
-                 line.isSelected = false;
-             }
         }
     };
     
     const drawLine = (line, index) => {
-        const { start, end, isKinked, isOppositeDirection, isSelected } = line;
+        const { start, end, isKinked, isOppositeDirection } = line;
         
         if (isKinked && !isOppositeDirection) {
             return (
                 <React.Fragment key={index} >
-                    <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} selected={isSelected} />
-                    <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} selected={isSelected} />
+                    <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} />
+                    <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} />
                     <ChangeLineButton
                         x={end.x}
                         y={end.y}
@@ -253,14 +243,26 @@ const Canvas = (props) => {
         else if (isKinked) {
             return (
                 <React.Fragment key={index}>
-                    <Line start={{ x: start.x, y: start.y }} end={{ x: start.x, y: end.y }} selected={isSelected} />
-                    <Line start={{ x: start.x, y: end.y }} end={{ x: end.x, y: end.y }} selected={isSelected} />
+                    <Line start={{ x: start.x, y: start.y }} end={{ x: start.x, y: end.y }} />
+                    <Line start={{ x: start.x, y: end.y }} end={{ x: end.x, y: end.y }} />
+                    <ChangeLineButton
+                        x={end.x}
+                        y={end.y}
+                        handleButtonClick={() => handleButtonClick(index)}
+                    />
                 </React.Fragment>
             );
         }
         else {
             return (
-                <Line start={start} end={end} key={index} selected={isSelected}/>
+                <React.Fragment key={index}>
+                <Line start={start} end={end} key={index} />
+            <ChangeLineButton
+                x={end.x}
+                y={end.y}
+                handleButtonClick={() => handleButtonClick(index)}
+            />
+                </React.Fragment>
             );
         }
     };
