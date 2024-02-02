@@ -1,6 +1,8 @@
 import React, {createRef, useEffect, useRef, useState} from "react";
 import Shape from "./Shape";
 import "../styles/canvasStyles.css";
+import Line from "./Line";
+import ChangeLineButton from "./ChangeLineButton";
 
 /**
  * Монтажная поверхность. Отрисовывает элементы электрической цепи.
@@ -99,10 +101,6 @@ const Canvas = (props) => {
             dotPatternRef.current.style[sideNameProperty] = `${patternSize}px`;
         }
     };
-
-    const handleCanvasMouseDown = (event) => {
-        handleLineMouseDown(event);
-    }
     
     /**
      * Срабатывает при движении мыши по монтажной поверхности.
@@ -180,40 +178,6 @@ const Canvas = (props) => {
     
     const [selectedLine, setSelectedLine] = useState(null);
     
-    const handleLineMouseDown = (event) => {
-        const mouseX = props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20);
-        const mouseY = props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
-        
-        for (let i = 0; i < connectedLines.length; i++) {
-            const line = connectedLines[i];
-            const lines = document.querySelectorAll('.line, .line-on-select');
-            
-            lines.forEach((line) => {
-                line.style.color = 'black';
-            });
-            
-            console.log('startX' + line.start.x);
-            console.log('startY' + line.start.y);
-            console.log('endX' + line.end.x);
-            console.log('endY' + line.end.y);
-            console.log('mouseX' + mouseX);
-            console.log('mouseY' + mouseY);
-            console.log(" ");
-            
-            if ((line.start.x <= mouseX && line.end.x >= mouseX) && (mouseY === line.start.y) ||
-                (line.start.y >= mouseY && line.end.y <= mouseY) && (mouseX === line.end.x) ||
-                (line.start.x >= mouseX && line.end.x <= mouseX) && (mouseY === line.start.y) ||
-                (line.start.y >= mouseY && line.end.y <= mouseY) && (mouseX === line.start.x) ||
-                (line.start.y <= mouseY && line.end.y >= mouseY) && (mouseX === line.start.x)) {
-                setSelectedLine(i);
-                line.isSelected = true;
-            }
-            else {
-                line.isSelected = false;
-            }
-        }
-    }
-    
     const handleMouseMove = (event) => {
         const mouseX = props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20);
         const mouseY = props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
@@ -251,8 +215,23 @@ const Canvas = (props) => {
         setSelectedLine(null);
     };
 
-    const handleButtonClick = ( position) => {
-        console.log(`Button clicked for line at ${position}`);
+    const handleButtonClick = (index) => {
+        for (let i = 0; i < connectedLines.length; i++) {
+            const line = connectedLines[i];
+            const lines = document.querySelectorAll('.line, .line-on-select');
+
+            lines.forEach((line) => {
+                line.style.color = 'black';
+            });
+            
+             if (index == i) {
+                 setSelectedLine(i);
+                 line.isSelected = true;
+             }
+             else {
+                 line.isSelected = false;
+             }
+        }
     };
     
     const drawLine = (line, index) => {
@@ -263,10 +242,10 @@ const Canvas = (props) => {
                 <React.Fragment key={index} >
                     <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} selected={isSelected} />
                     <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} selected={isSelected} />
-                    <Button
+                    <ChangeLineButton
                         x={end.x}
                         y={end.y}
-                        onClick={() => handleButtonClick('start')}
+                        handleButtonClick={() => handleButtonClick(index)}
                     />
                 </React.Fragment>
             );
@@ -286,52 +265,12 @@ const Canvas = (props) => {
         }
     };
     
-    const Line = ({ start, end, selected  }) => {
-        const distance = Math.sqrt((end.x - start.x) ** 2 + (end.y - start.y) ** 2);
-        const angle = Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI);
-        
-        let className = 'line';
-        if (selected) {
-            className = 'line-on-select';
-        }
-        
-        return (
-            <svg className={className}
-                 width={distance} 
-                 height="2px" 
-                 style={{
-                     position: 'absolute',
-                     top: `${start.y}px`,
-                     left: `${start.x}px`,
-                     fill: 'currentColor',
-                     transform: `rotate(${angle}deg)`,
-                     transformOrigin: '0 0',
-                }}>
-                <line x1="0" y1="0" x2={distance} y2="0" stroke="currentColor" strokeWidth="4" />
-            </svg>
-        );
-    };
-
-    const Button = ({ x, y, onClick }) => (
-        <div
-            className="circle-button"
-            style={{
-                position: 'absolute',
-                top: `${y - 5}px`,
-                left: `${x - 5}px`,
-                cursor: 'pointer',
-            }}
-            onClick={onClick}>
-        </div>
-    );
-    
     return (
         <div className="canvas"  ref={props.canvasRef}>
             <div className="dot-pattern-canvas"
                  ref={dotPatternRef}
                  onDragEnter={props.handleCanvasDragEnter}
                  onDragLeave={props.handleCanvasDragLeave}
-                 onMouseDown={handleCanvasMouseDown}
                  onMouseMove={handleCanvasMouseMove}
                  onMouseUp={handleCanvasMouseUp}>
                 {props.shapes.map((shape, index) => <Shape ref={shapeRefs[index]} 
