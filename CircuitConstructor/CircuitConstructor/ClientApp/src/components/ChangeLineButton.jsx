@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-const ChangeLineButton = ({ x, y, handleButtonClick }) => (
+const ChangeLineButton = ({ x, y, handleLineMouseDown }) => (
     <div
         className="circle-button"
         style={{
@@ -9,7 +9,7 @@ const ChangeLineButton = ({ x, y, handleButtonClick }) => (
             left: `${x - 5}px`,
             cursor: 'pointer',
         }}
-        onMouseDown={handleButtonClick}>
+        onMouseDown={handleLineMouseDown}>
     </div>
 );
 

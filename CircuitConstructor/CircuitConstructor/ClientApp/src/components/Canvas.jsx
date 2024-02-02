@@ -153,6 +153,7 @@ const Canvas = (props) => {
         if (selectedShape === null) {
             return;
         }
+        
         selectedShape.classList.remove("shape-on-drag");
     }
 
@@ -161,19 +162,18 @@ const Canvas = (props) => {
     const [connectedLines, setConnectedLines] = useState([]);
     
     const handleDrawLineButtonMouseDown = (event) => {
+        const { x: mouseX, y: mouseY } = getMouseCoordinates(event);
         setStartPoint({
             selectedShapeIndex,
-            x: props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20),
-            y: props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
+            x: mouseX,
+            y: mouseY
         });
-        
     };
     
     const [selectedLine, setSelectedLine] = useState(null);
     
     const handleLineMouseMove = (event) => {
-        const mouseX = props.setOnGrid(event.clientX + props.canvasRef.current.scrollLeft - props.canvasRef.current.offsetLeft, 20);
-        const mouseY = props.setOnGrid(event.clientY + props.canvasRef.current.scrollTop - props.canvasRef.current.offsetTop, 20)
+        const { x: mouseX, y: mouseY } = getMouseCoordinates(event);
         
         if (startPoint && !selectedLine) {
             const isOppositeDirection = checkOppositeDirection(startPoint.x, mouseX);
@@ -189,7 +189,6 @@ const Canvas = (props) => {
             line.isOppositeDirection = checkOppositeDirection(line.start.x, mouseX);
             line.end.x = mouseX;
             line.end.y = mouseY;
-
             setConnectedLines(updatedLines);
         }
     };
@@ -214,6 +213,13 @@ const Canvas = (props) => {
         });
     };
 
+    const getMouseCoordinates = (event) => {
+        const canvas = props.canvasRef.current;
+        const x = props.setOnGrid(event.clientX + canvas.scrollLeft - canvas.offsetLeft, props.canvasGridStep);
+        const y = props.setOnGrid(event.clientY + canvas.scrollTop - canvas.offsetTop, props.canvasGridStep);
+        return { x, y };
+    };
+    
     /**
      * Определяет, повернут ли элемент на 90 градусов.
      * @param angle - Угол поворота в градусах.
