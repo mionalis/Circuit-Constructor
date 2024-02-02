@@ -64,6 +64,11 @@ const Canvas = (props) => {
      * Хранит и устанавливает булевое значение, которое определяет, заблокировано ли передвижение элемента.
      */
     const [isDragDisabled, setIsDragDisabled] = useState(false);
+
+    const [selectedLineIndex, setSelectedLineIndex] = useState(null);
+    const [lineStartPoint, setLineStartPoint] = useState(null);
+    const [drawingLine, setDrawingLine] = useState(null);
+    const [connectedLines, setConnectedLines] = useState([]);
     
     /**
      * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
@@ -108,7 +113,7 @@ const Canvas = (props) => {
      * @param event
      */
     const handleCanvasMouseMove = (event) => {
-        handleLineMouseMove(event);
+        handleLineMovement(event);
         
         if(!thisCanRotate || rotateButtonContainerRef.current == null || selectedShape == null) {
            return;
@@ -156,35 +161,29 @@ const Canvas = (props) => {
         
         selectedShape.classList.remove("shape-on-drag");
     }
-
-    const [startPoint, setStartPoint] = useState(null);
-    const [drawingLine, setDrawingLine] = useState(null);
-    const [connectedLines, setConnectedLines] = useState([]);
     
     const handleDrawLineButtonMouseDown = (event) => {
         const { x: mouseX, y: mouseY } = getMouseCoordinates(event);
-        setStartPoint({
+        setLineStartPoint({
             selectedShapeIndex,
             x: mouseX,
             y: mouseY
         });
     };
     
-    const [selectedLine, setSelectedLine] = useState(null);
-    
-    const handleLineMouseMove = (event) => {
+    const handleLineMovement = (event) => {
         const { x: mouseX, y: mouseY } = getMouseCoordinates(event);
         
-        if (startPoint && !selectedLine) {
-            const isOppositeDirection = checkOppositeDirection(startPoint.x, mouseX);
+        if (lineStartPoint && !selectedLineIndex) {
+            const isOppositeDirection = checkOppositeDirection(lineStartPoint.x, mouseX);
             const isVertical = isVerticalRotation(rotationAngles[selectedShapeIndex]);
             
-            setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isOppositeDirection, isVertical });
+            setDrawingLine({ start: lineStartPoint, end: { x: mouseX, y: mouseY }, isOppositeDirection, isVertical });
         }
 
-        if (selectedLine !== null) {
+        if (selectedLineIndex !== null) {
             const updatedLines = [...connectedLines];
-            const line = updatedLines[selectedLine];
+            const line = updatedLines[selectedLineIndex];
             
             line.isOppositeDirection = checkOppositeDirection(line.start.x, mouseX);
             line.end.x = mouseX;
@@ -194,20 +193,20 @@ const Canvas = (props) => {
     };
 
     const handleLineMouseUp = () => {
-        if (startPoint && !selectedShape && !selectedLine) {
+        if (lineStartPoint && !selectedShape && !selectedLineIndex) {
             setConnectedLines([...connectedLines, drawingLine]);
             setDrawingLine(null);
         }
         
-        setStartPoint(null);
+        setLineStartPoint(null);
         setSelectedShape(null);
-        setSelectedLine(null);
+        setSelectedLineIndex(null);
     };
 
     const handleLineMouseDown = (index) => {
         connectedLines.forEach((line, i) => {
             if (index === i) {
-                setSelectedLine(i);
+                setSelectedLineIndex(i);
                 line.isSelected = true;
             }
         });
