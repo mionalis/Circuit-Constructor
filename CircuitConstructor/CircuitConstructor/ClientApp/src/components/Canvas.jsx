@@ -178,8 +178,9 @@ const Canvas = (props) => {
             
             const isKinked = Math.abs(mouseX - startPoint.x) > 10 && Math.abs(mouseY - startPoint.y) > 10;
             const isOppositeDirection = startPoint.x - mouseX < 0 ||  mouseX - startPoint.x < 0;
+            const isVertical = isVerticalRotation(rotationAngles[selectedShapeIndex]);
             
-            setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isKinked, isOppositeDirection });
+            setDrawingLine({ start: startPoint, end: { x: mouseX, y: mouseY }, isKinked, isOppositeDirection, isVertical });
         }
 
         if (selectedLine !== null) {
@@ -225,9 +226,22 @@ const Canvas = (props) => {
     };
     
     const drawLine = (line, index) => {
-        const { start, end, isKinked, isOppositeDirection } = line;
+        const { start, end, isKinked, isOppositeDirection, isVertical } = line;
         
-        if (isKinked && !isOppositeDirection) {
+        if (isVertical) {
+            return (
+                <React.Fragment key={index} >
+                    <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} />
+                    <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} />
+                    <ChangeLineButton
+                        x={end.x}
+                        y={end.y}
+                        handleButtonClick={() => handleButtonClick(index)}
+                    />
+                </React.Fragment>
+            );
+        }
+        else if (isKinked && !isOppositeDirection) {
             return (
                 <React.Fragment key={index} >
                     <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} />
@@ -266,6 +280,15 @@ const Canvas = (props) => {
             );
         }
     };
+
+    /**
+     * Определяет, повернут ли элемент на 90 градусов.
+     * @param angle - Угол поворота в градусах.
+     * @returns {boolean} - Если True - элемент вертикален, если False - размещен горизонтально.
+     */
+    const isVerticalRotation = (angle) => {
+        return Math.abs(angle) === 90 || Math.abs(angle) === 270;
+    };
     
     return (
         <div className="canvas"  ref={props.canvasRef}>
@@ -291,7 +314,8 @@ const Canvas = (props) => {
                                                            isDraggedFromSidebar={props.isDraggedFromSidebar} 
                                                            shapeDropPosition={props.shapeDropPosition} 
                                                            setOnGrid={props.setOnGrid}
-                                                           handleMouseDown={handleMouseDown}/>)}
+                                                           handleMouseDown={handleMouseDown}
+                                                           isVerticalRotation={isVerticalRotation}/>)}
                 {connectedLines.map((line, index) => drawLine(line, index))}
                 {drawingLine && drawLine(drawingLine, connectedLines.length)}
             </div>

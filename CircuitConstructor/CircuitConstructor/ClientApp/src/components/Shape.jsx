@@ -67,7 +67,7 @@ const Shape = React.forwardRef((props, ref) => {
      * Устаналивает элемент по сетке при повороте.
      */
     useEffect(() => {
-        if (isVerticalRotation(props.rotateButtonAngle)) {
+        if (props.isVerticalRotation(props.rotateButtonAngle)) {
             shapeContainerRef.current.style.left = `${10}px`;
             shapeContainerRef.current.style.top = `${10}px`;
         }
@@ -166,15 +166,6 @@ const Shape = React.forwardRef((props, ref) => {
         props.setIsDragDisabled(false);
     }
     
-    /**
-     * Определяет, повернут ли элемент на 90 градусов.
-     * @param angle - Угол поворота в градусах.
-     * @returns {boolean} - Если True - элемент вертикален, если False - размещен горизонтально.
-     */
-    const isVerticalRotation = (angle) => {
-        return Math.abs(angle) === 90 || Math.abs(angle) === 270;
-    };
-    
     return (
         <Draggable position={{x: currentPosition.x, y: currentPosition.y}}
                    onDrag={handleShapeDrag} 
@@ -184,7 +175,7 @@ const Shape = React.forwardRef((props, ref) => {
                 {isComponentVisible && (
                     <RotateButton componentRef={componentRef}
                                   isComponentVisible={isComponentVisible}
-                                  isVerticalRotation={isVerticalRotation}
+                                  isVerticalRotation={props.isVerticalRotation}
                                   thisCanRotate={props.thisCanRotate}
                                   setIsDragDisabled={props.setIsDragDisabled}
                                   setThisCanRotate={props.setThisCanRotate}
