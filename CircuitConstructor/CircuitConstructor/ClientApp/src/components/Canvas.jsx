@@ -3,6 +3,7 @@ import Shape from "./Shape";
 import "../styles/canvasStyles.css";
 import Line from "./Line";
 import ChangeLineButton from "./ChangeLineButton";
+import DrawLine from "./DrawLine";
 
 /**
  * Монтажная поверхность. Отрисовывает элементы электрической цепи.
@@ -191,10 +192,6 @@ const Canvas = (props) => {
             if (line.isKinked) {
                 line.end.x = mouseX;
                 line.end.y = mouseY;
-            } 
-            else if (line.isKinked) {
-                line.end.x = mouseX;
-                line.end.y = mouseY;
             }
             else {
                 line.isKinked = true;
@@ -204,7 +201,7 @@ const Canvas = (props) => {
         }
     };
 
-    const handleMouseUp = (event) => {
+    const handleMouseUp = () => {
         if (startPoint && !selectedShape && !selectedLine) {
             setConnectedLines([...connectedLines, drawingLine]);
             setDrawingLine(null);
@@ -215,70 +212,12 @@ const Canvas = (props) => {
     };
 
     const handleButtonClick = (index) => {
-        for (let i = 0; i < connectedLines.length; i++) {
-            const line = connectedLines[i];
-            
-             if (index == i) {
-                 setSelectedLine(i);
-                 line.isSelected = true;
-             }
-        }
-    };
-    
-    const drawLine = (line, index) => {
-        const { start, end, isKinked, isOppositeDirection, isVertical } = line;
-        
-        if (isVertical) {
-            return (
-                <React.Fragment key={index} >
-                    <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} />
-                    <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} />
-                    <ChangeLineButton
-                        x={end.x}
-                        y={end.y}
-                        handleButtonClick={() => handleButtonClick(index)}
-                    />
-                </React.Fragment>
-            );
-        }
-        else if (isKinked && !isOppositeDirection) {
-            return (
-                <React.Fragment key={index} >
-                    <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} />
-                    <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} />
-                    <ChangeLineButton
-                        x={end.x}
-                        y={end.y}
-                        handleButtonClick={() => handleButtonClick(index)}
-                    />
-                </React.Fragment>
-            );
-        } 
-        else if (isKinked) {
-            return (
-                <React.Fragment key={index}>
-                    <Line start={{ x: start.x, y: start.y }} end={{ x: start.x, y: end.y }} />
-                    <Line start={{ x: start.x, y: end.y }} end={{ x: end.x, y: end.y }} />
-                    <ChangeLineButton
-                        x={end.x}
-                        y={end.y}
-                        handleButtonClick={() => handleButtonClick(index)}
-                    />
-                </React.Fragment>
-            );
-        }
-        else {
-            return (
-                <React.Fragment key={index}>
-                <Line start={start} end={end} key={index} />
-            <ChangeLineButton
-                x={end.x}
-                y={end.y}
-                handleButtonClick={() => handleButtonClick(index)}
-            />
-                </React.Fragment>
-            );
-        }
+        connectedLines.forEach((line, i) => {
+            if (index === i) {
+                setSelectedLine(i);
+                line.isSelected = true;
+            }
+        });
     };
 
     /**
@@ -316,8 +255,8 @@ const Canvas = (props) => {
                                                            setOnGrid={props.setOnGrid}
                                                            handleMouseDown={handleMouseDown}
                                                            isVerticalRotation={isVerticalRotation}/>)}
-                {connectedLines.map((line, index) => drawLine(line, index))}
-                {drawingLine && drawLine(drawingLine, connectedLines.length)}
+                {connectedLines.map((line, index) => DrawLine(line, index, handleButtonClick))}
+                {drawingLine && DrawLine(drawingLine, connectedLines.length, handleButtonClick)}
             </div>
         </div>
     );
