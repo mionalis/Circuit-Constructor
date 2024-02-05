@@ -52,7 +52,10 @@ const Shape = React.forwardRef((props, ref) => {
      */
     useMemo(()=>{
         if (props.isDraggedFromSidebar) {
-            setCurrentPosition({x: props.shapeDropPosition.x, y: props.shapeDropPosition.y});
+            setCurrentPosition({
+                x: props.shapeDropPosition.x,
+                y: props.shapeDropPosition.y
+            });
         }
     }, []);
     
@@ -167,40 +170,54 @@ const Shape = React.forwardRef((props, ref) => {
     }
     
     return (
-        <Draggable position={{x: currentPosition.x, y: currentPosition.y}}
-                   onDrag={handleShapeDrag} 
-                   onStop ={handleShapeDragStop}
-                   disabled={props.isDragDisabled}>
+        <Draggable 
+            position={{x: currentPosition.x, y: currentPosition.y}}
+            onDrag={handleShapeDrag} 
+            onStop ={handleShapeDragStop}
+            disabled={props.isDragDisabled}
+        >
             <div className="shape-container" ref={shapeContainerRef}> 
                 {isComponentVisible && (
-                    <RotateButton componentRef={componentRef}
-                                  isComponentVisible={isComponentVisible}
-                                  isVerticalRotation={props.isVerticalRotation}
-                                  thisCanRotate={props.thisCanRotate}
-                                  setIsDragDisabled={props.setIsDragDisabled}
-                                  setThisCanRotate={props.setThisCanRotate}
-                                  rotateButtonContainerRef={props.rotateButtonContainerRef} 
-                                  handleRotateButtonContainerMouseDown={props.handleRotateButtonContainerMouseDown}
-                                  rotateButtonAngle={props.rotateButtonAngle} />)}
+                    <RotateButton 
+                        componentRef={componentRef}
+                        isComponentVisible={isComponentVisible}
+                        isVerticalRotation={props.isVerticalRotation}
+                        thisCanRotate={props.thisCanRotate}
+                        setIsDragDisabled={props.setIsDragDisabled}
+                        setThisCanRotate={props.setThisCanRotate}
+                        rotateButtonContainerRef={props.rotateButtonContainerRef} 
+                        handleRotateButtonContainerMouseDown={props.handleRotateButtonContainerMouseDown}
+                        rotateButtonAngle={props.rotateButtonAngle} 
+                    />
+                )}
                 <span onClick={handleShapeClick}>
-                    <div className="circle-buttons-container" onMouseOver={handleShapeMouseOver}
-                         onMouseLeave={handleShapeMouseLeave} ref={drawLinesButtonsRef}>
-                        <div className="circle-button" 
-                             id="circle-left-button"
-                             ref={drawLineLeftButtonRef}
-                             onMouseOver={handleDrawLineMouseOver} 
-                             onMouseLeave={handleDrawLineMouseLeave}
-                             onMouseDown={props.handleMouseDown}/>
-                        <div className="circle-button"
-                             id="circle-right-button"
-                             onMouseOver={handleDrawLineMouseOver}
-                             onMouseLeave={handleDrawLineMouseLeave} 
-                             ref={drawLineRightButtonRef} 
-                             onMouseDown={props.handleMouseDown}/>
+                    <div 
+                        className="circle-buttons-container" 
+                        ref={drawLinesButtonsRef}
+                        onMouseOver={handleShapeMouseOver}
+                        onMouseLeave={handleShapeMouseLeave}
+                    >
+                        <div 
+                            className="circle-button" 
+                            id="circle-left-button"
+                            ref={drawLineLeftButtonRef}
+                            onMouseOver={handleDrawLineMouseOver} 
+                            onMouseLeave={handleDrawLineMouseLeave}
+                            onMouseDown={props.handleMouseDown}
+                        />
+                        <div 
+                            className="circle-button"
+                            id="circle-right-button"
+                            ref={drawLineRightButtonRef} 
+                            onMouseOver={handleDrawLineMouseOver}
+                            onMouseLeave={handleDrawLineMouseLeave} 
+                            onMouseDown={props.handleMouseDown}
+                        />
                     </div>
-                    <div className="shape"
-                         id="shape"
-                         ref={ref}>
+                    <div 
+                        className="shape"
+                        id="shape"
+                        ref={ref}>
                         {props.shape.body}
                     </div>
                 </span>
