@@ -69,22 +69,22 @@
 }
 
 .circle-buttons-container {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    width: calc(100% + 10px);
+    display: flex;
     height: calc(100%);
+    justify-content: space-between;
     left: -5px;
     position: absolute;
+    width: calc(100% + 10px);
     z-index: 1;
 }
 
 .circle-button {
-    width: 10px;
-    height: 10px;
     background-color: var(--accent-color);
     border-radius: 50%;
+    height: 10px;
     opacity: 30%;
+    width: 10px;
 }
 
 .circle-button:hover {
@@ -92,12 +92,12 @@
 }
 
 .line {
-    position: absolute;
     color: black;
-    height: 4px;
+    height: 4px; 
+    position: absolute;
 }
 
 .line-on-select {
-    position: absolute;
     color: var(--accent-color);
+    position: absolute;
 }

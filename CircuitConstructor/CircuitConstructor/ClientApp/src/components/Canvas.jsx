@@ -1,8 +1,6 @@
 import React, {createRef, useEffect, useRef, useState} from "react";
 import Shape from "./Shape";
 import "../styles/canvasStyles.css";
-import Line from "./Line";
-import ChangeLineButton from "./ChangeLineButton";
 import DrawLine from "./DrawLine";
 
 /**
@@ -65,10 +63,25 @@ const Canvas = (props) => {
      */
     const [isDragDisabled, setIsDragDisabled] = useState(false);
 
+    /**
+     * Индекс выбранной линии.
+     */
     const [selectedLineIndex, setSelectedLineIndex] = useState(null);
+
+    /**
+     * Стартовая точка линии.
+     */
     const [lineStartPoint, setLineStartPoint] = useState(null);
+
+    /**
+     * Отрисованная линия.
+     */
     const [drawingLine, setDrawingLine] = useState(null);
-    const [connectedLines, setConnectedLines] = useState([]);
+
+    /**
+     * Массив отрисованных линий.
+     */
+    const [drawnLines, setDrawnLines] = useState([]);
     
     /**
      * Меняет иконку возле перетаскиваемого элемента, когда тот заходит на Canvas.
@@ -161,7 +174,11 @@ const Canvas = (props) => {
         
         selectedShape.classList.remove("shape-on-drag");
     }
-    
+
+    /**
+     * При нажатии на кнопку рисования линии, расположеную возле элемента, устанавливает координаты начальной точки линии.
+     * @param event
+     */
     const handleDrawLineButtonMouseDown = (event) => {
         const { x: mouseX, y: mouseY } = getMouseCoordinates(event);
         setLineStartPoint({
@@ -170,52 +187,92 @@ const Canvas = (props) => {
             y: mouseY
         });
     };
-    
+
+    /**
+     * Считывает координаты перемещения мыши при рисовании линии.
+     * @param event
+     */
     const handleLineMovement = (event) => {
         const { x: mouseX, y: mouseY } = getMouseCoordinates(event);
         
         if (lineStartPoint && !selectedLineIndex) {
-            const isOppositeDirection = checkOppositeDirection(lineStartPoint.x, mouseX);
-            const isVertical = isVerticalRotation(rotationAngles[selectedShapeIndex]);
-            
-            setDrawingLine({ start: lineStartPoint, end: { x: mouseX, y: mouseY }, isOppositeDirection, isVertical });
+            createNewLine(mouseX, mouseY);
         }
 
         if (selectedLineIndex !== null) {
-            const updatedLines = [...connectedLines];
-            const line = updatedLines[selectedLineIndex];
-            
-            line.isOppositeDirection = checkOppositeDirection(line.start.x, mouseX);
-            line.end.x = mouseX;
-            line.end.y = mouseY;
-            setConnectedLines(updatedLines);
+            editLine(mouseX, mouseY);
         }
     };
 
+    /**
+     * Создает новую линию.
+     * @param mouseX - Координата мыши X.
+     * @param mouseY - Координата мыши Y.
+     */
+    const createNewLine = (mouseX, mouseY) => {
+        const isOppositeDirection = checkOppositeDirection(lineStartPoint.x, mouseX);
+        const isVertical = isVerticalRotation(rotationAngles[selectedShapeIndex]);
+        
+        setDrawingLine({ start: lineStartPoint, end: { x: mouseX, y: mouseY }, isOppositeDirection, isVertical });
+    }
+
+    /**
+     * Осуществляет редактирование линии.
+     * @param mouseX - Координата мыши X.
+     * @param mouseY - Координата мыши Y.
+     */
+    const editLine = (mouseX, mouseY) => {
+        const updatedLines = [...drawnLines];
+        const line = updatedLines[selectedLineIndex];
+
+        line.isOppositeDirection = checkOppositeDirection(line.start.x, mouseX);
+        line.end.x = mouseX;
+        line.end.y = mouseY;
+        setDrawnLines(updatedLines);
+    }
+
+    /**
+     * При отпускании кнопки мыши добавляет отрисованную линию в массив, сбрасывает значения стартовой точки и
+     * индекса выбранной линии.
+     */
     const handleLineMouseUp = () => {
         if (lineStartPoint && !selectedShape && !selectedLineIndex) {
-            setConnectedLines([...connectedLines, drawingLine]);
+            setDrawnLines([...drawnLines, drawingLine]);
             setDrawingLine(null);
         }
         
         setLineStartPoint(null);
-        setSelectedShape(null);
         setSelectedLineIndex(null);
     };
 
+    /**
+     * При нажатии на отрисованную линию сохраняет ее индекс для дальнейшего редактирования.
+     * @param index - Индекс кнопки редактирования.
+     */
     const handleLineMouseDown = (index) => {
-        connectedLines.forEach((line, i) => {
+        drawnLines.forEach((line, i) => {
             if (index === i) {
                 setSelectedLineIndex(i);
                 line.isSelected = true;
             }
         });
+        
     };
-
+    
+    /**
+     * Рассчитывает координаты мыши относительно элемента Canvas.
+     * @param event
+     * @returns {{x: *, y: *}} - Координаты X и Y, рассчитанные относительно элемента Canvas и установленные по сетке.
+     */
     const getMouseCoordinates = (event) => {
         const canvas = props.canvasRef.current;
-        const x = props.setOnGrid(event.clientX + canvas.scrollLeft - canvas.offsetLeft, props.canvasGridStep);
-        const y = props.setOnGrid(event.clientY + canvas.scrollTop - canvas.offsetTop, props.canvasGridStep);
+        
+        const xOnCanvas = event.clientX + canvas.scrollLeft - canvas.offsetLeft;
+        const yOnCanvas = event.clientY + canvas.scrollTop - canvas.offsetTop;
+        
+        const x = props.setOnGrid(xOnCanvas, props.canvasGridStep);
+        const y = props.setOnGrid(yOnCanvas, props.canvasGridStep);
+        
         return { x, y };
     };
     
@@ -228,6 +285,13 @@ const Canvas = (props) => {
         return Math.abs(angle) === 90 || Math.abs(angle) === 270;
     };
 
+    /**
+     * Проверяет, как двигается линия относительно элемента. 
+     * @param startX - Координата Х начальной точки линии.
+     * @param mouseX - Координата мыши.
+     * @returns {boolean} - Возвращает True, если линия двигается по направлению к элементу,
+     * false - если линия движется от элемента.
+     */
     const checkOppositeDirection = (startX, mouseX)  => {
         return startX - mouseX < 0 || mouseX - startX < 0;
     }
@@ -258,8 +322,8 @@ const Canvas = (props) => {
                                                            setOnGrid={props.setOnGrid}
                                                            handleMouseDown={handleDrawLineButtonMouseDown}
                                                            isVerticalRotation={isVerticalRotation}/>)}
-                {connectedLines.map((line, index) => DrawLine(line, index, handleLineMouseDown))}
-                {drawingLine && DrawLine(drawingLine, connectedLines.length, handleLineMouseDown)}
+                {drawnLines.map((line, index) => DrawLine(line, index, handleLineMouseDown))}
+                {drawingLine && DrawLine(drawingLine, drawnLines.length, handleLineMouseDown)}
             </div>
         </div>
     );
