@@ -39,12 +39,29 @@ const Shape = React.forwardRef((props, ref) => {
      * скрывает его при клике за пределами элемента.
      */
     const { componentRef, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
-    
+
+    /**
+     * Ссылка на контейнер с элементом цепи.
+     * @type {React.MutableRefObject<undefined>}
+     */
     const shapeContainerRef = useRef();
 
+    /**
+     * Ссылка на левую кнопку рисования линии.
+     * @type {React.MutableRefObject<undefined>}
+     */
     const drawLineLeftButtonRef = useRef();
+
+    /**
+     * Ссылка на правую кнопку рисования линии.
+     * @type {React.MutableRefObject<undefined>}
+     */
     const drawLineRightButtonRef = useRef();
-    
+
+    /**
+     * Ссылка на контейнер с кнопками рисования линий.
+     * @type {React.MutableRefObject<undefined>}
+     */
     const drawLinesButtonsRef = useRef();
     
     /**
@@ -80,6 +97,9 @@ const Shape = React.forwardRef((props, ref) => {
         }
     }, [props.thisCanRotate]);
 
+    /**
+     * Устанавливает угол вращения для кнопок рисования линии.
+     */
     useEffect(() => {
         if (drawLinesButtonsRef == null) {
             return;
@@ -150,22 +170,34 @@ const Shape = React.forwardRef((props, ref) => {
     const handleShapeClick = () => {
         setIsComponentVisible(true);
     };
-    
+
+    /**
+     * Срабатывает при наведении мыши на элемент, показывая кнопки рисования линий.
+     */
     const handleShapeMouseOver = () => {
         drawLineLeftButtonRef.current.style.visibility = 'visible';
         drawLineRightButtonRef.current.style.visibility = 'visible';
     };
 
+    /**
+     * Срабатывает, когда мышь покидает элемент, скрывая кнопки рисования линий.
+     */
     const handleShapeMouseLeave = () => {
         drawLineLeftButtonRef.current.style.visibility = 'hidden';
         drawLineRightButtonRef.current.style.visibility = 'hidden';
     };
 
-    const handleDrawLineMouseOver = () => {
+    /**
+     * Срабатывает при наведении мыши на кнопку рисования линии, блокируя перемещение элемента.
+     */
+    const handleDrawLineButtonMouseOver = () => {
         props.setIsDragDisabled(true);
     };
 
-    const handleDrawLineMouseLeave = () => {
+    /**
+     * Срабатывает, когда мышь покидает кнопку рисования линии, разрешая перемещение элемента.
+     */
+    const handleDrawLineButtonMouseLeave = () => {
         props.setIsDragDisabled(false);
     };
     
@@ -201,16 +233,16 @@ const Shape = React.forwardRef((props, ref) => {
                             className="circle-button" 
                             id="circle-left-button"
                             ref={drawLineLeftButtonRef}
-                            onMouseOver={handleDrawLineMouseOver} 
-                            onMouseLeave={handleDrawLineMouseLeave}
+                            onMouseOver={handleDrawLineButtonMouseOver} 
+                            onMouseLeave={handleDrawLineButtonMouseLeave}
                             onMouseDown={props.handleMouseDown}
                         />
                         <div 
                             className="circle-button"
                             id="circle-right-button"
                             ref={drawLineRightButtonRef} 
-                            onMouseOver={handleDrawLineMouseOver}
-                            onMouseLeave={handleDrawLineMouseLeave} 
+                            onMouseOver={handleDrawLineButtonMouseOver}
+                            onMouseLeave={handleDrawLineButtonMouseLeave} 
                             onMouseDown={props.handleMouseDown}
                         />
                     </div>
