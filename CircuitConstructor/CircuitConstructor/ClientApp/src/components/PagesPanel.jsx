@@ -13,6 +13,6 @@ const PagesPanel = () => {
             <button className="add-page-button">+</button>
         </div>
     );
-}
+};
 
 export default PagesPanel;

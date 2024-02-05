@@ -12,6 +12,6 @@ const AddShapeButton = (props) => {
             {props.children}
         </li>
     );
-}
+};
 
 export default AddShapeButton;

@@ -78,14 +78,14 @@ const Shape = React.forwardRef((props, ref) => {
             shapeContainerRef.current.style.left = 0;
             shapeContainerRef.current.style.top = 0;
         }
-    }, [props.thisCanRotate])
+    }, [props.thisCanRotate]);
 
     useEffect(() => {
         if (drawLinesButtonsRef == null) {
             return;
         }
         drawLinesButtonsRef.current.style.rotate = `${props.rotateButtonAngle}deg`;
-    }, [props.rotateButtonAngle])
+    }, [props.rotateButtonAngle]);
     
     /**
      * Устанавливает стиль для элемента цепи, если он выбран пользователем.
@@ -115,7 +115,7 @@ const Shape = React.forwardRef((props, ref) => {
         if (data.x >= 0 && data.y >= 0) {
             setCurrentPosition({x: data.x, y: data.y});
         }
-    }
+    };
 
     /**
      * Срабатывает, когда пользователь заканчивает перемещение элемента по Canvas.
@@ -142,32 +142,32 @@ const Shape = React.forwardRef((props, ref) => {
         const triggerZoneWidth = 240;
         props.increasePatternSize(data.y, 'height', 'clientHeight', triggerZoneHeight);
         props.increasePatternSize(data.x, 'width', 'clientWidth', triggerZoneWidth);
-    }
+    };
 
     /**
      * Срабатывает при нажатии на элемент цепи.
      */
     const handleShapeClick = () => {
         setIsComponentVisible(true);
-    }
+    };
     
     const handleShapeMouseOver = () => {
         drawLineLeftButtonRef.current.style.visibility = 'visible';
         drawLineRightButtonRef.current.style.visibility = 'visible';
-    }
+    };
 
     const handleShapeMouseLeave = () => {
         drawLineLeftButtonRef.current.style.visibility = 'hidden';
         drawLineRightButtonRef.current.style.visibility = 'hidden';
-    }
+    };
 
     const handleDrawLineMouseOver = () => {
         props.setIsDragDisabled(true);
-    }
+    };
 
     const handleDrawLineMouseLeave = () => {
         props.setIsDragDisabled(false);
-    }
+    };
     
     return (
         <Draggable 
@@ -224,6 +224,6 @@ const Shape = React.forwardRef((props, ref) => {
             </div>
         </Draggable>
     );
-})
+});
 
 export default Shape;

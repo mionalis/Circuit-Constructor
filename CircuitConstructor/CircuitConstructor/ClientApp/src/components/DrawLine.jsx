@@ -10,20 +10,32 @@ const DrawLine = (line, index, handleLineMouseDown) => {
         y: end.y,
         handleLineMouseDown: () => handleLineMouseDown(index),
     };
-    
+
     if (isVertical || !isOppositeDirection) {
         return (
             <React.Fragment key={index}>
-                <Line start={{ x: start.x, y: start.y }} end={{ x: end.x, y: start.y }} />
-                <Line start={{ x: end.x, y: start.y }} end={{ x: end.x, y: end.y }} />
+                <Line
+                    start={{ x: start.x, y: start.y }}
+                    end={{ x: end.x, y: start.y }}
+                />
+                <Line 
+                    start={{ x: end.x, y: start.y }} 
+                    end={{ x: end.x, y: end.y }} 
+                />
                 <ChangeLineButton {...commonProps} />
             </React.Fragment>
         );
-    } else  {
+    } else {
         return (
             <React.Fragment key={index}>
-                <Line start={{ x: start.x, y: start.y }} end={{ x: start.x, y: end.y }} />
-                <Line start={{ x: start.x, y: end.y }} end={{ x: end.x, y: end.y }} />
+                <Line
+                    start={{ x: start.x, y: start.y }}
+                    end={{ x: start.x, y: end.y }}
+                />
+                <Line
+                    start={{ x: start.x, y: end.y }}
+                    end={{ x: end.x, y: end.y }} 
+                />
                 <ChangeLineButton {...commonProps} />
             </React.Fragment>
         );

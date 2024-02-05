@@ -353,6 +353,6 @@ const Canvas = (props) => {
             </div>
         </div>
     );
-}
+};
 
 export default Canvas;

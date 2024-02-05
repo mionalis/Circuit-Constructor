@@ -22,15 +22,20 @@ const AddSelectedShapeButton = (props) => {
         props.createNewShape(<props.IconComponent />);
         props.setIsDraggedFromSidebar(false);
     };
-    
+
     return (
-        <AddShapeButton className="shape-button button-common" 
-                        id="shape-button" 
-                        draggable 
-                        onClick={handleClick} 
-                        onDragStart={(e) => props.handleDragStart(e, props.shapeType)} 
-                        onDragEnd={(e) => props.handleDragEnd(e, <props.IconComponent />)}>
-            <props.IconComponent className="shape-button-icon" id={props.shapeType}/>
+        <AddShapeButton
+            className="shape-button button-common"
+            id="shape-button"
+            draggable
+            onClick={handleClick}
+            onDragStart={(e) => props.handleDragStart(e, props.shapeType)}
+            onDragEnd={(e) => props.handleDragEnd(e, <props.IconComponent />)}
+        >
+            <props.IconComponent
+                className="shape-button-icon"
+                id={props.shapeType}
+            />
             {props.shapeType}
         </AddShapeButton>
     );

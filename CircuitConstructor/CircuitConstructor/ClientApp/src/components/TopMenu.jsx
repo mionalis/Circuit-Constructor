@@ -16,6 +16,6 @@ const TopMenu = () => {
             </button>
         </div>
     );
-}
+};
 
 export default TopMenu;

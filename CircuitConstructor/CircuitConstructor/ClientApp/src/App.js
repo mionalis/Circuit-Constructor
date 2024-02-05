@@ -58,7 +58,7 @@ function App() {
         };
         
         setShapes([...shapes, newShape]);
-    }
+    };
 
     /**
      * Срабатывает, когда пользователь начинает перетаскивать элемент из Sidebar.
@@ -67,7 +67,7 @@ function App() {
      */
     const handleDragStartFromSidebar = (event, shapeType) => {
         setGhostDragImage(event, shapeType);
-    }
+    };
 
     /**
      * Срабатывает, когда перетаскиваемый элемент входит на Canvas. Устанавливает возможность 
@@ -77,7 +77,7 @@ function App() {
         event.preventDefault();
         setIsCanBeDropped(true);
         setShapesPointerEvents(true);
-    }
+    };
     
     /**
      * Срабатывает, когда перетаскиваемый элемент покидает Canvas. Убирает возможность
@@ -87,7 +87,7 @@ function App() {
         event.preventDefault();
         setIsCanBeDropped(false);
         setShapesPointerEvents(false);
-    }
+    };
     
     /**
      * Срабатывает, когда пользователь заканчивает перетаскивать элемент из Sidebar на Canvas.
@@ -109,7 +109,7 @@ function App() {
         const x = setOnGrid(event.clientX - canvas.offsetLeft + canvas.scrollLeft, canvasGridStep);
         const y = setOnGrid(event.clientY - canvas.offsetTop + canvas.scrollTop, canvasGridStep);
         setShapeDropPosition({x: x, y: y});
-    }
+    };
 
     /**
      * Устанавливает изображение, показываемое при перетаскивании фигуры.
@@ -129,7 +129,7 @@ function App() {
         window.setTimeout(function() {
             ghostDragImage.parentNode.removeChild(ghostDragImage);
         }, 0);
-    }
+    };
 
     /**
      * Вычислияет значение координаты, которое впишется в сетку с заданным шагом.
@@ -139,7 +139,7 @@ function App() {
      */
     const setOnGrid = (coordinateValue, gridStep)  => {
         return Math.round(coordinateValue / gridStep) * gridStep;
-    }
+    };
     
     /**
      * Манипулирует со свойством pointer-events элемента цепи.
@@ -162,21 +162,25 @@ function App() {
     return (
         <div className="main-container">
             <div className="content-container">
-                <Sidebar setIsDraggedFromSidebar={setIsDraggedFromSidebar}
-                         createNewShape={createNewShape}
-                         handleDragStartFromSidebar={handleDragStartFromSidebar}
-                         handleDragEndFromSidebar={handleDragEndFromSidebar} />
+                <Sidebar 
+                    setIsDraggedFromSidebar={setIsDraggedFromSidebar}
+                    createNewShape={createNewShape}
+                    handleDragStartFromSidebar={handleDragStartFromSidebar}
+                    handleDragEndFromSidebar={handleDragEndFromSidebar} 
+                />
                 <div className="right-panel">
                     <div className="canvas-container">
                         <TopMenu />
-                        <Canvas canvasRef={canvasRef}
-                                shapes={shapes}
-                                canvasGridStep={canvasGridStep}
-                                isDraggedFromSidebar={isDraggedFromSidebar}
-                                shapeDropPosition={shapeDropPosition}
-                                handleCanvasDragEnter={handleCanvasDragEnter}
-                                handleCanvasDragLeave={handleCanvasDragLeave}
-                                setOnGrid={setOnGrid} />
+                        <Canvas 
+                            canvasRef={canvasRef}
+                            shapes={shapes}
+                            canvasGridStep={canvasGridStep}
+                            isDraggedFromSidebar={isDraggedFromSidebar}
+                            shapeDropPosition={shapeDropPosition}
+                            handleCanvasDragEnter={handleCanvasDragEnter}
+                            handleCanvasDragLeave={handleCanvasDragLeave}
+                            setOnGrid={setOnGrid} 
+                        />
                     </div>
                     <PagesPanel />
                 </div>
