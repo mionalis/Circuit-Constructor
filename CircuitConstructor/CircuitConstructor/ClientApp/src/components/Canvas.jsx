@@ -90,7 +90,7 @@ const Canvas = (props) => {
         dotPatternRef.current.addEventListener("dragover", (event) => {
             event.preventDefault();
         });
-    }, [])
+    }, []);
 
     /**
      * Срабатывает, когда пользователь нажимает кнопкой мыши по элементу или кнопке вращения. Используется для
@@ -100,7 +100,7 @@ const Canvas = (props) => {
     const handleRotateButtonContainerMouseDown = (index) => {
         setSelectedShape(shapeRefs[index].current);
         setSelectedShapeIndex(index);
-    }
+    };
 
     /**
      * Увеличивает размер монтажной поверхности в выбранную сторону и генерирует продолжение для точечной разметки,
@@ -112,9 +112,14 @@ const Canvas = (props) => {
      * @param triggerZoneLength - Размер зоны монтажной поверхности в пикселях, при попадании в которую рабочая 
      * зона увеличится в выбранную сторону.
      */
-    const increasePatternSize = (coordinate, sideNameProperty, clientSideNameProperty, triggerZoneLength) => {
+    const increasePatternSize = (
+        coordinate,
+        sideNameProperty,
+        clientSideNameProperty,
+        triggerZoneLength,
+    ) => {
         let patternSize = dotPatternRef.current[clientSideNameProperty];
-        
+
         if (coordinate > patternSize - triggerZoneLength) {
             patternSize += props.canvasRef.current[clientSideNameProperty] / 3;
             dotPatternRef.current.style[sideNameProperty] = `${patternSize}px`;
@@ -127,9 +132,12 @@ const Canvas = (props) => {
      */
     const handleCanvasMouseMove = (event) => {
         handleLineMovement(event);
-        
-        if(!thisCanRotate || rotateButtonContainerRef.current == null || selectedShape == null) {
-           return;
+
+        if (!thisCanRotate ||
+            rotateButtonContainerRef.current == null ||
+            selectedShape == null
+        ) {
+            return;
         }
 
         const newRotationAngles = { ...rotationAngles };
@@ -139,7 +147,7 @@ const Canvas = (props) => {
         selectedShape.style.rotate = `${rotationAngles[selectedShapeIndex]}deg`;
         selectedShape.classList.add("shape-on-drag");
         rotateButtonContainerRef.current.style.rotate = `${rotationAngles[selectedShapeIndex]}deg`;
-    }
+    };
 
     /**
      * Осуществляет вращение элемента относительно координат мыши.
@@ -173,7 +181,7 @@ const Canvas = (props) => {
         }
         
         selectedShape.classList.remove("shape-on-drag");
-    }
+    };
 
     /**
      * При нажатии на кнопку рисования линии, расположеную возле элемента, устанавливает координаты начальной точки линии.
@@ -210,11 +218,19 @@ const Canvas = (props) => {
      * @param mouseY - Координата мыши Y.
      */
     const createNewLine = (mouseX, mouseY) => {
-        const isOppositeDirection = checkOppositeDirection(lineStartPoint.x, mouseX);
+        const isOppositeDirection = checkOppositeDirection(
+            lineStartPoint.x,
+            mouseX,
+        );
         const isVertical = isVerticalRotation(rotationAngles[selectedShapeIndex]);
-        
-        setDrawingLine({ start: lineStartPoint, end: { x: mouseX, y: mouseY }, isOppositeDirection, isVertical });
-    }
+
+        setDrawingLine({
+            start: lineStartPoint,
+            end: { x: mouseX, y: mouseY },
+            isOppositeDirection,
+            isVertical,
+        });
+    };
 
     /**
      * Осуществляет редактирование линии.
@@ -229,7 +245,7 @@ const Canvas = (props) => {
         line.end.x = mouseX;
         line.end.y = mouseY;
         setDrawnLines(updatedLines);
-    }
+    };
 
     /**
      * При отпускании кнопки мыши добавляет отрисованную линию в массив, сбрасывает значения стартовой точки и
@@ -286,44 +302,54 @@ const Canvas = (props) => {
     };
 
     /**
-     * Проверяет, как двигается линия относительно элемента. 
+     * Проверяет, как двигается линия относительно элемента.
      * @param startX - Координата Х начальной точки линии.
      * @param mouseX - Координата мыши.
      * @returns {boolean} - Возвращает True, если линия двигается по направлению к элементу,
      * false - если линия движется от элемента.
      */
-    const checkOppositeDirection = (startX, mouseX)  => {
+    const checkOppositeDirection = (startX, mouseX) => {
         return startX - mouseX < 0 || mouseX - startX < 0;
-    }
-    
+    };
+
     return (
-        <div className="canvas"  ref={props.canvasRef}>
-            <div className="dot-pattern-canvas"
-                 ref={dotPatternRef}
-                 onDragEnter={props.handleCanvasDragEnter}
-                 onDragLeave={props.handleCanvasDragLeave}
-                 onMouseMove={handleCanvasMouseMove}
-                 onMouseUp={handleCanvasMouseUp}>
-                {props.shapes.map((shape, index) => <Shape ref={shapeRefs[index]} 
-                                                           rotateButtonContainerRef={rotateButtonContainerRef}
-                                                           shape={shape} 
-                                                           key={shape.id}
-                                                           thisCanRotate={thisCanRotate}
-                                                           isDragDisabled={isDragDisabled}
-                                                           setThisCanRotate={setThisCanRotate}
-                                                           setIsDragDisabled={setIsDragDisabled}
-                                                           rotateButtonAngle={rotationAngles[index]}
-                                                           increasePatternSize={increasePatternSize}
-                                                           handleRotateButtonContainerMouseDown={() => 
-                                                               handleRotateButtonContainerMouseDown(index)}
-                                                           canvasGridStep={props.canvasGridStep}
-                                                           isDraggedFromSidebar={props.isDraggedFromSidebar} 
-                                                           shapeDropPosition={props.shapeDropPosition} 
-                                                           setOnGrid={props.setOnGrid}
-                                                           handleMouseDown={handleDrawLineButtonMouseDown}
-                                                           isVerticalRotation={isVerticalRotation}/>)}
-                {drawnLines.map((line, index) => DrawLine(line, index, handleLineMouseDown))}
-                {drawingLine && DrawLine(drawingLine, drawnLines.length, handleLineMouseDown)}
+        <div className="canvas" ref={props.canvasRef}>
+            <div
+                className="dot-pattern-canvas"
+                ref={dotPatternRef}
+                onDragEnter={props.handleCanvasDragEnter}
+                onDragLeave={props.handleCanvasDragLeave}
+                onMouseMove={handleCanvasMouseMove}
+                onMouseUp={handleCanvasMouseUp}
+            >
+                {props.shapes.map((shape, index) => (
+                    <Shape
+                        ref={shapeRefs[index]}
+                        rotateButtonContainerRef={rotateButtonContainerRef}
+                        shape={shape}
+                        key={shape.id}
+                        thisCanRotate={thisCanRotate}
+                        isDragDisabled={isDragDisabled}
+                        setThisCanRotate={setThisCanRotate}
+                        setIsDragDisabled={setIsDragDisabled}
+                        rotateButtonAngle={rotationAngles[index]}
+                        increasePatternSize={increasePatternSize}
+                        handleRotateButtonContainerMouseDown={() =>
+                            handleRotateButtonContainerMouseDown(index)
+                        }
+                        canvasGridStep={props.canvasGridStep}
+                        isDraggedFromSidebar={props.isDraggedFromSidebar}
+                        shapeDropPosition={props.shapeDropPosition}
+                        setOnGrid={props.setOnGrid}
+                        handleMouseDown={handleDrawLineButtonMouseDown}
+                        isVerticalRotation={isVerticalRotation}
+                    />
+                ))}
+                {drawnLines.map((line, index) =>
+                    DrawLine(line, index, handleLineMouseDown),
+                )}
+                {drawingLine &&
+                    DrawLine(drawingLine, drawnLines.length, handleLineMouseDown)}
             </div>
         </div>
     );
